@@ -1,26 +1,27 @@
 module.exports = {
-  extends: [
-    'stylelint-config-standard-scss',
-  ],
+  extends: ['stylelint-config-standard-scss'],
   plugins: ['stylelint-scss'],
   rules: {
-    /* Permitimos SCSS moderno */
+    /* SCSS moderno */
     'at-rule-no-unknown': null,
 
-    /* Tokens y design system */
+    /* Equipo: permitir separación visual entre bloques de @use/@forward */
+    'at-rule-empty-line-before': null,
+
+    /* Tokens y design system: evitar fricción cosmética */
     'color-hex-length': null,
     'value-keyword-case': null,
     'custom-property-empty-line-before': null,
 
-    /* Colores modernos: permitimos rgba clásico */
+    /* Colores: permitir rgba clásico y notación alpha decimal */
     'color-function-notation': null,
     'color-function-alias-notation': null,
     'alpha-value-notation': null,
 
-    /* Permitimos archivos parciales aún vacíos en sprints */
+    /* Flujo por sprints: no bloquear por parciales vacíos */
     'no-empty-source': null,
 
-    /* Mantenemos reglas importantes */
+    /* Reglas importantes */
     'declaration-no-important': true,
     'selector-class-pattern': '^[a-z0-9\\-]+$',
   },

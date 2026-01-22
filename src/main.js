@@ -1,2 +1,4 @@
 import './styles/main.scss';
-import './pages/landing/landing.js';
+import { renderLanding } from './pages/landing/landing.js';
+
+renderLanding();
