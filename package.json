@@ -1,0 +1,30 @@
+{
+  "name": "conciencia-cai.org",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"src/styles/**/*.scss\" --allow-empty-input",
+    "format": "prettier --write .",
+    "typecheck": "tsc -p tsconfig.json",
+    "audit": "npm audit --audit-level=high",
+    "ci:quality": "npm run lint:js && npm run lint:css && npm run typecheck",
+    "ci:security": "npm run audit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "sass": "^1.97.3",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-scss": "^7.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}
