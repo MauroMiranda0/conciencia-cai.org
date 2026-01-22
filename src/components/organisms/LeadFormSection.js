@@ -2,13 +2,12 @@
 
 import { Button } from '../atoms/Button.js';
 import { Input } from '../atoms/Input.js';
+import { initFormGuards } from '../../security/formGuard.js';
+import { buildPayload, submitLead } from '../../services/leadSubmit.js';
+/** @type {{INTEGRATIONS?: {crmEndpointHttps?: string}}} */
+const CONFIG = {};
 
 /**
- * Sprint 2: solo estructura UI del formulario.
- * - Sin validaciones
- * - Sin honeypot/timing/turnstile
- * - Sin submit real
- *
  * @param {object} params
  * @param {string} params.title
  * @param {string} params.subtitle
@@ -37,6 +36,10 @@ export function LeadFormSection({ title, subtitle }) {
   const form = document.createElement('form');
   form.id = 'leadForm';
   form.noValidate = true;
+
+  // Honeypot + timestamp (anti-spam)
+  form.append(buildHoneypot());
+  form.append(buildTimestamp());
 
   const grid = document.createElement('div');
   grid.className = 'grid-2';
@@ -72,29 +75,12 @@ export function LeadFormSection({ title, subtitle }) {
     buildSedeSelect()
   );
 
-  const messageField = document.createElement('div');
-  messageField.className = 'field';
-
-  const msgLabel = document.createElement('label');
-  msgLabel.htmlFor = 'mensaje';
-  msgLabel.textContent = 'Mensaje (opcional)';
-
-  const textarea = document.createElement('textarea');
-  textarea.id = 'mensaje';
-  textarea.name = 'mensaje';
-  textarea.rows = 4;
-
-  const msgHelp = document.createElement('p');
-  msgHelp.className = 'help';
-  msgHelp.setAttribute('aria-live', 'polite');
-  msgHelp.textContent = '';
-
-  messageField.append(msgLabel, textarea, msgHelp);
+  const messageField = buildMessageField();
 
   const footer = document.createElement('div');
   footer.className = 'form-footer';
 
-  const submit = Button({
+  const submitBtn = Button({
     label: 'Enviar',
     type: 'submit',
     variant: 'primary',
@@ -106,7 +92,7 @@ export function LeadFormSection({ title, subtitle }) {
   legal.className = 'muted';
   legal.innerHTML = 'Al enviar aceptas nuestro <a href="#" id="openPrivacy">Aviso de Privacidad</a>.';
 
-  footer.append(submit, legal);
+  footer.append(submitBtn, legal);
 
   const status = document.createElement('div');
   status.className = 'form-status';
@@ -120,10 +106,39 @@ export function LeadFormSection({ title, subtitle }) {
   container.append(h2, p, card);
   section.append(container);
 
-  // Bloqueamos submit real en Sprint 2 (no hay lógica aún)
-  form.addEventListener('submit', (e) => {
+  // Activar guards anti-spam
+  initFormGuards(form);
+
+  // Submit seguro
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    status.textContent = 'Gracias. Un especialista se comunicará contigo de forma confidencial.';
+
+    clearFieldErrors(form);
+    status.textContent = '';
+
+    const fd = new (globalThis.FormData)(form);
+    const payload = buildPayload(fd);
+
+    if (!payload) {
+      // Mensajes neutros, sin detallar qué falló exactamente del lado “sistema”
+      setFieldError(form, 'nombre', 'Revisa este campo.');
+      setFieldError(form, 'telefono', 'Revisa este campo.');
+      setFieldError(form, 'email', 'Revisa este campo.');
+      setFieldError(form, 'sede', 'Selecciona una opción.');
+      status.textContent = 'Por favor revisa los campos marcados.';
+      return;
+    }
+
+    // Intento de envío a CRM solo si existe endpoint HTTPS (sin suponer)
+    const endpoint = CONFIG?.INTEGRATIONS?.crmEndpointHttps ?? '';
+    const ok = await submitLead(endpoint, payload);
+
+    // Respuesta uniforme (no revelar integración)
+    status.textContent =
+      'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.';
+
+    // No “reseteamos” sede seleccionada automáticamente
+    if (ok) form.reset();
   });
 
   return section;
@@ -165,4 +180,69 @@ function buildSedeSelect() {
 
   wrap.append(label, select, help);
   return wrap;
+}
+
+/** @returns {HTMLDivElement} */
+function buildMessageField() {
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+
+  const label = document.createElement('label');
+  label.htmlFor = 'mensaje';
+  label.textContent = 'Mensaje (opcional)';
+
+  const textarea = document.createElement('textarea');
+  textarea.id = 'mensaje';
+  textarea.name = 'mensaje';
+  textarea.rows = 4;
+
+  const help = document.createElement('p');
+  help.className = 'help';
+  help.setAttribute('aria-live', 'polite');
+  help.textContent = '';
+
+  wrap.append(label, textarea, help);
+  return wrap;
+}
+
+function buildHoneypot() {
+  const hp = document.createElement('div');
+  hp.className = 'hp';
+  hp.setAttribute('aria-hidden', 'true');
+
+  const label = document.createElement('label');
+  label.htmlFor = 'empresa';
+  label.textContent = 'Empresa';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.id = 'empresa';
+  input.name = 'empresa';
+  input.autocomplete = 'off';
+  input.tabIndex = -1;
+
+  hp.append(label, input);
+  return hp;
+}
+
+function buildTimestamp() {
+  const ts = document.createElement('input');
+  ts.type = 'hidden';
+  ts.id = 'ts';
+  ts.name = 'ts';
+  return ts;
+}
+
+/** @param {HTMLFormElement} form */
+function clearFieldErrors(form) {
+  const helps = form.querySelectorAll('.help');
+  helps.forEach((h) => (h.textContent = ''));
+}
+
+/** @param {HTMLFormElement} form @param {string} fieldName @param {string} msg */
+function setFieldError(form, fieldName, msg) {
+  const field = form.querySelector(`[name="${fieldName}"]`);
+  const wrap = field?.closest('.field');
+  const help = wrap?.querySelector('.help');
+  if (help) help.textContent = msg;
 }
