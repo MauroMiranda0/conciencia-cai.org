@@ -17,15 +17,15 @@ export function ConsentBanner({ onOpenPrefs }) {
   wrap.setAttribute('aria-label', 'Consentimiento de cookies');
 
   const container = document.createElement('div');
-  container.className = 'container consent__inner';
+  container.className = 'container consent-inner';
 
   const text = document.createElement('p');
-  text.className = 'consent__text';
+  text.className = 'consent-text';
   text.textContent =
     'Usamos cookies esenciales para el funcionamiento. Puedes aceptar o configurar preferencias.';
 
   const actions = document.createElement('div');
-  actions.className = 'consent__actions';
+  actions.className = 'consent-actions';
 
   const accept = Button({
     label: 'Aceptar',

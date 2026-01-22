@@ -10,7 +10,7 @@ export function PrivacyModal() {
   dlg.setAttribute('aria-label', 'Aviso de Privacidad');
 
   const inner = document.createElement('div');
-  inner.className = 'modal__inner';
+  inner.className = 'modal-inner';
 
   const h2 = document.createElement('h2');
   h2.className = 'h2';

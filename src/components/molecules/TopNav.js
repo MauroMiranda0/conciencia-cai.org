@@ -11,17 +11,17 @@ export function TopNav() {
   header.setAttribute('role', 'banner');
 
   const container = document.createElement('div');
-  container.className = 'container topbar__inner';
+  container.className = 'container topbar-inner';
 
   const brand = document.createElement('div');
   brand.className = 'brand';
 
   const name = document.createElement('p');
-  name.className = 'brand__name';
+  name.className = 'brand-name';
   name.textContent = 'Clínica de Rehabilitación';
 
   const location = document.createElement('p');
-  location.className = 'brand__location';
+  location.className = 'brand-location';
   location.textContent = 'Pachuca, Hidalgo';
 
   brand.append(name, location);
@@ -52,7 +52,7 @@ export function TopNav() {
 /** @param {string} href @param {string} label */
 function navLink(href, label) {
   const a = document.createElement('a');
-  a.className = 'topnav__link';
+  a.className = 'topnav-link';
   a.href = href;
   a.textContent = label;
   return a;

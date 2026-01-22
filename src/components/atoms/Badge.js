@@ -10,11 +10,11 @@ export function Badge({ text }) {
   el.className = 'badge';
 
   const dot = document.createElement('span');
-  dot.className = 'badge__dot';
+  dot.className = 'badge-dot';
   dot.setAttribute('aria-hidden', 'true');
 
   const t = document.createElement('span');
-  t.className = 'badge__text';
+  t.className = 'badge-text';
   t.textContent = text;
 
   el.append(dot, t);

@@ -12,7 +12,7 @@ export function CookiePrefsModal() {
   dlg.setAttribute('aria-label', 'Preferencias de cookies');
 
   const inner = document.createElement('div');
-  inner.className = 'modal__inner';
+  inner.className = 'modal-inner';
 
   const h2 = document.createElement('h2');
   h2.className = 'h2';
@@ -32,7 +32,7 @@ export function CookiePrefsModal() {
   const marketing = checkbox('marketing', 'Marketing', current.marketing);
 
   const actions = document.createElement('div');
-  actions.className = 'prefs__actions';
+  actions.className = 'prefs-actions';
 
   const save = document.createElement('button');
   save.className = 'btn btn--primary btn--neutral';
@@ -65,7 +65,7 @@ export function CookiePrefsModal() {
 /** @param {string} name @param {string} labelText @param {boolean} checked */
 function checkbox(name, labelText, checked) {
   const row = document.createElement('label');
-  row.className = 'prefs__row';
+  row.className = 'prefs-row';
 
   const input = document.createElement('input');
   input.type = 'checkbox';
