@@ -235,14 +235,20 @@ function buildTimestamp() {
 
 /** @param {HTMLFormElement} form */
 function clearFieldErrors(form) {
+  const fields = form.querySelectorAll('.field');
+  fields.forEach((f) => f.classList.remove('field--error'));
+
   const helps = form.querySelectorAll('.help');
   helps.forEach((h) => (h.textContent = ''));
 }
+
 
 /** @param {HTMLFormElement} form @param {string} fieldName @param {string} msg */
 function setFieldError(form, fieldName, msg) {
   const field = form.querySelector(`[name="${fieldName}"]`);
   const wrap = field?.closest('.field');
   const help = wrap?.querySelector('.help');
+
+  if (wrap) wrap.classList.add('field--error');
   if (help) help.textContent = msg;
 }

@@ -41,3 +41,19 @@ textarea:focus-visible {
   width: 1px;
   overflow: hidden;
 }
+
+.field--error label {
+  color: rgb(var(--women-rgb) / 85%); /* rojo/rosa “suave” para salud */
+}
+
+.field--error input,
+.field--error select,
+.field--error textarea {
+  border-color: rgb(var(--women-rgb) / 70%);
+  outline-color: rgb(var(--women-rgb) / 35%);
+}
+
+.field--error .help {
+  color: rgb(var(--women-rgb) / 85%);
+  font-weight: 600;
+}

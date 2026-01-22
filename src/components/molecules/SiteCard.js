@@ -1,6 +1,8 @@
 // @ts-check
 
-import { Button } from '../atoms/Button.js';
+import { Button } from "../atoms/Button.js";
+const shieldIconUrl = new globalThis.URL("../../assets/icons/shield.svg", import.meta.url).href;
+const heartIconUrl = new globalThis.URL("../../assets/icons/heart.svg", import.meta.url).href;
 
 /**
  * @typedef {'hombres'|'mujeres'} Sede
@@ -15,32 +17,38 @@ import { Button } from '../atoms/Button.js';
  * @returns {HTMLElement}
  */
 export function SiteCard({ sede, title, description, locationText }) {
-  const card = document.createElement('article');
+  const card = document.createElement("article");
   card.className = `card card--site card--${sede}`;
-  card.setAttribute('aria-label', title);
+  card.setAttribute("aria-label", title);
 
-  const h3 = document.createElement('h3');
-  h3.className = 'h3';
+  const icon = document.createElement("img");
+  icon.className = "icon";
+  icon.src = sede === "hombres" ? shieldIconUrl : heartIconUrl;
+  icon.alt = "";
+  icon.setAttribute("aria-hidden", "true");
+
+  const h3 = document.createElement("h3");
+  h3.className = "h3";
   h3.textContent = title;
 
-  const p = document.createElement('p');
-  p.className = 'p';
+  const p = document.createElement("p");
+  p.className = "p";
   p.textContent = description;
 
-  const loc = document.createElement('p');
-  loc.className = 'muted';
+  const loc = document.createElement("p");
+  loc.className = "muted";
   loc.textContent = locationText;
 
   const cta = Button({
-    label: 'Contactar esta sede',
-    href: '#',
-    variant: 'secondary',
-    tone: 'neutral',
+    label: "Contactar esta sede",
+    href: "#",
+    variant: "secondary",
+    tone: "neutral",
     ariaLabel: `Contactar ${title}`,
-    className: 'js-sede',
+    className: "js-sede",
   });
-  cta.setAttribute('data-sede', sede);
+  cta.setAttribute("data-sede", sede);
 
-  card.append(h3, p, loc, cta);
+  card.append(icon, h3, p, loc, cta);
   return card;
 }
