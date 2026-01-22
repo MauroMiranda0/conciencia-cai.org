@@ -1,0 +1,49 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.brand-name {
+  margin: 0;
+  font-weight: 800;
+}
+
+.brand-location {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.topnav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.topnav-link {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.topnav-link:focus-visible {
+  outline: 3px solid rgba(46, 46, 46, 0.25);
+  outline-offset: 2px;
+}
+
+@media (width <= 900px) {
+  .topnav {
+    display: none;
+  }
+}

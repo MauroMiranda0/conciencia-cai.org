@@ -1,5 +1,10 @@
 // @ts-check
 
+import { TopNav } from '../../components/molecules/TopNav.js';
+import { ConsentBanner } from '../../components/molecules/ConsentBanner.js';
+import { PrivacyModal } from '../../components/organisms/PrivacyModal.js';
+import { CookiePrefsModal } from '../../components/organisms/CookiePrefsModal.js';
+
 import { HeroSplit } from '../../components/molecules/HeroSplit.js';
 import { SitesSection } from '../../components/organisms/SitesSection.js';
 import { MethodSection } from '../../components/organisms/MethodSection.js';
@@ -10,6 +15,9 @@ export function renderLanding() {
   if (!app) return;
 
   app.textContent = '';
+
+  // Layout base
+  const nav = TopNav();
 
   const hero = HeroSplit({
     title: 'Recuperación integral en Pachuca',
@@ -42,10 +50,22 @@ export function renderLanding() {
     subtitle: 'Selecciona la sede y te contactará un especialista de esa sede.',
   });
 
-  app.append(hero, sedes, metodo, contacto);
+  // Modales
+  const privacyModal = PrivacyModal();
+  const prefsModal = CookiePrefsModal();
+
+  // Consent banner
+  const banner = ConsentBanner({
+    onOpenPrefs: () => prefsModal.showModal(),
+  });
+
+  // Montaje
+  app.append(nav, hero, sedes, metodo, contacto, privacyModal, prefsModal);
+  if (banner) app.append(banner);
 
   bindThemeHandlers();
   bindSedePrefill();
+  bindPrivacyLink();
 }
 
 function bindThemeHandlers() {
@@ -60,6 +80,8 @@ function bindThemeHandlers() {
       if (sede === 'hombres') document.body.classList.add('theme-men');
       else if (sede === 'mujeres') document.body.classList.add('theme-women');
       else document.body.classList.add('theme-neutral');
+
+      // Scroll suave al contacto si el CTA lo amerita (no forzamos; sin suponer)
     });
   });
 }
@@ -73,7 +95,17 @@ function bindSedePrefill() {
       const sede = el.getAttribute('data-sede');
       if (!sedeSelect || !sede) return;
       sedeSelect.value = sede;
-      // No hacemos scroll automático aún (lo dejamos para cuando definamos UX exacta)
     });
+  });
+}
+
+function bindPrivacyLink() {
+  const link = document.querySelector('#openPrivacy');
+  const modal = /** @type {HTMLDialogElement|null} */ (document.querySelector('#privacyModal'));
+  if (!link || !modal) return;
+
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.showModal();
   });
 }
