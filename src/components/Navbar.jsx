@@ -3,8 +3,10 @@ import logoRosa from '../assets/brand/logoRosa.jpg';
 import '../styles/components/Navbar.scss';
 
 const LINKS = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#metodo', label: 'Modelo' },
   { href: '#sedes', label: 'Sedes' },
-  { href: '#metodo', label: 'Método' },
+  { href: '#identidad', label: 'Misión y valores' },
   { href: '#contacto', label: 'Contacto' },
 ];
 
@@ -13,14 +15,14 @@ export default function Navbar({ onNavigate }) {
     <header className="navbar" role="banner">
       <div className="container navbar__inner">
         <div className="navbar__logos">
-          <LogoCard src={logoAzul} alt="CON-CIENCIA Hombres" />
+          <LogoCard src={logoAzul} alt="CON-CIENCIA Varonil" />
           <div className="navbar__copy">
             <p className="navbar__title">Centro de Atención Integral de las Adicciones</p>
             <p className="navbar__subtitle">
               Atención profesional · Confidencialidad · Acompañamiento
             </p>
           </div>
-          <LogoCard src={logoRosa} alt="CON-CIENCIA Mujeres" />
+          <LogoCard src={logoRosa} alt="CON-CIENCIA Femenil" />
         </div>
         <nav aria-label="Navegación principal" className="navbar__nav">
           {LINKS.map((link) => (

@@ -5,10 +5,69 @@
 .method-section__header {
   text-align: center;
   margin-bottom: 32px;
+  display: grid;
+  gap: 12px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.method-section__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 32px;
+}
+
+.method-section__text {
+  display: grid;
+  gap: 16px;
+  color: var(--color-muted);
+
+  strong {
+    color: var(--color-text);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.method-section__quote {
+  border-left: 3px solid var(--accent-color);
+  padding-left: 16px;
+  color: var(--color-text);
+  font-style: italic;
+
+  p {
+    margin: 0;
+  }
 }
 
 .method-section__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+}
+
+.method-section__panel {
+  border-radius: 26px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+
+  h3 {
+    margin-top: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--color-muted);
+    display: grid;
+    gap: 10px;
+  }
 }

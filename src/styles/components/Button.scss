@@ -7,9 +7,9 @@
 }
 
 .btn--primary {
-  background: var(--color-blue-700);
+  background: var(--accent-color);
   color: #fff;
-  box-shadow: 0 12px 30px rgba(31, 78, 121, 0.3);
+  box-shadow: 0 12px 30px var(--accent-shadow);
 }
 
 .btn--secondary {

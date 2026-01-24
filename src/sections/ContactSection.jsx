@@ -29,7 +29,8 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
     const nextErrors = {};
     if (!formData.name.trim()) nextErrors.name = 'Requerido';
     if (!/^[0-9]{10}$/.test(formData.phone.trim())) nextErrors.phone = 'Ingresa 10 dígitos';
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(formData.email.trim())) nextErrors.email = 'Correo inválido';
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(formData.email.trim()))
+      nextErrors.email = 'Correo inválido';
     if (!formData.sede) nextErrors.sede = 'Selecciona una opción';
     return nextErrors;
   };
@@ -51,15 +52,24 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
   return (
     <section className="contact-section" id="contacto" aria-label="Contacto">
       <div className="container contact-section__grid">
-        <div>
-          <p className="eyebrow">Contacto confidencial</p>
-          <h2>Agenda una consulta especializada</h2>
-          <p className="text-muted">
-            Selecciona la sede y un especialista te acompañará paso a paso para definir el plan de
-            ingreso.
+        <div className="contact-section__intro reveal">
+          <p className="eyebrow">Dar el primer paso</p>
+          <h2>Dar el primer paso también es parte del proceso</h2>
+          <p>
+            Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo,
+            dudas y cansancio emocional. En <strong>Conciencia CAI</strong>, priorizamos la empatía,
+            la claridad y el trato digno desde el primer contacto.
           </p>
+          <p className="text-muted">
+            Si tú o un familiar están atravesando una situación relacionada con el consumo de
+            sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en
+            el inicio de un camino real hacia la recuperación.
+          </p>
+          <blockquote className="contact-section__quote">
+            <p>Un primer paso, dado con apoyo, puede marcar la diferencia.</p>
+          </blockquote>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+        <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
           <div className="field">
             <label htmlFor="name">Nombre</label>
             <input id="name" name="name" value={formData.name} onChange={handleChange} required />
@@ -70,6 +80,8 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
             <input
               id="phone"
               name="phone"
+              type="tel"
+              inputMode="numeric"
               value={formData.phone}
               onChange={handleChange}
               required
@@ -100,8 +112,8 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
               }}
             >
               <option value="">Selecciona una opción</option>
-              <option value="mujeres">Sede Mujeres</option>
-              <option value="hombres">Sede Hombres</option>
+              <option value="mujeres">Sede Femenil</option>
+              <option value="hombres">Sede Varonil</option>
             </select>
             {errors.sede && <span className="field__error">{errors.sede}</span>}
           </div>

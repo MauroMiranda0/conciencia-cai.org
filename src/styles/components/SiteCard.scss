@@ -8,6 +8,7 @@
   padding: 20px;
   background: #fff;
   box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+  --card-accent: var(--color-blue-700);
 }
 
 .site-card__badge {
@@ -22,6 +23,10 @@
   background: var(--color-rose-50);
 }
 
+.site-card--women {
+  --card-accent: var(--color-rose-600);
+}
+
 .site-card__body h3 {
   margin: 0;
   font-size: 1.2rem;
@@ -30,6 +35,31 @@
 .site-card__body p {
   margin: 8px 0;
   color: var(--color-muted);
+}
+
+.site-card__list {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  color: var(--color-muted);
+
+  li {
+    position: relative;
+    padding-left: 16px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--card-accent);
+    }
+  }
 }
 
 .site-card__location {

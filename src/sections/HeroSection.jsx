@@ -1,60 +1,97 @@
 import '../styles/sections/HeroSection.scss';
 
 const HIGHLIGHTS = [
-  { title: 'Acompañamiento familiar', description: 'Cuidadores profesionales disponibles 24/7.' },
-  { title: 'Modelo Minnesota', description: 'Aplicado por especialistas certificados.' },
-  { title: 'Espacios diferenciados', description: 'Sedes independientes para mujeres y hombres.' },
+  {
+    title: 'Acompañamiento humano, profesional y confidencial',
+    text: 'Pensado para personas que atraviesan uno de los momentos más difíciles de su vida.',
+  },
+  {
+    title: 'Entorno estructurado en Pachuca, Hidalgo',
+    text: 'Permite iniciar procesos reales de recuperación con seguridad emocional.',
+  },
+  {
+    title: 'Proceso residencial de 4 meses',
+    text: 'Basado en el Modelo Minnesota y el Programa de 12 Pasos.',
+  },
 ];
 
-export default function HeroSection({ onSelectSede }) {
+export default function HeroSection({ onSelectSede, onNavigate }) {
   return (
-    <section className="hero-section" id="inicio" aria-label="Hero">
+    <section className="hero-section" id="inicio" aria-label="Acompañamiento profesional">
       <div className="container hero-section__grid">
         <div className="hero-section__copy">
-          <div className="hero-section__callout">
-            <span className="hero-section__dot" />
-            Tratamiento especializado en adicciones
-            <span className="hero-section__detail">— 2 sedes dedicadas</span>
+          <div className="hero-section__callout reveal">
+            <span className="hero-section__dot" aria-hidden="true" />
+            <span className="hero-section__detail">
+              Acompañamiento humano, profesional y confidencial
+            </span>
           </div>
-          <h1>No estás solo: recuperación integral con cuidado y rigor clínico</h1>
-          <p>
-            Creamos un entorno seguro para tu familia y aplicamos el Modelo Minnesota con un equipo
-            certificado. Te acompañamos en cada paso, desde la primera llamada hasta la
-            reintegración.
+          <h1 className="reveal reveal--delay-1">
+            Acompañamiento profesional para una recuperación integral
+          </h1>
+          <p className="reveal reveal--delay-2">
+            En <strong>Conciencia CAI</strong> sabemos que la adicción no solo afecta a quien la
+            padece, sino que impacta profundamente a toda la familia. Por eso, desde el primer
+            contacto, ofrecemos acompañamiento humano, profesional y confidencial, pensado para
+            personas que atraviesan uno de los momentos más difíciles de su vida.
           </p>
-          <div className="hero-section__ctas" role="group" aria-label="Elegir sede">
-            <button type="button" className="btn btn--primary" onClick={() => onSelectSede?.('hombres')}>
-              Sede Hombres <span aria-hidden="true">→</span>
-            </button>
+          <p className="hero-section__alert reveal reveal--delay-2">
+            Aquí no tratamos casos, <span>acompañamos personas</span>. Nuestro enfoque parte del
+            respeto, la dignidad y la seguridad emocional, dentro de un entorno estructurado que
+            permite iniciar procesos reales de recuperación en Pachuca, Hidalgo.
+          </p>
+          <blockquote className="hero-section__quote reveal reveal--delay-3">
+            <p>No tienes que enfrentar esta situación solo. Estamos aquí para acompañarte paso a paso.</p>
+          </blockquote>
+          <div className="hero-section__ctas reveal reveal--delay-4">
             <button type="button" className="btn btn--primary" onClick={() => onSelectSede?.('mujeres')}>
-              Sede Mujeres <span aria-hidden="true">→</span>
+              Contactar sede femenil
             </button>
+            <button
+              type="button"
+              className="btn btn--secondary"
+              onClick={() => onSelectSede?.('hombres')}
+            >
+              Contactar sede varonil
+            </button>
+            <a
+              href="#metodo"
+              className="btn btn--ghost"
+              onClick={(event) => {
+                if (!onNavigate) return;
+                event.preventDefault();
+                onNavigate('#metodo');
+              }}
+            >
+              Conocer el modelo
+            </a>
           </div>
           <div className="hero-section__highlights">
-            {HIGHLIGHTS.map((item) => (
-              <article key={item.title} className="hero-section__highlight">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </article>
+            {HIGHLIGHTS.map((highlight, index) => (
+              <div
+                key={highlight.title}
+                className={`hero-section__highlight reveal reveal--delay-${index + 1}`}
+              >
+                <h3>{highlight.title}</h3>
+                <p>{highlight.text}</p>
+              </div>
             ))}
           </div>
-          <p className="hero-section__alert">
-            <span>Emergencias:</span> llama al número local de emergencias de tu país.
-          </p>
         </div>
-        <div className="hero-section__visual" role="presentation">
+        <div className="hero-section__visual reveal reveal--delay-2" aria-hidden="true">
           <div className="hero-section__float-card">
-            <h3>Primera consulta confidencial</h3>
-            <p>Diagnóstico detallado y plan clínico avalado por el Modelo Minnesota.</p>
+            <h3>Recuperación integral en 4 meses</h3>
+            <p>
+              Proceso residencial basado en el Modelo Minnesota con atención clínica, psicológica y
+              terapéutica estructurada.
+            </p>
             <div className="hero-section__chips">
-              <span>Hombres</span>
-              <span className="hero-section__chip--women">Mujeres</span>
+              <span>Modelo Minnesota</span>
+              <span className="hero-section__chip--women">Sede Femenil</span>
+              <span>Sede Varonil</span>
             </div>
+            <p className="hero-section__caption">Pachuca, Hidalgo · Equipo multidisciplinario</p>
           </div>
-          <p className="hero-section__caption">
-            Nuestro compromiso: cuidado humano del arquetipo Cuidador + respaldo clínico del
-            arquetipo Sabio.
-          </p>
         </div>
       </div>
     </section>

@@ -6,7 +6,9 @@ import CookiePrefsModal from './components/CookiePrefsModal.jsx';
 import HeroSection from './sections/HeroSection.jsx';
 import SitesSection from './sections/SitesSection.jsx';
 import MethodSection from './sections/MethodSection.jsx';
+import IdentitySection from './sections/IdentitySection.jsx';
 import ContactSection from './sections/ContactSection.jsx';
+import JustificationSection from './sections/JustificationSection.jsx';
 import { scrollToHash } from './utils/dom.js';
 import { getConsent, setConsent as persistConsent } from './utils/storage.js';
 import './styles/globals.scss';
@@ -55,14 +57,19 @@ export default function App() {
       </a>
       <Navbar onNavigate={(hash) => scrollToHash(hash, 92)} />
       <main id="main">
-        <HeroSection onSelectSede={handleSedeSelect} />
-        <SitesSection onSelectSede={handleSedeSelect} />
+        <HeroSection
+          onSelectSede={handleSedeSelect}
+          onNavigate={(hash) => scrollToHash(hash, 92)}
+        />
         <MethodSection />
+        <SitesSection onSelectSede={handleSedeSelect} />
+        <IdentitySection />
         <ContactSection
           selectedSede={selectedSede}
           onSelectSede={handleSedeSelect}
           onOpenPrivacy={() => setPrivacyOpen(true)}
         />
+        <JustificationSection />
       </main>
 
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
