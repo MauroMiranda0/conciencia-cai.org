@@ -4,7 +4,7 @@ import '../styles/components/Navbar.scss';
 
 const LINKS = [
   { href: '#metodo', label: 'Modelo' },
-  { href: '#contacto', label: 'Contacto / Valoración' },
+  { href: '#contacto', label: 'Valoración' },
 ];
 
 const SOCIAL_LINKS = [

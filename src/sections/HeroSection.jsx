@@ -1,5 +1,7 @@
 import photoMen from '../assets/Therapy-for-Men-1.webp';
 import photoWomen from '../assets/Therapy-for-Women-1.jpg';
+import teamMeeting from '../assets/Team-Meeting-in-Hospitals-Clinics.png';
+import humanProcess from '../assets/humanProcess.png';
 import info12steps from '../assets/infografia.png';
 import '../styles/sections/HeroSection.scss';
 
@@ -7,11 +9,15 @@ const MODEL_FEATURES = [
   {
     title: 'Equipo multidisciplinario',
     description: 'Médicos, psicólogos y consejeros certificados acompañan cada etapa del proceso.',
+    image: teamMeeting,
+    caption: 'Equipo clínico y terapéutico en sesión',
   },
   {
     title: 'Proceso siempre humano',
     description:
       'La seguridad emocional es prioridad: trabajamos con empatía, respeto y confidencialidad.',
+    image: humanProcess,
+    caption: 'Acompañamiento y contención emocional',
   },
 ];
 
@@ -98,13 +104,17 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
               <div className="hero-model__media">
                 <figure className="hero-vista__photo">
                   <img src={info12steps} alt="Atención profesional en la sede varonil" loading="lazy" />
-                  <figcaption>Método 12 pasos</figcaption>
+                  <figcaption>Principios terapeúticos</figcaption>
                 </figure>
               </div>
             </article>
             {MODEL_FEATURES.map((feature) => (
               <article key={feature.title} className="hero-model__card">
                 <h4>{feature.title}</h4>
+                <figure className="hero-model__photo">
+                  <img src={feature.image} alt={feature.caption} loading="lazy" />
+                  <figcaption>{feature.caption}</figcaption>
+                </figure>
                 <p>{feature.description}</p>
               </article>
             ))}
@@ -132,6 +142,45 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
             </article>
           ))}
         </div>
+
+        <section className="hero-contact" id="contacto" aria-label="Contacto y valoración">
+          <div className="hero-contact__copy">
+            <h2>Dar el primer paso</h2>
+            <h3>Agenda una valoración confidencial</h3>
+            <p>
+              Completa el formulario y un especialista se comunicará contigo desde la sede
+              correspondiente. Toda la información es tratada con absoluta privacidad.
+            </p>
+          </div>
+          <form className="hero-contact__form">
+            <label className="field">
+              <span>Nombre</span>
+              <input type="text" name="name" placeholder="Nombre completo" required />
+            </label>
+            <label className="field">
+              <span>Teléfono</span>
+              <input type="tel" name="phone" placeholder="10 dígitos" required />
+            </label>
+            <label className="field">
+              <span>Sede de interés</span>
+              <select name="sede" required>
+                <option value="">Selecciona una opción</option>
+                <option value="mujeres">Sede Femenina</option>
+                <option value="hombres">Sede Masculina</option>
+              </select>
+            </label>
+            <label className="field field--full">
+              <span>Mensaje</span>
+              <textarea name="message" rows={4} placeholder="Cuéntanos cómo podemos ayudarte" />
+            </label>
+            <div className="hero-contact__actions">
+              <button type="submit" className="btn btn--primary">
+                Enviar solicitud
+              </button>
+              <p>Tratamiento confidencial · Atención 24/7</p>
+            </div>
+          </form>
+        </section>
       </div>
     </section>
   );
