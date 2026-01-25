@@ -1,97 +1,104 @@
 import '../styles/sections/HeroSection.scss';
 
-const HIGHLIGHTS = [
+const SITE_CARDS = [
   {
-    title: 'Acompañamiento humano, profesional y confidencial',
-    text: 'Pensado para personas que atraviesan uno de los momentos más difíciles de su vida.',
+    title: 'Sede Masculina',
+    detail: '(Zona Pachuca)',
+    points: ['Entorno de disciplina y reconstrucción'],
+    cta: 'Sede Varones',
+    tone: 'men',
+    sede: 'hombres',
   },
   {
-    title: 'Entorno estructurado en Pachuca, Hidalgo',
-    text: 'Permite iniciar procesos reales de recuperación con seguridad emocional.',
-  },
-  {
-    title: 'Proceso residencial de 4 meses',
-    text: 'Basado en el Modelo Minnesota y el Programa de 12 Pasos.',
+    title: 'Sede Femenina',
+    detail: '(Zona Pachuca)',
+    points: ['Espacio de contención y sanación'],
+    cta: 'Sede Mujeres',
+    tone: 'women',
+    sede: 'mujeres',
   },
 ];
 
 export default function HeroSection({ onSelectSede, onNavigate }) {
+  const handleContactClick = () => {
+    onNavigate?.('#contacto');
+  };
+
+  const handleSiteClick = (sede) => {
+    onSelectSede?.(sede);
+    onNavigate?.('#contacto');
+  };
+
   return (
-    <section className="hero-section" id="inicio" aria-label="Acompañamiento profesional">
-      <div className="container hero-section__grid">
-        <div className="hero-section__copy">
-          <div className="hero-section__callout reveal">
-            <span className="hero-section__dot" aria-hidden="true" />
-            <span className="hero-section__detail">
-              Acompañamiento humano, profesional y confidencial
-            </span>
+    <section
+      className="landing-hero"
+      id="inicio"
+      aria-label="Clínica de Rehabilitación Pachuca - vista principal"
+    >
+      <div className="landing-hero__shell">
+        <header className="landing-hero__intro">
+          <p className="landing-hero__eyebrow">Vista principal</p>
+          <div className="landing-hero__banner">
+            <h1>Clínica de Rehabilitación Pachuca</h1>
           </div>
-          <h1 className="reveal reveal--delay-1">
-            Acompañamiento profesional para una recuperación integral
-          </h1>
-          <p className="reveal reveal--delay-2">
-            En <strong>Conciencia CAI</strong> sabemos que la adicción no solo afecta a quien la
-            padece, sino que impacta profundamente a toda la familia. Por eso, desde el primer
-            contacto, ofrecemos acompañamiento humano, profesional y confidencial, pensado para
-            personas que atraviesan uno de los momentos más difíciles de su vida.
-          </p>
-          <p className="hero-section__alert reveal reveal--delay-2">
-            Aquí no tratamos casos, <span>acompañamos personas</span>. Nuestro enfoque parte del
-            respeto, la dignidad y la seguridad emocional, dentro de un entorno estructurado que
-            permite iniciar procesos reales de recuperación en Pachuca, Hidalgo.
-          </p>
-          <blockquote className="hero-section__quote reveal reveal--delay-3">
-            <p>No tienes que enfrentar esta situación solo. Estamos aquí para acompañarte paso a paso.</p>
-          </blockquote>
-          <div className="hero-section__ctas reveal reveal--delay-4">
-            <button type="button" className="btn btn--primary" onClick={() => onSelectSede?.('mujeres')}>
-              Contactar sede femenil
-            </button>
-            <button
-              type="button"
-              className="btn btn--secondary"
-              onClick={() => onSelectSede?.('hombres')}
+        </header>
+
+        <div className="landing-hero__panel">
+          <div className="landing-hero__grid">
+            <figure
+              className="landing-hero__image landing-hero__image--left"
+              role="img"
+              aria-label="Área reservada para imagen de paciente varonil"
             >
-              Contactar sede varonil
-            </button>
-            <a
-              href="#metodo"
-              className="btn btn--ghost"
-              onClick={(event) => {
-                if (!onNavigate) return;
-                event.preventDefault();
-                onNavigate('#metodo');
-              }}
+              <span>Imagen Hombre</span>
+            </figure>
+
+            <div className="landing-hero__copy">
+              <p>
+                Dos sedes especializadas, un mismo objetivo:
+                <br />
+                <strong>Tu recuperación integral en Pachuca.</strong>
+              </p>
+              <button type="button" className="landing-hero__contact-btn" onClick={handleContactClick}>
+                Contacto valoración
+              </button>
+            </div>
+
+            <figure
+              className="landing-hero__image landing-hero__image--right"
+              role="img"
+              aria-label="Área reservada para imagen de paciente femenil"
             >
-              Conocer el modelo
-            </a>
-          </div>
-          <div className="hero-section__highlights">
-            {HIGHLIGHTS.map((highlight, index) => (
-              <div
-                key={highlight.title}
-                className={`hero-section__highlight reveal reveal--delay-${index + 1}`}
-              >
-                <h3>{highlight.title}</h3>
-                <p>{highlight.text}</p>
-              </div>
-            ))}
+              <span>Imagen Mujer</span>
+            </figure>
           </div>
         </div>
-        <div className="hero-section__visual reveal reveal--delay-2" aria-hidden="true">
-          <div className="hero-section__float-card">
-            <h3>Recuperación integral en 4 meses</h3>
-            <p>
-              Proceso residencial basado en el Modelo Minnesota con atención clínica, psicológica y
-              terapéutica estructurada.
-            </p>
-            <div className="hero-section__chips">
-              <span>Modelo Minnesota</span>
-              <span className="hero-section__chip--women">Sede Femenil</span>
-              <span>Sede Varonil</span>
-            </div>
-            <p className="hero-section__caption">Pachuca, Hidalgo · Equipo multidisciplinario</p>
-          </div>
+
+        <div className="landing-hero__sites-intro">
+          <h2>Nuestras sedes en Pachuca</h2>
+        </div>
+
+        <div className="landing-hero__sites">
+          {SITE_CARDS.map((site) => (
+            <article
+              key={site.title}
+              className={`landing-hero__site-card landing-hero__site-card--${site.tone}`}
+            >
+              <header>
+                <h3>
+                  {site.title} <span>{site.detail}</span>
+                </h3>
+              </header>
+              <ul>
+                {site.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <button type="button" className="landing-hero__site-btn" onClick={() => handleSiteClick(site.sede)}>
+                {site.cta}
+              </button>
+            </article>
+          ))}
         </div>
       </div>
     </section>
