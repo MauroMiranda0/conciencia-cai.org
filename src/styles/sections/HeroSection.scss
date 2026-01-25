@@ -193,11 +193,11 @@
 }
 
 .hero-vista__site-card {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--color-border);
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  border-radius: 30px;
+  padding: 28px;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
   display: grid;
   gap: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -213,16 +213,43 @@
 }
 
 .hero-vista__site-card--men {
-  background: linear-gradient(180deg, rgba(103, 232, 249, 0.18), rgba(255, 255, 255, 0.98));
+  background: linear-gradient(180deg, rgba(103, 232, 249, 0.12), rgba(255, 255, 255, 0.96));
 }
 
 .hero-vista__site-card--women {
-  background: linear-gradient(180deg, rgba(254, 240, 138, 0.22), rgba(255, 255, 255, 0.98));
+  background: linear-gradient(180deg, rgba(254, 240, 138, 0.15), rgba(255, 255, 255, 0.96));
 }
 
 .hero-vista__site-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 56px rgba(15, 23, 42, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 32px 60px rgba(15, 23, 42, 0.16);
+}
+
+.hero-sites__btn {
+  width: 100%;
+  justify-content: center;
+  border-radius: 28px;
+  box-shadow: none;
+}
+
+.hero-vista__site-card--men .hero-sites__btn {
+  background: #1364b3;
+  border-color: transparent;
+  color: #fff;
+
+  &:hover {
+    background: #0f4f8d;
+  }
+}
+
+.hero-vista__site-card--women .hero-sites__btn {
+  background: #c53a76;
+  border-color: transparent;
+  color: #fff;
+
+  &:hover {
+    background: #a72f63;
+  }
 }
 
 .hero-contact {
@@ -289,11 +316,12 @@
 .hero-contact__actions {
   grid-column: 1 / -1;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   border-top: 1px solid rgba(15, 23, 42, 0.08);
   padding-top: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 
   p {
     margin: 0;

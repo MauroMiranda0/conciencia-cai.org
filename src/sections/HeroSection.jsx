@@ -128,11 +128,7 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
                 <h3>{site.title}</h3>
               </header>
               <p>{site.description}</p>
-              <button
-                type="button"
-                className="btn btn--secondary"
-                onClick={() => handleSiteClick(site.sede)}
-              >
+              <button type="button" className="btn btn--secondary hero-sites__btn" onClick={() => handleSiteClick(site.sede)}>
                 {site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}
               </button>
             </article>
@@ -170,10 +166,10 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
               <textarea name="message" rows={4} placeholder="Cuéntanos cómo podemos ayudarte" />
             </label>
             <div className="hero-contact__actions">
+              <p>Tratamiento confidencial · Atención 24/7</p>
               <button type="submit" className="btn btn--primary">
                 Enviar solicitud
               </button>
-              <p>Tratamiento confidencial · Atención 24/7</p>
             </div>
           </form>
         </section>
