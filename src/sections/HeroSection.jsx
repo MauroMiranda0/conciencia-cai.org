@@ -36,13 +36,8 @@ const SITE_CARDS = [
   },
 ];
 
-export default function HeroSection({ onSelectSede, onNavigate }) {
+export default function HeroSection({ onNavigate, onOpenPrivacy }) {
   const handleContactClick = () => {
-    onNavigate?.('#contacto');
-  };
-
-  const handleSiteClick = (sede) => {
-    onSelectSede?.(sede);
     onNavigate?.('#contacto');
   };
 
@@ -124,11 +119,14 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
               className={`hero-vista__site-card hero-vista__site-card--${site.tone}`}
             >
               <header>
-                <p className="eyebrow">{site.detail}</p>
                 <h3>{site.title}</h3>
               </header>
               <p>{site.description}</p>
-              <button type="button" className="btn btn--secondary hero-sites__btn" onClick={() => handleSiteClick(site.sede)}>
+              <button
+                type="button"
+                className="btn btn--secondary hero-sites__btn"
+                onClick={() => onNavigate?.('#contacto')}
+              >
                 <span>{site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}</span>
               </button>
             </article>
@@ -141,7 +139,10 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
             <h3>Agenda una valoración confidencial</h3>
             <p>
               Completa el formulario y un especialista se comunicará contigo desde la sede
-              correspondiente. Toda la información es tratada con absoluta privacidad. <a href="#">Leer aviso</a>.
+              correspondiente. Toda la información es tratada con absoluta privacidad.
+              <button type="button" className="hero-contact__link" onClick={onOpenPrivacy}>
+                Leer aviso
+              </button>
             </p>
           </div>
           <form className="hero-contact__form">
@@ -166,7 +167,7 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
               <textarea name="message" rows={4} placeholder="Cuéntanos cómo podemos ayudarte" />
             </label>
             <div className="hero-contact__actions">
-              <p>Tratamiento confidencial · Atención 24/7</p>
+              <p>Atención personalizada 24/7</p>
               <button type="submit" className="btn btn--primary">
                 Enviar solicitud
               </button>
@@ -178,7 +179,9 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
           <nav className="hero-footer__nav" aria-label="Enlaces secundarios">
             <a href="#inicio">Inicio</a>
             <a href="#metodo">Método</a>
-            <a href="#contacto">Privacidad</a>
+            <button type="button" className="hero-footer__link" onClick={onOpenPrivacy}>
+              Privacidad
+            </button>
             <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
               Redes
             </a>
