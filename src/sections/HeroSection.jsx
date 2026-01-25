@@ -1,8 +1,8 @@
 import photoMen from '../assets/Therapy-for-Men-1.webp';
 import photoWomen from '../assets/Therapy-for-Women-1.jpg';
-import teamMeeting from '../assets/Team-Meeting-in-Hospitals-Clinics.png';
-import humanProcess from '../assets/humanProcess.png';
-import info12steps from '../assets/infografia.png';
+import teamMeeting from '../assets/Team-Meeting-in-Hospitals-Clinics.webp';
+import humanProcess from '../assets/humanProcess.webp';
+import info12steps from '../assets/infografia.webp';
 import '../styles/sections/HeroSection.scss';
 
 const MODEL_FEATURES = [
@@ -145,7 +145,7 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
 
         <section className="hero-contact" id="contacto" aria-label="Contacto y valoración">
           <div className="hero-contact__copy">
-            <h2>Dar el primer paso</h2>
+            <p className="eyebrow">Dar el primer paso</p>
             <h3>Agenda una valoración confidencial</h3>
             <p>
               Completa el formulario y un especialista se comunicará contigo desde la sede
@@ -181,6 +181,18 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
             </div>
           </form>
         </section>
+
+        <footer className="hero-footer">
+          <nav className="hero-footer__nav" aria-label="Enlaces secundarios">
+            <a href="#inicio">Inicio</a>
+            <a href="#metodo">Método</a>
+            <a href="#contacto">Privacidad</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+              Redes
+            </a>
+          </nav>
+          <p className="hero-footer__note">© {new Date().getFullYear()}, MR reserved.</p>
+        </footer>
       </div>
     </section>
   );
