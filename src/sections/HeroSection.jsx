@@ -129,7 +129,7 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
               </header>
               <p>{site.description}</p>
               <button type="button" className="btn btn--secondary hero-sites__btn" onClick={() => handleSiteClick(site.sede)}>
-                {site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}
+                <span>{site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}</span>
               </button>
             </article>
           ))}

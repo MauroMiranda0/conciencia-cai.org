@@ -228,27 +228,48 @@
 .hero-sites__btn {
   width: 100%;
   justify-content: center;
-  border-radius: 28px;
+  border-radius: 18px;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-text);
   box-shadow: none;
+  position: relative;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.hero-vista__site-card--men .hero-sites__btn span::before,
+.hero-vista__site-card--women .hero-sites__btn span::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .hero-vista__site-card--men .hero-sites__btn {
-  background: #1364b3;
-  border-color: transparent;
-  color: #fff;
+  color: #1d4c8a;
+  border-color: rgba(29, 76, 138, 0.3);
+  background: rgba(29, 76, 138, 0.08);
 
-  &:hover {
-    background: #0f4f8d;
+  span::before {
+    background-image: url('../../assets/icons/male.svg');
   }
 }
 
 .hero-vista__site-card--women .hero-sites__btn {
-  background: #c53a76;
-  border-color: transparent;
-  color: #fff;
+  color: #be2f69;
+  border-color: rgba(190, 47, 105, 0.3);
+  background: rgba(190, 47, 105, 0.08);
 
-  &:hover {
-    background: #a72f63;
+  span::before {
+    background-image: url('../../assets/icons/female.svg');
   }
 }
 
