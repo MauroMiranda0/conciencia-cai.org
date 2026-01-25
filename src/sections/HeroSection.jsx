@@ -1,19 +1,32 @@
+import photoMen from '../assets/Therapy-for-Men-1.webp';
+import photoWomen from '../assets/Therapy-for-Women-1.jpg';
+import info12steps from '../assets/infografia.png';
 import '../styles/sections/HeroSection.scss';
+
+const MODEL_FEATURES = [
+  {
+    title: 'Equipo multidisciplinario',
+    description: 'Médicos, psicólogos y consejeros certificados acompañan cada etapa del proceso.',
+  },
+  {
+    title: 'Proceso siempre humano',
+    description:
+      'La seguridad emocional es prioridad: trabajamos con empatía, respeto y confidencialidad.',
+  },
+];
 
 const SITE_CARDS = [
   {
     title: 'Sede Masculina',
     detail: '(Zona Pachuca)',
-    points: ['Entorno de disciplina y reconstrucción'],
-    cta: 'Sede Varones',
+    description: 'Entorno estructurado de disciplina y reconstrucción del propósito personal.',
     tone: 'men',
     sede: 'hombres',
   },
   {
     title: 'Sede Femenina',
     detail: '(Zona Pachuca)',
-    points: ['Espacio de contención y sanación'],
-    cta: 'Sede Mujeres',
+    description: 'Espacio de contención, seguridad emocional y acompañamiento sororo.',
     tone: 'women',
     sede: 'mujeres',
   },
@@ -30,72 +43,91 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
   };
 
   return (
-    <section
-      className="landing-hero"
-      id="inicio"
-      aria-label="Clínica de Rehabilitación Pachuca - vista principal"
-    >
-      <div className="landing-hero__shell">
-        <header className="landing-hero__intro">
-          <p className="landing-hero__eyebrow">Vista principal</p>
-          <div className="landing-hero__banner">
-            <h1>Clínica de Rehabilitación Pachuca</h1>
-          </div>
+    <section className="hero-vista" id="inicio" aria-label="Vista principal clínica Pachuca">
+      <div className="container">
+        <header className="hero-vista__header">
+          <p>CONCIENCIA CAI</p>
+          <h1 className="eyebrow">Clínica de Rehabilitación Pachuca</h1>
         </header>
 
-        <div className="landing-hero__panel">
-          <div className="landing-hero__grid">
-            <figure
-              className="landing-hero__image landing-hero__image--left"
-              role="img"
-              aria-label="Área reservada para imagen de paciente varonil"
-            >
-              <span>Imagen Hombre</span>
-            </figure>
+        <div className="hero-vista__panel">
+          <figure className="hero-vista__photo hero-vista__photo--men">
+            <img src={photoMen} alt="Atención profesional en la sede varonil" loading="lazy" />
+            <figcaption>Espacio varonil</figcaption>
+          </figure>
+          <div className="hero-vista__copy">
+            <div className="hero-vista__badge">Proceso residencial 4 meses</div>
+            <p>
+              Contamos con un equipo multidisciplinario y un modelo terapéutico basado en el Modelo Minnesota y el Programa de 12 Pasos, que nos permite acompañarte paso a paso durante todo el proceso. Aquí no tratamos casos: acompañamos personas y a sus familias, siempre desde la confidencialidad, el respeto y el trato digno.
+            </p>
 
-            <div className="landing-hero__copy">
-              <p>
-                Dos sedes especializadas, un mismo objetivo:
-                <br />
-                <strong>Tu recuperación integral en Pachuca.</strong>
-              </p>
-              <button type="button" className="landing-hero__contact-btn" onClick={handleContactClick}>
-                Contacto valoración
+            <div className="hero-vista__stats">
+              <div>
+                <strong>Sedes independientes</strong>
+                <p>
+                  Un espacio seguro para cuidar a las personas y a sus familias.
+                </p>
+              </div>
+
+            </div>
+            <div className="hero-vista__cta-group">
+              <button type="button" className="btn btn--primary" onClick={handleContactClick}>
+                Solicitar valoración
               </button>
             </div>
-
-            <figure
-              className="landing-hero__image landing-hero__image--right"
-              role="img"
-              aria-label="Área reservada para imagen de paciente femenil"
-            >
-              <span>Imagen Mujer</span>
-            </figure>
           </div>
+
+          <figure className="hero-vista__photo hero-vista__photo--women">
+            <img src={photoWomen} alt="Proceso terapéutico en la sede femenil" loading="lazy" />
+            <figcaption>Espacio femenil</figcaption>
+          </figure>
         </div>
 
-        <div className="landing-hero__sites-intro">
-          <h2>Nuestras sedes en Pachuca</h2>
-        </div>
+        <section className="hero-model" id="metodo" aria-label="Modelo terapéutico">
+          <div className="hero-model__header">
+            <h3>¿Cómo funciona nuestro modelo?</h3>
+            <p>
+              Integramos el Modelo Minnesota con el Programa de 12 Pasos para ofrecer un proceso
+              residencial estructurado, humano y clínicamente sólido. Cada residente avanza con
+              acompañamiento terapéutico y contención familiar.
+            </p>
+          </div>
+          <div className="hero-model__grid">
+            <article className="hero-model__card hero-model__card--media">
+              <h4>Modelo Minnesota</h4>
+              <div className="hero-model__media">
+                <figure className="hero-vista__photo">
+                  <img src={info12steps} alt="Atención profesional en la sede varonil" loading="lazy" />
+                  <figcaption>Método 12 pasos</figcaption>
+                </figure>
+              </div>
+            </article>
+            {MODEL_FEATURES.map((feature) => (
+              <article key={feature.title} className="hero-model__card">
+                <h4>{feature.title}</h4>
+                <p>{feature.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <div className="landing-hero__sites">
+        <div className="hero-vista__sites">
           {SITE_CARDS.map((site) => (
             <article
               key={site.title}
-              className={`landing-hero__site-card landing-hero__site-card--${site.tone}`}
+              className={`hero-vista__site-card hero-vista__site-card--${site.tone}`}
             >
               <header>
-                <h3>
-                  {site.title} <span>{site.detail}</span>
-                </h3>
+                <p className="eyebrow">{site.detail}</p>
+                <h3>{site.title}</h3>
               </header>
-              <ul>
-                {site.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-              <button type="button" className="landing-hero__site-btn" onClick={() => handleSiteClick(site.sede)}>
-                {site.cta}
+              <p>{site.description}</p>
+              <button
+                type="button"
+                className="btn btn--secondary"
+                onClick={() => handleSiteClick(site.sede)}
+              >
+                Contactar {site.tone === 'men' ? 'sede varonil' : 'sede femenil'}
               </button>
             </article>
           ))}
