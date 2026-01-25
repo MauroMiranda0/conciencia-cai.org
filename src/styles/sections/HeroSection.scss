@@ -363,52 +363,6 @@
   }
 }
 
-.hero-footer {
-  margin-top: clamp(32px, 4vw, 48px);
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border);
-  text-align: center;
-  display: grid;
-  gap: 12px;
-}
-
-.hero-footer__nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
-
-  a,
-  .hero-footer__link {
-    color: inherit;
-    text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-
-    &:hover {
-      border-color: currentColor;
-    }
-  }
-}
-
-.hero-footer__link {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font: inherit;
-  text-transform: inherit;
-}
-
-.hero-footer__note {
-  margin: 0;
-  font-size: 0.75rem;
-  text-transform: lowercase;
-  color: var(--color-muted);
-}
 
 .hero-model {
   margin: clamp(32px, 6vw, 64px) auto;

@@ -175,19 +175,6 @@ export default function HeroSection({ onNavigate, onOpenPrivacy }) {
           </form>
         </section>
 
-        <footer className="hero-footer">
-          <nav className="hero-footer__nav" aria-label="Enlaces secundarios">
-            <a href="#inicio">Inicio</a>
-            <a href="#metodo">Método</a>
-            <button type="button" className="hero-footer__link" onClick={onOpenPrivacy}>
-              Privacidad
-            </button>
-            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
-              Redes
-            </a>
-          </nav>
-          <p className="hero-footer__note">© {new Date().getFullYear()}, MR reserved.</p>
-        </footer>
       </div>
     </section>
   );
