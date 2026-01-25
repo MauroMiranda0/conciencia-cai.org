@@ -24,15 +24,13 @@ const MODEL_FEATURES = [
 const SITE_CARDS = [
   {
     title: 'Sede Masculina',
-    detail: '(Zona Pachuca)',
     description: 'Entorno estructurado de disciplina y reconstrucción del propósito personal.',
     tone: 'men',
     sede: 'hombres',
   },
   {
     title: 'Sede Femenina',
-    detail: '(Zona Pachuca)',
-    description: 'Espacio de contención, seguridad emocional y acompañamiento sororo.',
+    description: 'Espacio de contención, seguridad emocional y acompañamiento solidario.',
     tone: 'women',
     sede: 'mujeres',
   },
@@ -101,12 +99,10 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
           <div className="hero-model__grid">
             <article className="hero-model__card hero-model__card--media">
               <h4>Modelo Minnesota</h4>
-              <div className="hero-model__media">
                 <figure className="hero-vista__photo">
                   <img src={info12steps} alt="Atención profesional en la sede varonil" loading="lazy" />
-                  <figcaption>Principios terapeúticos</figcaption>
+                  <figcaption>Principios terapéuticos</figcaption>
                 </figure>
-              </div>
             </article>
             {MODEL_FEATURES.map((feature) => (
               <article key={feature.title} className="hero-model__card">
@@ -137,7 +133,7 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
                 className="btn btn--secondary"
                 onClick={() => handleSiteClick(site.sede)}
               >
-                Contactar {site.tone === 'men' ? 'sede varonil' : 'sede femenil'}
+                {site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}
               </button>
             </article>
           ))}
@@ -145,11 +141,11 @@ export default function HeroSection({ onSelectSede, onNavigate }) {
 
         <section className="hero-contact" id="contacto" aria-label="Contacto y valoración">
           <div className="hero-contact__copy">
-            <p className="eyebrow">Dar el primer paso</p>
+            <h2>Dar el primer paso</h2>
             <h3>Agenda una valoración confidencial</h3>
             <p>
               Completa el formulario y un especialista se comunicará contigo desde la sede
-              correspondiente. Toda la información es tratada con absoluta privacidad.
+              correspondiente. Toda la información es tratada con absoluta privacidad. <a href="#">Leer aviso</a>.
             </p>
           </div>
           <form className="hero-contact__form">
