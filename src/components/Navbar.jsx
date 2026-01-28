@@ -15,49 +15,49 @@ const SOCIAL_LINKS = [
 export default function Navbar({ onNavigate }) {
   return (
     <header className="navbar" role="banner">
-      <div className="container navbar__inner">
-        <div className="navbar__logos">
-          <LogoCard src={logoAzul} alt="CON-CIENCIA Varonil" />
-          <div className="navbar__copy">
-            <p className="navbar__title">Centro de Atención Integral de las Adicciones</p>
-            <p className="navbar__subtitle">
-              Atención profesional · Confidencialidad · Acompañamiento
-            </p>
+      <div className="navbar__inner">
+          <div className="navbar__logos">
+            <LogoCard src={logoAzul} alt="CON-CIENCIA Varonil" />
+            <div className="navbar__copy">
+              <p className="navbar__title">Centro de Atención Integral de las Adicciones</p>
+              <p className="navbar__subtitle">
+                Atención profesional · Confidencialidad · Acompañamiento
+              </p>
+            </div>
+            <LogoCard src={logoRosa} alt="CON-CIENCIA Femenil" />
           </div>
-          <LogoCard src={logoRosa} alt="CON-CIENCIA Femenil" />
-        </div>
-        <div className="navbar__actions">
-          <nav aria-label="Navegación principal" className="navbar__nav">
-            {LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onNavigate?.(link.href);
-                }}
-                className="navbar__link"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="navbar__social" aria-label="Redes sociales">
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                className="navbar__social-link"
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Visitar ${social.label}`}
-              >
-                {social.icon === 'facebook' ? <FacebookIcon /> : <InstagramIcon />}
-              </a>
-            ))}
+          <div className="navbar__actions">
+            <nav aria-label="Navegación principal" className="navbar__nav">
+              {LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onNavigate?.(link.href);
+                  }}
+                  className="navbar__link"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            <div className="navbar__social" aria-label="Redes sociales">
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  className="navbar__social-link"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Visitar ${social.label}`}
+                >
+                  {social.icon === 'facebook' ? <FacebookIcon /> : <InstagramIcon />}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
     </header>
   );
 }
