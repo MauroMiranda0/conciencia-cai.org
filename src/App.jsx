@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar.jsx';
-import Footer from './components/Footer.jsx';
-import HeroSection from './sections/HeroSection.jsx';
+import HomeView from './views/HomeView.jsx';
 import PrivacyModal from './components/PrivacyModal.jsx';
 import { scrollToHash } from './utils/dom.js';
 import './styles/globals.scss';
@@ -17,11 +15,10 @@ export default function App() {
 
   return (
     <>
-      <Navbar onNavigate={handleNavigate} />
-      <main>
-        <HeroSection onNavigate={handleNavigate} onOpenPrivacy={() => setPrivacyOpen(true)} />
-      </main>
-      <Footer onOpenPrivacy={() => setPrivacyOpen(true)} />
+      <HomeView
+        onNavigate={handleNavigate}
+        onOpenPrivacy={() => setPrivacyOpen(true)}
+      />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
     </>
   );
