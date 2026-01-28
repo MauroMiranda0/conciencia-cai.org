@@ -3,65 +3,98 @@
 .site-card {
   display: flex;
   gap: 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 28px;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
-  --card-accent: var(--color-blue-700);
+  border-radius: 34px;
+  padding: 22px;
+  border: 1px solid rgba(16, 42, 67, 0.08);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.8));
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+  position: relative;
 }
 
 .site-card__badge {
-  width: 46px;
-  height: 46px;
-  border-radius: 18px;
-  background: var(--color-blue-50);
+  width: 54px;
+  border-radius: 22px;
+  background: var(--color-sand-100);
   flex-shrink: 0;
+  margin-top: 6px;
 }
 
-.site-card--women .site-card__badge {
-  background: var(--color-rose-50);
+.site-card__body {
+  display: grid;
+  gap: 12px;
 }
 
-.site-card--women {
-  --card-accent: var(--color-rose-600);
-}
-
-.site-card__body h3 {
+.site-card__subtitle {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
 }
 
-.site-card__body p {
-  margin: 8px 0;
+.site-card__description {
+  margin: 0;
   color: var(--color-muted);
 }
 
 .site-card__list {
-  margin: 12px 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
   gap: 8px;
-  color: var(--color-muted);
 
   li {
     position: relative;
-    padding-left: 16px;
+    padding-left: 18px;
+    color: var(--color-muted);
+    font-size: 0.95rem;
 
     &::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 0.6em;
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
+      top: 0.55em;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
       background: var(--card-accent);
     }
   }
 }
 
 .site-card__location {
-  font-size: 0.9rem;
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.site-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  button {
+    width: 100%;
+  }
+}
+
+.site-card--women {
+  --card-accent: var(--color-clay-600);
+  background: linear-gradient(165deg, rgba(190, 81, 108, 0.18), rgba(255, 255, 255, 0.95));
+}
+
+.site-card--women .site-card__badge {
+  background: rgba(190, 81, 108, 0.12);
+}
+
+.site-card--men {
+  --card-accent: var(--color-sage-700);
+  background: linear-gradient(165deg, rgba(15, 76, 92, 0.16), rgba(255, 255, 255, 0.95));
+}
+
+.site-card--men .site-card__badge {
+  background: rgba(15, 76, 92, 0.12);
 }

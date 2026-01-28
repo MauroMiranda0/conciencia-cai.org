@@ -1,180 +1,236 @@
 import photoMen from '../assets/Therapy-for-Men-1.webp';
 import photoWomen from '../assets/Therapy-for-Women-1.jpg';
-import teamMeeting from '../assets/Team-Meeting-in-Hospitals-Clinics.webp';
-import humanProcess from '../assets/humanProcess.webp';
 import info12steps from '../assets/infografia.webp';
 import '../styles/sections/HeroSection.scss';
 
-const MODEL_FEATURES = [
+const CARE_PILLARS = [
   {
-    title: 'Equipo multidisciplinario',
-    description: 'Médicos, psicólogos y consejeros certificados acompañan cada etapa del proceso.',
-    image: teamMeeting,
-    caption: 'Equipo clínico y terapéutico en sesión',
+    title: 'Entornos diferenciados y seguros',
+    description:
+      'Dos sedes independientes en Pachuca diseñadas para respetar los ritmos y necesidades de hombres y mujeres.',
+  },
+];
+
+const HUMAN_PROMISES = [
+  {
+    title: 'Diagnóstico integral',
+    description: 'Historia clínica, evaluación psicológica y plan conjunto con la familia.',
   },
   {
-    title: 'Proceso siempre humano',
+    title: 'Rutina terapéutica guiada',
+    description: 'Sesiones individuales, grupos terapéuticos y acompañamiento espiritual diario.',
+  },
+  {
+    title: 'Plan de egreso responsable',
+    description: 'Seguimiento y acuerdos familiares para proteger la recuperación al salir.',
+  },
+  {
+    title: 'Contención familiar permanente',
     description:
-      'La seguridad emocional es prioridad: trabajamos con empatía, respeto y confidencialidad.',
-    image: humanProcess,
-    caption: 'Acompañamiento y contención emocional',
+      'Escuchamos y orientamos a la familia antes, durante y después del internamiento, con actualización constante del proceso.',
+  },
+  {
+    title: 'Modelo Minnesota + 12 Pasos',
+    description:
+      'Integramos rutinas terapéuticas, métricas clínicas y trabajo espiritual para sostener la recuperación.',
   },
 ];
 
 const SITE_CARDS = [
   {
     title: 'Sede Masculina',
-    description: 'Entorno estructurado de disciplina y reconstrucción del propósito personal.',
+    focus: 'Liderazgo y propósito',
+    description:
+      'Programa residencial con estructura, disciplina y acompañamiento terapéutico diario.',
+    highlights: [
+      'Supervisión clínica 24/7',
+      'Actividades físicas y ocupacionales',
+      'Trabajo terapéutico de responsabilidad personal',
+    ],
     tone: 'men',
     sede: 'hombres',
   },
   {
     title: 'Sede Femenina',
-    description: 'Espacio de contención, seguridad emocional y acompañamiento solidario.',
+    focus: 'Protección y sororidad',
+    description:
+      'Casa-terapia enfocada en la contención emocional y la reconstrucción del autocuidado.',
+    highlights: [
+      'Habitaciones supervisadas y áreas comunes seguras',
+      'Grupos terapéuticos sororales',
+      'Trabajo profundo con la familia de origen',
+    ],
     tone: 'women',
     sede: 'mujeres',
   },
 ];
 
-export default function HeroSection({ onNavigate, onOpenPrivacy }) {
+export default function HeroSection({ onNavigate, onViewSede }) {
   const handleContactClick = () => {
     onNavigate?.('#contacto');
+  };
+
+  const handleMethodClick = () => {
+    // navigate to the "modelo" / method section
+    onNavigate?.('#metodo');
+  };
+
+  const handleViewSedeClick = (variant) => {
+    onViewSede?.(variant);
+  };
+
+  const handleSiteSelect = (sede) => {
+    // map Spanish sede identifiers to the variant keys expected by handleViewSedeClick
+    if (sede === 'hombres') {
+      handleViewSedeClick('men');
+      return;
+    }
+    if (sede === 'mujeres') {
+      handleViewSedeClick('women');
+      return;
+    }
+    // fallback: pass through whatever was provided
+    handleViewSedeClick(sede);
   };
 
   return (
     <section className="hero-vista" id="inicio" aria-label="Vista principal clínica Pachuca">
       <div className="container">
-        <header className="hero-vista__header">
-          <p>CONCIENCIA CAI</p>
-          <h1 className="eyebrow">Clínica de Rehabilitación Pachuca</h1>
-        </header>
-
-        <div className="hero-vista__panel">
-          <figure className="hero-vista__photo hero-vista__photo--men">
-            <img src={photoMen} alt="Atención profesional en la sede varonil" loading="lazy" />
-            <figcaption>Espacio varonil</figcaption>
-          </figure>
+        <p className="hero-vista__eyebrow eyebrow">Conciencia CAI · Internamiento residencial</p>
+        <div className="hero-vista__layout">
           <div className="hero-vista__copy">
-            <div className="hero-vista__badge">Proceso residencial 4 meses</div>
-            <p>
-              Contamos con un equipo multidisciplinario y un modelo terapéutico basado en el Modelo Minnesota y el Programa de 12 Pasos, que nos permite acompañarte paso a paso durante todo el proceso. Aquí no tratamos casos: acompañamos personas y a sus familias, siempre desde la confidencialidad, el respeto y el trato digno.
+            <p className="hero-vista__tagline">Cuidamos con la calidez del Cuidador y la claridad del Sabio.</p>
+            <h1>Rehabilitación residencial en Pachuca con acompañamiento humano y guía clínica.</h1>
+            <p className="hero-vista__lead">
+              Cada persona y su familia encuentran un espacio seguro, confidencial y respaldado por
+              especialistas. Integramos contención emocional, estructura terapéutica y decisiones
+              basadas en evidencia para restaurar el proyecto de vida.
             </p>
-
-            <div className="hero-vista__stats">
-              <div>
-                <strong>Sedes independientes</strong>
-                <p>
-                  Un espacio seguro para cuidar a las personas y a sus familias.
-                </p>
-              </div>
-
-            </div>
+            <ul className="hero-vista__pillars" role="list">
+              {CARE_PILLARS.map((pillar) => (
+                <li key={pillar.title}>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.description}</p>
+                </li>
+              ))}
+            </ul>
             <div className="hero-vista__cta-group">
-              <button type="button" className="btn btn--primary" onClick={handleContactClick}>
-                Solicitar valoración
-              </button>
+              <div className="hero-vista__cta-stack" aria-label="Acciones principales">
+                <button type="button" className="btn btn--primary" onClick={handleContactClick}>
+                  Hablar con un especialista
+                </button>
+                <button type="button" className="btn btn--ghost" onClick={handleMethodClick}>
+                  Conoce el modelo
+                </button>
+              </div>
+              <div className="hero-vista__cta-sedes" aria-label="Accesos por sede">
+                <article className="hero-vista__cta-card hero-vista__cta-card--men">
+                  <header>
+                    <p className="hero-vista__cta-label">Sede varonil</p>
+                    <h3>Disciplina y propósito</h3>
+                  </header>
+                  <p className="hero-vista__cta-text">
+                    Supervisión clínica 24/7, programa de liderazgo y acompañamiento familiar.
+                  </p>
+                  <button
+                    type="button"
+                    className="hero-vista__cta hero-vista__cta--men"
+                    onClick={() => handleViewSedeClick('men')}
+                  >
+                    Información varonil
+                  </button>
+                </article>
+                <article className="hero-vista__cta-card hero-vista__cta-card--women">
+                  <header>
+                    <p className="hero-vista__cta-label">Sede femenil</p>
+                    <h3>Contención y sororidad</h3>
+                  </header>
+                  <p className="hero-vista__cta-text">
+                    Espacios seguros, rituales de contención emocional y redes sororales.
+                  </p>
+                  <button
+                    type="button"
+                    className="hero-vista__cta hero-vista__cta--women"
+                    onClick={() => handleViewSedeClick('women')}
+                  >
+                    Información femenil
+                  </button>
+                </article>
+                <p className="hero-vista__cta-note">Atención confidencial · Respuesta rápida</p>
+              </div>
             </div>
           </div>
 
-          <figure className="hero-vista__photo hero-vista__photo--women">
-            <img src={photoWomen} alt="Proceso terapéutico en la sede femenil" loading="lazy" />
-            <figcaption>Espacio femenil</figcaption>
-          </figure>
-        </div>
-
-        <section className="hero-model" id="metodo" aria-label="Modelo terapéutico">
-          <div className="hero-model__header">
-            <h3>¿Cómo funciona nuestro modelo?</h3>
-            <p>
-              Integramos el Modelo Minnesota con el Programa de 12 Pasos para ofrecer un proceso
-              residencial estructurado, humano y clínicamente sólido. Cada residente avanza con
-              acompañamiento terapéutico y contención familiar.
-            </p>
-          </div>
-          <div className="hero-model__grid">
-            <article className="hero-model__card hero-model__card--media">
-              <h4>Modelo Minnesota</h4>
-                <figure className="hero-vista__photo">
-                  <img src={info12steps} alt="Atención profesional en la sede varonil" loading="lazy" />
-                  <figcaption>Principios terapéuticos</figcaption>
-                </figure>
+          <div className="hero-vista__gallery" aria-label="Espacios de internamiento">
+            <figure className="hero-vista__media hero-vista__media--men">
+              <img src={photoMen} alt="Atención profesional en la sede masculina" loading="lazy" />
+              <figcaption>Sede masculina</figcaption>
+            </figure>
+            <figure className="hero-vista__media hero-vista__media--women">
+              <img src={photoWomen} alt="Proceso terapéutico en la sede femenina" loading="lazy" />
+              <figcaption>Sede femenina</figcaption>
+            </figure>
+            <article className="hero-vista__trust-card">
+              <p className="hero-vista__trust-eyebrow">Modelo terapéutico</p>
+              <h3>Guía clínica con sentido humano</h3>
+              <p>
+                Nuestro Modelo Minnesota, integrado al Programa de 12 Pasos, combina ciencia médica,
+                psicología y espiritualidad para acompañar cada etapa.
+              </p>
+              <ul role="list">
+                {HUMAN_PROMISES.map((promise) => (
+                  <li key={promise.title}>
+                    <strong>{promise.title}</strong>
+                    <span>{promise.description}</span>
+                  </li>
+                ))}
+              </ul>
+              <figure className="hero-vista__diagram">
+                <img
+                  src={info12steps}
+                  alt="Infografía del Modelo Minnesota y los 12 Pasos"
+                  loading="lazy"
+                />
+              </figure>
             </article>
-            {MODEL_FEATURES.map((feature) => (
-              <article key={feature.title} className="hero-model__card">
-                <h4>{feature.title}</h4>
-                <figure className="hero-model__photo">
-                  <img src={feature.image} alt={feature.caption} loading="lazy" />
-                  <figcaption>{feature.caption}</figcaption>
-                </figure>
-                <p>{feature.description}</p>
-              </article>
-            ))}
           </div>
-        </section>
-
-        <div className="hero-vista__sites">
+        </div>
+        <div className="hero-vista__sites" aria-label="Sedes especializadas">
           {SITE_CARDS.map((site) => (
             <article
               key={site.title}
               className={`hero-vista__site-card hero-vista__site-card--${site.tone}`}
             >
-              <header>
-                <h3>{site.title}</h3>
-              </header>
-              <p>{site.description}</p>
-              <button
-                type="button"
-                className="btn btn--secondary hero-sites__btn"
-                onClick={() => onNavigate?.('#contacto')}
-              >
-                <span>{site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}</span>
-              </button>
+              <p className="hero-vista__site-focus">{site.focus}</p>
+              <h3>{site.title}</h3>
+              <p className="hero-vista__site-description">{site.description}</p>
+              <ul role="list">
+                {site.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+              <div className="hero-vista__site-actions">
+                <button
+                  type="button"
+                  className="btn btn--secondary hero-sites__btn"
+                  onClick={() => {
+                    handleSiteSelect(site.sede);
+                    handleContactClick();
+                  }}
+                >
+                  Hablar con esta sede
+                </button>
+                <button
+                  type="button"
+                  className="btn btn--ghost hero-sites__link"
+                  onClick={() => handleViewSedeClick(site.tone === 'men' ? 'men' : 'women')}
+                >
+                  Información de la sede
+                </button>
+              </div>
             </article>
           ))}
         </div>
-
-        <section className="hero-contact" id="contacto" aria-label="Contacto y valoración">
-          <div className="hero-contact__copy">
-            <h2>Dar el primer paso</h2>
-            <h3>Agenda una valoración confidencial</h3>
-            <p>
-              Completa el formulario y un especialista se comunicará contigo desde la sede
-              correspondiente. Toda la información es tratada con absoluta privacidad.
-              <button type="button" className="hero-contact__link" onClick={onOpenPrivacy}>
-                Leer aviso
-              </button>
-            </p>
-          </div>
-          <form className="hero-contact__form">
-            <label className="field">
-              <span>Nombre</span>
-              <input type="text" name="name" placeholder="Nombre completo" required />
-            </label>
-            <label className="field">
-              <span>Teléfono</span>
-              <input type="tel" name="phone" placeholder="10 dígitos" required />
-            </label>
-            <label className="field">
-              <span>Sede de interés</span>
-              <select name="sede" required>
-                <option value="">Selecciona una opción</option>
-                <option value="mujeres">Sede Femenina</option>
-                <option value="hombres">Sede Masculina</option>
-              </select>
-            </label>
-            <label className="field field--full">
-              <span>Mensaje</span>
-              <textarea name="message" rows={4} placeholder="Cuéntanos cómo podemos ayudarte" />
-            </label>
-            <div className="hero-contact__actions">
-              <p>Atención personalizada 24/7</p>
-              <button type="submit" className="btn btn--primary">
-                Enviar solicitud
-              </button>
-            </div>
-          </form>
-        </section>
-
       </div>
     </section>
   );

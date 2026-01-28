@@ -1,14 +1,19 @@
 import FacebookIcon from './icons/FacebookIcon.jsx';
 import InstagramIcon from './icons/InstagramIcon.jsx';
 import '../styles/components/Footer.scss';
+import { SECTION_LINKS } from '../utils/navigation.js';
 
 export default function Footer({ onOpenPrivacy }) {
   return (
     <footer className="app-footer">
       <div className="container app-footer__inner">
+        
         <nav className="app-footer__nav" aria-label="Enlaces secundarios">
-          <a href="#inicio">Inicio</a>
-          <a href="#metodo">Método</a>
+          {SECTION_LINKS.map((link) => (
+            <a key={link.href} href={link.href}>
+              {link.label}
+            </a>
+          ))}
           <button type="button" className="app-footer__link" onClick={onOpenPrivacy}>
             Privacidad
           </button>

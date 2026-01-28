@@ -2,34 +2,35 @@ import '../styles/sections/JustificationSection.scss';
 
 const JUSTIFICATIONS = [
   {
-    title: 'Refuerzo del Cuidador',
+    title: 'Arquetipo del Cuidador',
     items: [
-      'Se añadió lenguaje explícito de contención emocional (no estás solo, acompañamos personas).',
-      'Se suavizó el tono institucional para reducir ansiedad en contexto de crisis.',
-      'Se enfatizó la dignidad y el trato humano en todas las secciones.',
+      'Hero con narrativa empática, énfasis en contención familiar y recordatorios de confidencialidad.',
+      'Contact center renovado con garantías claras (respuesta 24/7, aviso de privacidad, acompañamiento).',
+      'Tarjetas de sedes y valores con fondos suaves y microcopys que hablan de calidez y seguridad.',
     ],
   },
   {
-    title: 'Refuerzo del Sabio',
+    title: 'Arquetipo del Sabio',
     items: [
-      'Se mencionó de forma clara y reiterada el Modelo Minnesota y su duración.',
-      'Se reforzó la estructura del proceso y el carácter multidisciplinario.',
-      'Se incorporó la referencia al consejero certificado para aumentar autoridad y confianza.',
+      'Nuevo bloque de metodología con fases del internamiento, métricas y compromisos clínicos.',
+      'Tarjeta “Guía clínica” en el hero con pasos concretos del Modelo Minnesota + 12 Pasos.',
+      'Datos duros visibles (120 días, +15 especialistas, supervisión 24/7) que refuerzan autoridad.',
     ],
   },
   {
-    title: 'Jerarquía mejorada',
+    title: 'Experiencia visual coherente',
     items: [
-      'Primero se explica el por qué emocional (cuidado, acompañamiento).',
-      'Después el cómo racional (modelo, método, equipo).',
-      'Secciones reorganizadas para facilitar lectura en una landing page.',
+      'Paleta en tonos salvia y arcilla que conecta ambos arquetipos y unifica componentes.',
+      'Cartas, formularios y badges comparten radios amplios y sombras suaves para transmitir cuidado.',
+      'Se redujo el ruido visual eliminando duplicaciones y alineando tipografía secundaria.',
     ],
   },
   {
-    title: 'Ruta de color y sedes',
+    title: 'Flujo claro para conversión',
     items: [
-      'El lenguaje permite diferenciar sedes sin fragmentar el mensaje.',
-      'Se mantiene coherencia narrativa para una experiencia visual guiada por color.',
+      'App.jsx ahora renderiza todas las secciones clave y sincroniza la sede seleccionada.',
+      'CTAs dirigen al formulario con la sede preseleccionada para disminuir fricción.',
+      'Copy y jerarquía guían: primero emoción (por qué), después método (cómo) y finalmente contacto (qué sigue).',
     ],
   },
 ];

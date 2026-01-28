@@ -7,21 +7,22 @@
   padding: 0.85rem 1.8rem;
   border-radius: 28px;
   border: 1px solid transparent;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease,
+    color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(31, 78, 121, 0.3);
+    outline: 3px solid var(--color-focus);
     outline-offset: 2px;
   }
 }
 
 .btn--primary {
   background: var(--accent-color);
-  color: #fff;
+  color: var(--accent-contrast);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
 
   &:hover {
@@ -48,5 +49,15 @@
 
   &:hover {
     background: rgba(15, 23, 42, 0.05);
+  }
+}
+
+.btn--alt {
+  background: transparent;
+  border: 1px solid var(--accent-alt-color);
+  color: var(--accent-alt-color);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
   }
 }

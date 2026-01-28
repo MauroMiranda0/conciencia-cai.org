@@ -9,7 +9,25 @@ const INITIAL_STATE = {
   message: '',
 };
 
-export default function ContactSection({ selectedSede, onSelectSede, onOpenPrivacy }) {
+const ASSURANCES = [
+  'Respuesta en menos de 15 minutos en horario 24/7.',
+  'La información se resguarda con nuestro Aviso de Privacidad.',
+  'Coordinamos visitas guiadas y acompañamiento para familias foráneas.',
+];
+
+const SEDE_LABEL = {
+  mujeres: 'Sede Femenil',
+  hombres: 'Sede Varonil',
+};
+
+export default function ContactSection({
+  selectedSede,
+  onSelectSede,
+  onOpenPrivacy,
+  lockSede = false,
+  mapEmbedUrl = '',
+  mapLabel = '',
+}) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('');
@@ -49,25 +67,29 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
   };
 
+  const gridClass = ['contact-section__grid'];
+  if (mapEmbedUrl) gridClass.push('contact-section__grid--map');
+
   return (
     <section className="contact-section" id="contacto" aria-label="Contacto">
-      <div className="container contact-section__grid">
+      <div className={`container ${gridClass.join(' ')}`}>
         <div className="contact-section__intro reveal">
           <p className="eyebrow">Dar el primer paso</p>
-          <h2>Dar el primer paso también es parte del proceso</h2>
+          <h2>Hablemos con confianza y sin juicios</h2>
           <p>
-            Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo,
-            dudas y cansancio emocional. En <strong>Conciencia CAI</strong>, priorizamos la empatía,
-            la claridad y el trato digno desde el primer contacto.
+            Sabemos que pedir ayuda requiere valor. Nuestro equipo recibe cada mensaje con total
+            confidencialidad y responde con la calidez de quienes acompañan procesos complejos todos
+            los días.
           </p>
           <p className="text-muted">
-            Si tú o un familiar están atravesando una situación relacionada con el consumo de
-            sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en
-            el inicio de un camino real hacia la recuperación.
+            Cuéntanos qué está ocurriendo y a qué sede deseas acercarte. Te guiaremos para definir
+            la valoración, horarios de visita y los acuerdos iniciales con la familia.
           </p>
-          <blockquote className="contact-section__quote">
-            <p>Un primer paso, dado con apoyo, puede marcar la diferencia.</p>
-          </blockquote>
+          <ul className="contact-section__assurances">
+            {ASSURANCES.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </div>
         <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
           <div className="field">
@@ -100,23 +122,36 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
             />
             {errors.email && <span className="field__error">{errors.email}</span>}
           </div>
-          <div className="field">
-            <label htmlFor="sede">¿A qué sede deseas contactar?</label>
-            <select
-              id="sede"
-              name="sede"
-              value={formData.sede}
-              onChange={(event) => {
-                handleChange(event);
-                onSelectSede?.(event.target.value);
-              }}
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="mujeres">Sede Femenil</option>
-              <option value="hombres">Sede Varonil</option>
-            </select>
-            {errors.sede && <span className="field__error">{errors.sede}</span>}
-          </div>
+          {!lockSede ? (
+            <div className="field">
+              <label htmlFor="sede">¿A qué sede deseas contactar?</label>
+              <select
+                id="sede"
+                name="sede"
+                value={formData.sede}
+                onChange={(event) => {
+                  handleChange(event);
+                  onSelectSede?.(event.target.value);
+                }}
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="mujeres">Sede Femenina</option>
+                <option value="hombres">Sede Masculina</option>
+              </select>
+              {errors.sede && <span className="field__error">{errors.sede}</span>}
+            </div>
+          ) : (
+            <div className="field">
+              <label htmlFor="sede-fija">Sede a contactar</label>
+              <input
+                id="sede-fija"
+                value={SEDE_LABEL[formData.sede] || 'Sede asignada'}
+                readOnly
+                aria-readonly="true"
+              />
+              <input type="hidden" name="sede" value={formData.sede} />
+            </div>
+          )}
           <div className="field">
             <label htmlFor="message">Mensaje (opcional)</label>
             <textarea
@@ -129,7 +164,7 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
           </div>
           <div className="contact-form__footer">
             <button type="submit" className="btn btn--primary">
-              Enviar
+              Enviar y agendar valoración
             </button>
             <p className="text-muted">
               Al enviar aceptas nuestro{' '}
@@ -145,6 +180,17 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
             </div>
           )}
         </form>
+        {mapEmbedUrl && (
+          <div className="contact-section__map" aria-label="Ubicación de la sede">
+            <p className="contact-section__map-label">{mapLabel}</p>
+            <iframe
+              title={mapLabel || 'Mapa de la sede'}
+              src={mapEmbedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

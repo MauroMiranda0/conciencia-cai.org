@@ -1,11 +1,12 @@
 import logoAzul from '../assets/brand/logoAzul.jpg';
 import logoRosa from '../assets/brand/logoRosa.jpg';
 import '../styles/components/Navbar.scss';
+import { SECTION_LINKS } from '../utils/navigation.js';
 
-const LINKS = [
-  { href: '#metodo', label: 'Modelo' },
-  { href: '#contacto', label: 'Valoración' },
-];
+/* const SEDE_LINKS = [
+  { route: '/sede/varonil', label: 'Sede Varonil', variant: 'men' },
+  { route: '/sede/femenil', label: 'Sede Femenil', variant: 'women' },
+]; */
 
 const SOCIAL_LINKS = [
   { href: 'https://www.facebook.com/', label: 'Facebook', icon: 'facebook' },
@@ -27,21 +28,37 @@ export default function Navbar({ onNavigate }) {
           <LogoCard src={logoRosa} alt="CON-CIENCIA Femenil" />
         </div>
         <div className="navbar__actions">
-          <nav aria-label="Navegación principal" className="navbar__nav">
-            {LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onNavigate?.(link.href);
-                }}
-                className="navbar__link"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          <div className="navbar__nav-group">
+            <nav aria-label="Navegación principal" className="navbar__nav">
+              {SECTION_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onNavigate?.(link.href);
+                  }}
+                  className="navbar__link"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            {/* <div className="navbar__sede-links" aria-label="Ver información por sede">
+              {SEDE_LINKS.map((link) => (
+                <button
+                  key={link.route}
+                  type="button"
+                  className={`navbar__sede-link navbar__sede-link--${link.variant} ${
+                    currentRoute === link.route ? 'is-active' : ''
+                  }`}
+                  onClick={() => onRouteChange?.(link.route)}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div> */}
+          </div>
           <div className="navbar__social" aria-label="Redes sociales">
             {SOCIAL_LINKS.map((social) => (
               <a

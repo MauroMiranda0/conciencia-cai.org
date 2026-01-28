@@ -29,26 +29,30 @@ export default function IdentitySection() {
       <div className="container">
         <header className="identity-section__header">
           <h2>Nuestra misión, visión y valores</h2>
+          <p>
+            Somos una organización que abraza el arquetipo del Cuidador y del Sabio: cuidamos con
+            calidez y guiamos con conocimiento clínico.
+          </p>
         </header>
         <div className="identity-section__grid">
           <article className="identity-card reveal">
             <h3>Nuestra misión</h3>
             <p>
-              Brindar un acompañamiento profesional, ético y humano a personas con problemas de
-              adicción y a sus familias, mediante un modelo de internamiento residencial integral
-              basado en el Modelo Minnesota.
+              Brindar acompañamiento profesional, ético y humano a personas y familias que viven un
+              proceso de adicciones, a través de internamiento residencial integral basado en el
+              Modelo Minnesota.
             </p>
             <p>
               Integramos la ciencia médica, la intervención psicológica y el trabajo terapéutico
-              estructurado para facilitar procesos de recuperación sostenidos, siempre desde el
-              respeto a la dignidad humana.
+              estructurado para facilitar procesos de recuperación sostenidos, desde el respeto a la
+              dignidad humana y la contención emocional.
             </p>
           </article>
           <article className="identity-card reveal">
             <h3>Nuestra visión</h3>
             <p>
-              Ser un referente en el estado de Hidalgo por la seriedad, efectividad y calidez humana
-              de nuestro modelo de atención. Aspiramos a que <strong>Conciencia CAI</strong> sea
+              Ser un referente en el estado de Hidalgo por la seriedad, efectividad y calidez de
+              nuestro modelo de atención. Aspiramos a que <strong>Conciencia CAI</strong> sea
               reconocido como un espacio seguro y confiable, donde la experiencia clínica y el
               trato humano caminan juntos hacia la restauración de la salud física y emocional.
             </p>
