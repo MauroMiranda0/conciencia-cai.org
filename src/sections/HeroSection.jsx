@@ -3,6 +3,7 @@ import photoWomen from '../assets/Therapy-for-Women-1.jpg';
 import teamMeeting from '../assets/Team-Meeting-in-Hospitals-Clinics.webp';
 import humanProcess from '../assets/humanProcess.webp';
 import info12steps from '../assets/infografia.webp';
+import HeroCallToActions from '../components/HeroCallToActions.jsx';
 import '../styles/sections/HeroSection.scss';
 
 const MODEL_FEATURES = [
@@ -24,21 +25,41 @@ const MODEL_FEATURES = [
 const SITE_CARDS = [
   {
     title: 'Sede Masculina',
+    focus: 'Modelo residencial · Varonil',
     description: 'Entorno estructurado de disciplina y reconstrucción del propósito personal.',
     tone: 'men',
     sede: 'hombres',
+    highlights: [
+      'Acompañamiento clínico 24/7',
+      'Integración familiar supervisada',
+      'Modelo Minnesota + 12 Pasos',
+    ],
   },
   {
     title: 'Sede Femenina',
+    focus: 'Modelo residencial · Femenil',
     description: 'Espacio de contención, seguridad emocional y acompañamiento solidario.',
     tone: 'women',
     sede: 'mujeres',
+    highlights: [
+      'Equipo clínico especializado en mujeres',
+      'Procesos de acompañamiento emocional',
+      'Programa terapéutico personalizado',
+    ],
   },
 ];
 
 export default function HeroSection({ onNavigate, onOpenPrivacy }) {
   const handleContactClick = () => {
     onNavigate?.('#contacto');
+  };
+
+  const handleContactSite = () => {
+    onNavigate?.('#contacto');
+  };
+
+  const handleViewSede = () => {
+    onNavigate?.('#sedes');
   };
 
   return (
@@ -112,26 +133,11 @@ export default function HeroSection({ onNavigate, onOpenPrivacy }) {
           </div>
         </section>
 
-        <div className="hero-vista__sites">
-          {SITE_CARDS.map((site) => (
-            <article
-              key={site.title}
-              className={`hero-vista__site-card hero-vista__site-card--${site.tone}`}
-            >
-              <header>
-                <h3>{site.title}</h3>
-              </header>
-              <p>{site.description}</p>
-              <button
-                type="button"
-                className="btn btn--secondary hero-sites__btn"
-                onClick={() => onNavigate?.('#contacto')}
-              >
-                <span>{site.tone === 'men' ? 'Sede Varonil' : 'Sede Femenil'}</span>
-              </button>
-            </article>
-          ))}
-        </div>
+        <HeroCallToActions
+          sites={SITE_CARDS}
+          onContactSite={handleContactSite}
+          onViewSede={handleViewSede}
+        />
 
         <section className="hero-contact" id="contacto" aria-label="Contacto y valoración">
           <div className="hero-contact__copy">
