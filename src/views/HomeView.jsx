@@ -28,12 +28,13 @@ const SCROLL_OFFSET = 92;
  * @property {(hash?: string) => void} [onNavigate]
  * @property {() => void} [onOpenPrivacy]
  * @property {() => void} [onShowMenSite]
+ * @property {() => void} [onShowWomenSite]
  */
 
 /**
  * @param {HomeViewProps} props
  */
-export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite }) {
+export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite, onShowWomenSite }) {
   const [selectedSede, setSelectedSede] = useState('');
 
   const handleNavigate = useCallback(
@@ -76,6 +77,7 @@ export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite }) {
           promises={HERO_PROMISES}
           onNavigate={handleNavigate}
           onShowMenSite={onShowMenSite}
+          onShowWomenSite={onShowWomenSite}
           onSelectSede={handleSelectSede}
         />
         <HumanGuide />

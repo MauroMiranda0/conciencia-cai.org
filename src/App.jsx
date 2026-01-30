@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import HomeView from './views/HomeView.jsx';
 import MenSiteView from './views/MenSiteView.jsx';
+import WomenSiteView from './views/WomenSiteView.jsx';
 import PrivacyModal from './components/PrivacyModal.jsx';
 import ModelModal from './components/ModelModal.jsx';
 import { scrollToHash } from './utils/dom.js';
@@ -12,6 +13,7 @@ const DEFAULT_OFFSET = 92;
 const VIEWS = {
   HOME: 'home',
   MEN: 'men',
+  WOMEN: 'women',
 };
 
 export default function App() {
@@ -29,6 +31,13 @@ export default function App() {
     });
   };
 
+  const showWomenSite = () => {
+    setActiveView(VIEWS.WOMEN);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  };
+
   /**
    * @param {string | undefined} hash
    */
@@ -40,6 +49,10 @@ export default function App() {
     }
     if (hash === '#sede-varonil') {
       showMenSite();
+      return;
+    }
+    if (hash === '#sede-femenil') {
+      showWomenSite();
       return;
     }
     const target = hash === '#inicio' ? '#main' : hash;
@@ -68,10 +81,14 @@ export default function App() {
           onNavigate={handleNavigate}
           onOpenPrivacy={() => setPrivacyOpen(true)}
           onShowMenSite={showMenSite}
+          onShowWomenSite={showWomenSite}
         />
       ) : null}
       {activeView === VIEWS.MEN ? (
         <MenSiteView onNavigate={handleNavigate} onOpenPrivacy={() => setPrivacyOpen(true)} />
+      ) : null}
+      {activeView === VIEWS.WOMEN ? (
+        <WomenSiteView onNavigate={handleNavigate} onOpenPrivacy={() => setPrivacyOpen(true)} />
       ) : null}
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />

@@ -75,6 +75,7 @@ const DEFAULT_SITES = [
  * @property {HeroSite[]} [sites]
  * @property {(target?: string) => void} [onNavigate]
  * @property {() => void} [onShowMenSite]
+ * @property {() => void} [onShowWomenSite]
  * @property {(sede?: string) => void} [onSelectSede]
  */
 
@@ -86,6 +87,7 @@ export default function HeroVista({
   sites = DEFAULT_SITES,
   onNavigate,
   onShowMenSite,
+  onShowWomenSite,
   onSelectSede,
 }) {
   const normalizedPromises =
@@ -109,6 +111,7 @@ export default function HeroVista({
         <HeroCallToActionMen
           site={menSite}
           onShowMenSite={onShowMenSite}
+          onShowWomenSite={onShowWomenSite}
           onSelectSede={onSelectSede}
           onNavigate={onNavigate}
         />
@@ -150,7 +153,12 @@ export default function HeroVista({
           <img src={photoWomen} alt="Proceso terapéutico en la sede femenina" loading="lazy" />
           <figcaption>Sede femenina</figcaption>
         </figure>
-        <HeroCallToActionWomen site={womenSite} onSelectSede={onSelectSede} onNavigate={onNavigate} />
+        <HeroCallToActionWomen
+          site={womenSite}
+          onShowWomenSite={onShowWomenSite}
+          onSelectSede={onSelectSede}
+          onNavigate={onNavigate}
+        />
       </div>
     </div>
   );

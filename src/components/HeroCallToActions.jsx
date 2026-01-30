@@ -14,6 +14,7 @@ import '../styles/components/HeroCallToActions.scss';
  * @typedef {Object} HeroCTACardProps
  * @property {HeroSiteSummary} [site]
  * @property {() => void} [onShowMenSite]
+ * @property {() => void} [onShowWomenSite]
  * @property {(sede?: string) => void} [onSelectSede]
  * @property {(hash?: string) => void} [onNavigate]
  */
@@ -21,17 +22,29 @@ import '../styles/components/HeroCallToActions.scss';
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionCard({ site, onShowMenSite, onSelectSede, onNavigate }) {
+export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onSelectSede, onNavigate }) {
   if (!site) return null;
   /** @type {string[]} */
   const highlights = site.highlights ?? [];
-  const tone = site.tone ?? 'men';
+  const tone = (site.tone ?? 'men').toLowerCase();
+  const normalizedTone = tone;
+  const normalizedSede = (site?.sede ?? '').toLowerCase();
+  const toneMatchesMen = ['men', 'masculina', 'varonil'].includes(normalizedTone);
+  const sedeMatchesMen = ['hombres', 'sede varonil', 'varonil'].includes(normalizedSede);
+  const toneMatchesWomen = ['women', 'femenina', 'femenil'].includes(normalizedTone);
+  const sedeMatchesWomen = ['mujeres', 'sede femenil', 'femenil'].includes(normalizedSede);
 
   const handleClick = () => {
-    const isMenSite = tone === 'men' || site?.sede === 'hombres';
+    const isMenSite = toneMatchesMen || sedeMatchesMen;
     if (isMenSite) {
       onShowMenSite?.();
       onNavigate?.('#sede-varonil');
+      return;
+    }
+    const isWomenSite = toneMatchesWomen || sedeMatchesWomen;
+    if (isWomenSite) {
+      onShowWomenSite?.();
+      onNavigate?.('#sede-femenil');
       return;
     }
     onSelectSede?.(site?.sede ?? tone);
@@ -66,12 +79,19 @@ export function HeroCallToActionCard({ site, onShowMenSite, onSelectSede, onNavi
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionMen({ site, onShowMenSite, onSelectSede, onNavigate }) {
+export function HeroCallToActionMen({ site, onShowMenSite, onShowWomenSite, onSelectSede, onNavigate }) {
+  const normalizedMenSite = {
+    ...(site ?? {}),
+    tone: 'men',
+    sede: site?.sede ?? 'hombres',
+  };
+
   return (
     <div className="hero-call-to-action hero-call-to-action--men">
       <HeroCallToActionCard
-        site={{ tone: 'men', ...(site ?? {}) }}
+        site={normalizedMenSite}
         onShowMenSite={onShowMenSite}
+        onShowWomenSite={onShowWomenSite}
         onSelectSede={onSelectSede}
         onNavigate={onNavigate}
       />
@@ -82,11 +102,18 @@ export function HeroCallToActionMen({ site, onShowMenSite, onSelectSede, onNavig
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionWomen({ site, onSelectSede, onNavigate }) {
+export function HeroCallToActionWomen({ site, onShowWomenSite, onSelectSede, onNavigate }) {
+  const normalizedWomenSite = {
+    ...(site ?? {}),
+    tone: 'women',
+    sede: site?.sede ?? 'mujeres',
+  };
+
   return (
     <div className="hero-call-to-action hero-call-to-action--women">
       <HeroCallToActionCard
-        site={{ tone: 'women', ...(site ?? {}) }}
+        site={normalizedWomenSite}
+        onShowWomenSite={onShowWomenSite}
         onSelectSede={onSelectSede}
         onNavigate={onNavigate}
       />
@@ -98,6 +125,7 @@ export function HeroCallToActionWomen({ site, onSelectSede, onNavigate }) {
  * @typedef {Object} HeroCallToActionsProps
  * @property {HeroSiteSummary[]} [sites]
  * @property {() => void} [onShowMenSite]
+ * @property {() => void} [onShowWomenSite]
  * @property {(sede?: string) => void} [onSelectSede]
  * @property {(hash?: string) => void} [onNavigate]
  */
@@ -105,13 +133,26 @@ export function HeroCallToActionWomen({ site, onSelectSede, onNavigate }) {
 /**
  * @param {HeroCallToActionsProps} props
  */
-export default function HeroCallToActions({ sites = [], onShowMenSite, onSelectSede, onNavigate }) {
+export default function HeroCallToActions({
+  sites = [],
+  onShowMenSite,
+  onShowWomenSite,
+  onSelectSede,
+  onNavigate,
+}) {
   if (!sites.length) return null;
 
   return (
     <div className="hero-call-to-actions hero-vista__sites" aria-label="Sedes especializadas">
       {sites.map((site) => (
-        <HeroCallToActionCard key={site.title} site={site} onShowMenSite={onShowMenSite} onSelectSede={onSelectSede} onNavigate={onNavigate} />
+        <HeroCallToActionCard
+          key={site.title}
+          site={site}
+          onShowMenSite={onShowMenSite}
+          onShowWomenSite={onShowWomenSite}
+          onSelectSede={onSelectSede}
+          onNavigate={onNavigate}
+        />
       ))}
     </div>
   );

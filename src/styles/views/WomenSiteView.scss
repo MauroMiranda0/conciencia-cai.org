@@ -1,0 +1,252 @@
+.women-site {
+  background: linear-gradient(180deg, #fce7f3, #fff 60%);
+  padding: clamp(32px, 6vw, 64px) 0 80px;
+  display: grid;
+  gap: clamp(24px, 5vw, 48px);
+}
+
+.women-card {
+  background: #fff;
+  border: 2px solid #111827;
+  border-radius: 20px;
+  padding: clamp(20px, 3vw, 28px);
+  box-shadow: 4px 4px 0 0 #111827;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 12px;
+}
+
+.women-site__hero {
+  text-align: center;
+}
+
+.women-site__hero-rays {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background: repeating-conic-gradient(from 0deg, rgba(17, 24, 39, 1) 0deg 2deg, transparent 2deg 10deg);
+  pointer-events: none;
+}
+
+.women-site__hero-inner {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.women-site__hero-plus {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: #be185d;
+}
+
+.women-site__hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.women-site__hero p {
+  margin: 0 auto;
+  max-width: 520px;
+  color: #4c0519;
+}
+
+.women-site__intro {
+  text-align: center;
+  display: grid;
+  gap: 16px;
+}
+
+.women-site__intro h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.women-site__intro p {
+  margin: 0 auto;
+  max-width: 640px;
+  color: #7f1d1d;
+}
+
+.btn-sketched--rose {
+  background: #fecdd3;
+  border-color: #be185d;
+  color: #7f1d1d;
+  box-shadow: 4px 4px 0 0 #be185d;
+}
+
+.btn-sketched--rose:hover {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.btn-sketched--outline-rose {
+  background: #fff;
+  border-color: #be185d;
+  color: #be185d;
+  box-shadow: 4px 4px 0 0 #be185d;
+}
+
+.btn-sketched--outline-rose:hover {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.women-site__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.women-site__grid h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.women-site__media {
+  border: 2px solid #111827;
+  border-radius: 12px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  background: #fff7ed;
+  color: #7f1d1d;
+}
+
+.women-site__media--dashed {
+  border-style: dashed;
+  background: #fdf2f8;
+}
+
+.women-site__text {
+  margin: 0;
+  color: #701a75;
+  line-height: 1.5;
+}
+
+.women-site__paragraph {
+  text-align: center;
+}
+
+.women-site__paragraph p {
+  margin: 0 auto;
+  max-width: 620px;
+  color: #4c0519;
+  line-height: 1.6;
+}
+
+.women-site__bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(24px, 4vw, 40px);
+  align-items: start;
+}
+
+.women-site__use-cases {
+  display: grid;
+  gap: 12px;
+}
+
+.women-site__use-cases h2 {
+  margin: 0;
+}
+
+.women-site__use-cases p {
+  margin: 0;
+  color: #7f1d1d;
+}
+
+.women-site__use-cases-media {
+  padding: 24px;
+  min-height: 220px;
+}
+
+.women-site__use-cases-overlay {
+  position: absolute;
+  inset: 16px;
+  opacity: 0.2;
+  background: repeating-linear-gradient(25deg, rgba(17, 24, 39, 1), rgba(17, 24, 39, 1) 1px, transparent 1px, transparent 8px);
+  pointer-events: none;
+}
+
+.women-site__use-cases-circle {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid #111827;
+  background: #fff;
+}
+
+.women-site__use-cases-circle--left {
+  left: 32px;
+  top: 40px;
+}
+
+.women-site__use-cases-circle--right {
+  right: 48px;
+  bottom: 32px;
+}
+
+.women-site__use-cases-media ul {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  color: #581c87;
+}
+
+.women-site__use-cases-media li {
+  font-weight: 600;
+}
+
+.women-site__business {
+  display: grid;
+  gap: 12px;
+}
+
+.women-site__business h2 {
+  margin: 0;
+}
+
+.women-site__business p {
+  margin: 0;
+  color: #6b21a8;
+}
+
+.women-site__form {
+  display: grid;
+  gap: 12px;
+}
+
+.women-site__form input,
+.women-site__form textarea {
+  border: 2px solid #111827;
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  background: #fff;
+}
+
+.women-site__form textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+@media (max-width: 640px) {
+  .women-site {
+    padding-bottom: 48px;
+  }
+
+  .women-site__hero {
+    padding: 24px 18px;
+  }
+}
