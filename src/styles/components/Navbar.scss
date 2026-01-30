@@ -81,15 +81,35 @@
   gap: var(--space-3);
   flex-wrap: wrap;
   justify-content: center;
-}
 
-.navbar__link {
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--color-text);
+  .navbar__link {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease,
+      box-shadow 0.2s ease, background 0.2s ease;
 
-  &:hover {
-    color: var(--accent-color);
+    &:hover {
+      color: var(--accent-color);
+      border-color: rgba(31, 78, 121, 0.4);
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 2px;
+    }
   }
 }
 

@@ -10,19 +10,19 @@ const DATA_TYPES = [
 const PRIMARY_PURPOSES = [
   'Evaluar la situación clínica y emocional del solicitante.',
   'Elaborar expedientes médicos, terapéuticos y administrativos.',
-  'Coordinar admisiones, seguimiento clínico y comunicación con familiares autorizados.',
-  'Cumplir con disposiciones legales y normativas aplicables.',
+  'Coordinación clínica y comunicación con familiares autorizados.',
+  'Cumplimiento de obligaciones legales y regulatorias.',
 ];
 
 const SECONDARY_PURPOSES = [
-  'Enviar información sobre programas, talleres y actualizaciones institucionales.',
-  'Realizar encuestas de satisfacción o estudios estadísticos internos.',
+  'Enviar información sobre programas y actualizaciones.',
+  'Realizar encuestas de satisfacción o estudios internos.',
 ];
 
 const ARCO_STEPS = [
   'Nombre completo y medio para recibir respuesta.',
   'Copia de identificación oficial o poder del representante.',
-  'Descripción clara de los datos o derechos que desea ejercer.',
+  'Descripción clara de los datos o derechos que deseas ejercer.',
 ];
 
 export default function PrivacyModal({ open, onClose }) {
@@ -30,68 +30,68 @@ export default function PrivacyModal({ open, onClose }) {
 
   return (
     <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Aviso de Privacidad">
-      <div className="modal-card modal-card--privacy">
+      <div className="modal-card modal-card--info">
         <header className="modal-card__header">
+          <p className="modal-card__eyebrow">Protección de datos · Conciencia CAI</p>
           <h2>Aviso de Privacidad Integral</h2>
           <p className="modal-card__lede">
-            Responsable: Conciencia CAI, con domicilio en Pachuca, Hidalgo. Protegemos tus datos
-            personales bajo los principios de licitud, consentimiento, información, calidad,
-            finalidad, lealtad, proporcionalidad y responsabilidad.
+            Responsable: Conciencia CAI, con domicilio en Pachuca, Hidalgo. Tratamos tus datos bajo
+            principios de licitud, información, calidad, seguridad y responsabilidad.
           </p>
         </header>
         <div className="modal-card__body">
-          <section className="privacy-block">
-            <h3>Datos personales que podemos solicitar</h3>
+          <section className="modal-card__group">
+            <h3>Datos personales que recabamos</h3>
             <ul>
               {DATA_TYPES.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </section>
-          <section className="privacy-block">
+          <section className="modal-card__group">
             <h3>Finalidades del tratamiento</h3>
-            <p className="privacy-block__label">Primarias:</p>
+            <p className="modal-card__label">Primarias</p>
             <ul>
               {PRIMARY_PURPOSES.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <p className="privacy-block__label">Secundarias:</p>
+            <p className="modal-card__label">Secundarias</p>
             <ul>
               {SECONDARY_PURPOSES.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <p className="privacy-note">
+            <p className="modal-card__note">
               Puedes oponerte a las finalidades secundarias enviando un correo a{' '}
               <a href="mailto:privacidad@conciencia-cai.org">privacidad@conciencia-cai.org</a>.
             </p>
           </section>
-          <section className="privacy-block">
+          <section className="modal-card__group">
             <h3>Transferencias y conservación</h3>
             <p>
-              No transferimos tus datos sin consentimiento, salvo a terceros que colaboran en la
-              prestación de servicios clínicos o cuando lo requiera la autoridad competente. Los
-              expedientes se resguardan con medidas físicas y digitales; se conservan únicamente el
-              tiempo necesario para cumplir las obligaciones legales.
+              No transferimos tus datos sin consentimiento, salvo a proveedores que colaboran en el
+              servicio clínico o cuando lo requiera la autoridad competente. Los expedientes se
+              resguardan con medidas físicas y digitales durante el tiempo necesario para cumplir
+              con las obligaciones legales.
             </p>
           </section>
-          <section className="privacy-block">
+          <section className="modal-card__group">
             <h3>Derechos ARCO y revocación</h3>
             <p>
-              Puedes ejercer tus derechos de Acceso, Rectificación, Cancelación u Oposición, o
-              revocar tu consentimiento enviando una solicitud a{' '}
-              <a href="mailto:privacidad@conciencia-cai.org">privacidad@conciencia-cai.org</a>. Incluye:
+              Envía tu solicitud a{' '}
+              <a href="mailto:privacidad@conciencia-cai.org">privacidad@conciencia-cai.org</a> e
+              incluye:
             </p>
             <ul>
               {ARCO_STEPS.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <p>Responderemos en un máximo de 20 días hábiles.</p>
+            <p className="modal-card__note">Responderemos en un máximo de 20 días hábiles.</p>
           </section>
-          <section className="privacy-block">
-            <h3>Cambios</h3>
+          <section className="modal-card__group">
+            <h3>Cambios al aviso</h3>
             <p>
               Cualquier modificación se publicará en{' '}
               <a href="https://conciencia-cai.org/aviso" target="_blank" rel="noreferrer">

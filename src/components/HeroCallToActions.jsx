@@ -20,7 +20,7 @@ export function HeroCallToActionCard({ site, onContactSite}) {
       <div className="hero-vista__site-actions">
         <button
           type="button"
-          className="btn btn--secondary hero-sites__btn"
+          className="btn btn--primary hero-sites__btn"
           onClick={() => onContactSite?.(site.sede ?? tone)}
         >
           Información de esta sede

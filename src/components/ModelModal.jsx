@@ -61,7 +61,7 @@ export default function ModelModal({ open, onClose }) {
       aria-modal="true"
       aria-label="Modelo Minnesota y 12 Pasos"
     >
-      <div className="modal-card modal-card--model">
+      <div className="modal-card modal-card--info">
         <header className="modal-card__header">
           <p className="modal-card__eyebrow">Modelo Minnesota · Conciencia CAI</p>
           <h2>Guía clínica basada en evidencia y sentido humano</h2>
