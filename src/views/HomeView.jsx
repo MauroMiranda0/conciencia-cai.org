@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar.jsx';
 import HeroGallery from '../components/HeroGallery.jsx';
 import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
+import ContactSection from '../sections/ContactSection.jsx';
 
 const HERO_PROMISES = [
   {
@@ -28,6 +29,7 @@ export default function HomeView({ onNavigate, onOpenPrivacy }) {
       <main id="main" className="home-view__stage" aria-label="Inicio">
         <HeroGallery promises={HERO_PROMISES} />
         <HumanGuide />
+        <ContactSection onOpenPrivacy={onOpenPrivacy} />
       </main>
       <Footer onOpenPrivacy={onOpenPrivacy} />
     </>

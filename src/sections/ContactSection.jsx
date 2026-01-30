@@ -53,21 +53,13 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
     <section className="contact-section" id="contacto" aria-label="Contacto">
       <div className="container contact-section__grid">
         <div className="contact-section__intro reveal">
-          <p className="eyebrow">Dar el primer paso</p>
-          <h2>Dar el primer paso también es parte del proceso</h2>
-          <p>
-            Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo,
-            dudas y cansancio emocional. En <strong>Conciencia CAI</strong>, priorizamos la empatía,
-            la claridad y el trato digno desde el primer contacto.
-          </p>
+          <p className="hero-vista__trust-eyebrow">Dar el primer paso</p>
+          <h2>Es parte del proceso</h2>
           <p className="text-muted">
             Si tú o un familiar están atravesando una situación relacionada con el consumo de
             sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en
             el inicio de un camino real hacia la recuperación.
           </p>
-          <blockquote className="contact-section__quote">
-            <p>Un primer paso, dado con apoyo, puede marcar la diferencia.</p>
-          </blockquote>
         </div>
         <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
           <div className="field">
