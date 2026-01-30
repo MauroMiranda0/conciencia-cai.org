@@ -9,9 +9,21 @@ const INITIAL_STATE = {
   message: '',
 };
 
+/**
+ * @typedef {Object} ContactSectionProps
+ * @property {string} [selectedSede]
+ * @property {(sede: string) => void} [onSelectSede]
+ * @property {() => void} [onOpenPrivacy]
+ */
+
+/**
+ * @param {ContactSectionProps} props
+ */
 export default function ContactSection({ selectedSede, onSelectSede, onOpenPrivacy }) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(
+    /** @type {Record<string, string>} */ ({})
+  );
   const [status, setStatus] = useState('');
 
   useEffect(() => {
@@ -20,12 +32,16 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
     }
   }, [selectedSede]);
 
+  /**
+   * @param {import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
+    /** @type {Record<string, string>} */
     const nextErrors = {};
     if (!formData.name.trim()) nextErrors.name = 'Requerido';
     if (!/^[0-9]{10}$/.test(formData.phone.trim())) nextErrors.phone = 'Ingresa 10 dígitos';
@@ -35,6 +51,12 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
     return nextErrors;
   };
 
+  /**
+   * @param {import('react').FormEvent<HTMLFormElement>} event
+   */
+  /**
+   * @param {import('react').FormEvent<HTMLFormElement>} event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const nextErrors = validate();
@@ -47,6 +69,14 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
       'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.'
     );
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
+  };
+
+  /**
+   * @param {import('react').ChangeEvent<HTMLSelectElement>} event
+   */
+  const handleSedeChange = (event) => {
+    handleChange(event);
+    onSelectSede?.(event.target.value);
   };
 
   return (
@@ -94,15 +124,7 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
           </div>
           <div className="field">
             <label htmlFor="sede">¿A qué sede deseas contactar?</label>
-            <select
-              id="sede"
-              name="sede"
-              value={formData.sede}
-              onChange={(event) => {
-                handleChange(event);
-                onSelectSede?.(event.target.value);
-              }}
-            >
+            <select id="sede" name="sede" value={formData.sede} onChange={handleSedeChange}>
               <option value="">Selecciona una opción</option>
               <option value="mujeres">Sede Femenil</option>
               <option value="hombres">Sede Varonil</option>

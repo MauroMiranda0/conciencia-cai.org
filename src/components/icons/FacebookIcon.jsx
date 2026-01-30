@@ -1,3 +1,6 @@
+/**
+ * @param {import('react').SVGProps<SVGSVGElement>} props
+ */
 export default function FacebookIcon(props) {
   return (
     <svg viewBox="0 0 24 24" role="img" aria-hidden="true" {...props}>

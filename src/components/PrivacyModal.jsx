@@ -25,6 +25,15 @@ const ARCO_STEPS = [
   'Descripción clara de los datos o derechos que deseas ejercer.',
 ];
 
+/**
+ * @typedef {Object} PrivacyModalProps
+ * @property {boolean} [open]
+ * @property {() => void} [onClose]
+ */
+
+/**
+ * @param {PrivacyModalProps} props
+ */
 export default function PrivacyModal({ open, onClose }) {
   if (!open) return null;
 

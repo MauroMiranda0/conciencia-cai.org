@@ -11,15 +11,31 @@ const INFO_LINKS = [
   { href: '#sedes', label: 'Sedes en Pachuca' },
 ];
 
+/**
+ * @typedef {Object} FooterProps
+ * @property {() => void} [onOpenPrivacy]
+ * @property {(hash?: string) => void} [onNavigate]
+ */
+
+/**
+ * @param {FooterProps} props
+ */
 export default function Footer({ onOpenPrivacy, onNavigate }) {
   const [emailValue, setEmailValue] = useState('');
   const [status, setStatus] = useState('');
 
-  const handleNavigate = (event, hash) => {
+  /**
+   * @param {string} hash
+   * @param {import('react').MouseEvent<HTMLAnchorElement | HTMLButtonElement>} [event]
+   */
+  const handleNavigate = (hash, event) => {
     event?.preventDefault();
     onNavigate?.(hash);
   };
 
+  /**
+   * @param {import('react').FormEvent<HTMLFormElement>} event
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!emailValue.trim()) {
@@ -35,7 +51,7 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
       <div className="footer-content">
         <div className="container footer-grid">
           <div className="footer-col footer-contact">
-            <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
+            <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate('#inicio', event)}>
               <span className="nav__logo-group">
                 <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
               </span>
@@ -71,7 +87,7 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
             <ul>
               {INFO_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} onClick={(event) => handleNavigate(event, link.href)}>
+                  <a href={link.href} onClick={(event) => handleNavigate(link.href, event)}>
                     {link.label}
                   </a>
                 </li>

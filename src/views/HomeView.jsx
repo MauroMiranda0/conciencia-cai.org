@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
-import HeroGallery from '../components/HeroGallery.jsx';
+import HeroVista from '../components/HeroVista.jsx';
 import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
@@ -23,10 +23,23 @@ const HERO_PROMISES = [
 
 const SCROLL_OFFSET = 92;
 
-export default function HomeView({ onNavigate, onOpenPrivacy, onViewSedeDetail }) {
+/**
+ * @typedef {Object} HomeViewProps
+ * @property {(hash?: string) => void} [onNavigate]
+ * @property {() => void} [onOpenPrivacy]
+ * @property {() => void} [onShowMenSite]
+ */
+
+/**
+ * @param {HomeViewProps} props
+ */
+export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite }) {
   const [selectedSede, setSelectedSede] = useState('');
 
   const handleNavigate = useCallback(
+    /**
+     * @param {string | undefined} target
+     */
     (target) => {
       if (!target) return;
       if (onNavigate) {
@@ -42,9 +55,15 @@ export default function HomeView({ onNavigate, onOpenPrivacy, onViewSedeDetail }
     onOpenPrivacy?.();
   }, [onOpenPrivacy]);
 
-  const handleSelectSede = useCallback((sede) => {
-    setSelectedSede(sede ?? '');
-  }, []);
+  const handleSelectSede = useCallback(
+    /**
+     * @param {string} [sede]
+     */
+    (sede) => {
+      setSelectedSede(sede ?? '');
+    },
+    []
+  );
 
   return (
     <>
@@ -53,7 +72,12 @@ export default function HomeView({ onNavigate, onOpenPrivacy, onViewSedeDetail }
       </a>
       <Navbar onNavigate={handleNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
-        <HeroGallery promises={HERO_PROMISES} onNavigate={handleNavigate} onViewSedeDetail={onViewSedeDetail} />
+        <HeroVista
+          promises={HERO_PROMISES}
+          onNavigate={handleNavigate}
+          onShowMenSite={onShowMenSite}
+          onSelectSede={handleSelectSede}
+        />
         <HumanGuide />
         <ContactSection
           selectedSede={selectedSede}

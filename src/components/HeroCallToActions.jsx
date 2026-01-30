@@ -1,9 +1,42 @@
 import '../styles/components/HeroCallToActions.scss';
 
-export function HeroCallToActionCard({ site, onViewSedeDetail }) {
+/**
+ * @typedef {Object} HeroSiteSummary
+ * @property {string} [focus]
+ * @property {string} [title]
+ * @property {string} [description]
+ * @property {'men' | 'women' | string} [tone]
+ * @property {string} [sede]
+ * @property {string[]} [highlights]
+ */
+
+/**
+ * @typedef {Object} HeroCTACardProps
+ * @property {HeroSiteSummary} [site]
+ * @property {() => void} [onShowMenSite]
+ * @property {(sede?: string) => void} [onSelectSede]
+ * @property {(hash?: string) => void} [onNavigate]
+ */
+
+/**
+ * @param {HeroCTACardProps} props
+ */
+export function HeroCallToActionCard({ site, onShowMenSite, onSelectSede, onNavigate }) {
   if (!site) return null;
+  /** @type {string[]} */
   const highlights = site.highlights ?? [];
   const tone = site.tone ?? 'men';
+
+  const handleClick = () => {
+    const isMenSite = tone === 'men' || site?.sede === 'hombres';
+    if (isMenSite) {
+      onShowMenSite?.();
+      onNavigate?.('#sede-varonil');
+      return;
+    }
+    onSelectSede?.(site?.sede ?? tone);
+    onNavigate?.('#contacto');
+  };
 
   return (
     <article className={`hero-vista__site-card hero-vista__site-card--${tone}`}>
@@ -21,7 +54,7 @@ export function HeroCallToActionCard({ site, onViewSedeDetail }) {
         <button
           type="button"
           className="btn btn--primary hero-sites__btn"
-          onClick={() => onViewSedeDetail?.(site)}
+          onClick={handleClick}
         >
           Información de esta sede
         </button>
@@ -30,29 +63,55 @@ export function HeroCallToActionCard({ site, onViewSedeDetail }) {
   );
 }
 
-export function HeroCallToActionMen({ site, onViewSedeDetail }) {
+/**
+ * @param {HeroCTACardProps} props
+ */
+export function HeroCallToActionMen({ site, onShowMenSite, onSelectSede, onNavigate }) {
   return (
     <div className="hero-call-to-action hero-call-to-action--men">
-      <HeroCallToActionCard site={{ tone: 'men', ...(site ?? {}) }} onViewSedeDetail={onViewSedeDetail} />
+      <HeroCallToActionCard
+        site={{ tone: 'men', ...(site ?? {}) }}
+        onShowMenSite={onShowMenSite}
+        onSelectSede={onSelectSede}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 }
 
-export function HeroCallToActionWomen({ site, onViewSedeDetail }) {
+/**
+ * @param {HeroCTACardProps} props
+ */
+export function HeroCallToActionWomen({ site, onSelectSede, onNavigate }) {
   return (
     <div className="hero-call-to-action hero-call-to-action--women">
-      <HeroCallToActionCard site={{ tone: 'women', ...(site ?? {}) }} onViewSedeDetail={onViewSedeDetail} />
+      <HeroCallToActionCard
+        site={{ tone: 'women', ...(site ?? {}) }}
+        onSelectSede={onSelectSede}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 }
 
-export default function HeroCallToActions({ sites = [], onViewSedeDetail }) {
+/**
+ * @typedef {Object} HeroCallToActionsProps
+ * @property {HeroSiteSummary[]} [sites]
+ * @property {() => void} [onShowMenSite]
+ * @property {(sede?: string) => void} [onSelectSede]
+ * @property {(hash?: string) => void} [onNavigate]
+ */
+
+/**
+ * @param {HeroCallToActionsProps} props
+ */
+export default function HeroCallToActions({ sites = [], onShowMenSite, onSelectSede, onNavigate }) {
   if (!sites.length) return null;
 
   return (
     <div className="hero-call-to-actions hero-vista__sites" aria-label="Sedes especializadas">
       {sites.map((site) => (
-        <HeroCallToActionCard key={site.title} site={site} onViewSedeDetail={onViewSedeDetail} />
+        <HeroCallToActionCard key={site.title} site={site} onShowMenSite={onShowMenSite} onSelectSede={onSelectSede} onNavigate={onNavigate} />
       ))}
     </div>
   );

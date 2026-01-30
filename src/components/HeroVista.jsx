@@ -6,7 +6,7 @@ import {
   HeroCallToActionWomen,
 } from './HeroCallToActions.jsx';
 
-import '../styles/components/HeroGallery.scss';
+import '../styles/components/HeroVista.scss';
 
 const DEFAULT_PROMISES = [
   {
@@ -54,27 +54,49 @@ const DEFAULT_SITES = [
 ];
 
 /**
- * HeroGallery
- * - Props: `promises` (array [{ title, description }]).
- * - `sites` (array para HeroCallToActions).
- * - Reemplaza los assets en heroAssets.js cuando tengas fotografías reales.
+ * @typedef {Object} HeroPromise
+ * @property {string} [title]
+ * @property {string} [description]
  */
-export default function HeroGallery({
+
+/**
+ * @typedef {Object} HeroSite
+ * @property {string} [focus]
+ * @property {string} [title]
+ * @property {string} [description]
+ * @property {'men' | 'women' | string} [tone]
+ * @property {string} [sede]
+ * @property {string[]} [highlights]
+ */
+
+/**
+ * @typedef {Object} HeroVistaProps
+ * @property {HeroPromise[]} [promises]
+ * @property {HeroSite[]} [sites]
+ * @property {(target?: string) => void} [onNavigate]
+ * @property {() => void} [onShowMenSite]
+ * @property {(sede?: string) => void} [onSelectSede]
+ */
+
+/**
+ * @param {HeroVistaProps} props
+ */
+export default function HeroVista({
   promises = DEFAULT_PROMISES,
   sites = DEFAULT_SITES,
   onNavigate,
-  onViewSedeDetail,
+  onShowMenSite,
+  onSelectSede,
 }) {
-  const menSite = sites.find((site) => site.tone === 'men') ?? sites[0];
+  const normalizedPromises =
+    Array.isArray(promises) && promises.length > 0 ? promises : DEFAULT_PROMISES;
+  const normalizedSites = Array.isArray(sites) && sites.length > 0 ? sites : DEFAULT_SITES;
+  const fallbackSite = normalizedSites[0] ?? DEFAULT_SITES[0];
+  const menSite = normalizedSites.find((site) => site.tone === 'men') ?? fallbackSite;
   const womenSite =
-    sites.find((site) => site.tone === 'women') ??
-    sites.find((site) => site !== menSite) ??
-    sites[1];
-
-  const handleViewSedeDetail = (site) => {
-    if (!site) return;
-    onViewSedeDetail?.(site);
-  };
+    normalizedSites.find((site) => site.tone === 'women') ??
+    normalizedSites.find((site) => site !== menSite) ??
+    fallbackSite;
 
   return (
     <div className="hero-vista__gallery" aria-label="Espacios de internamiento">
@@ -84,7 +106,12 @@ export default function HeroGallery({
           <img src={photoMen} alt="Atención profesional en la sede masculina" loading="lazy" />
           <figcaption>Sede masculina</figcaption>
         </figure>
-        <HeroCallToActionMen site={menSite} onViewSedeDetail={handleViewSedeDetail} />
+        <HeroCallToActionMen
+          site={menSite}
+          onShowMenSite={onShowMenSite}
+          onSelectSede={onSelectSede}
+          onNavigate={onNavigate}
+        />
       </div>
 
       <div>
@@ -95,12 +122,19 @@ export default function HeroGallery({
             psicología y espiritualidad para acompañar cada etapa.
           </p>
           <ul role="list">
-            {promises.map((promise) => (
-              <li key={promise.title}>
-                <strong>{promise.title}</strong>
-                <span>{promise.description}</span>
-              </li>
-            ))}
+            {normalizedPromises.map((promise, index) => {
+              const promiseKey =
+                promise?.title?.length ? `${promise.title}-${index}` : `promise-${index}`;
+              const title = promise?.title ?? '';
+              const description = promise?.description ?? '';
+
+              return (
+                <li key={promiseKey}>
+                  <strong>{title}</strong>
+                  <span>{description}</span>
+                </li>
+              );
+            })}
           </ul>
           <figure className="hero-vista__diagram">
             <img
@@ -116,7 +150,7 @@ export default function HeroGallery({
           <img src={photoWomen} alt="Proceso terapéutico en la sede femenina" loading="lazy" />
           <figcaption>Sede femenina</figcaption>
         </figure>
-        <HeroCallToActionWomen site={womenSite} onViewSedeDetail={handleViewSedeDetail} />
+        <HeroCallToActionWomen site={womenSite} onSelectSede={onSelectSede} onNavigate={onNavigate} />
       </div>
     </div>
   );

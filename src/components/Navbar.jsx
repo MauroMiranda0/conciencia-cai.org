@@ -8,9 +8,21 @@ const SOCIAL_LINKS = [
   { href: 'https://www.instagram.com/', label: 'Instagram', icon: 'instagram' },
 ];
 
+/**
+ * @typedef {Object} NavbarProps
+ * @property {(hash?: string) => void} [onNavigate]
+ */
+
+/**
+ * @param {NavbarProps} props
+ */
 export default function Navbar({ onNavigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /**
+   * @param {import('react').MouseEvent<HTMLAnchorElement | HTMLButtonElement> | null} event
+   * @param {string} hash
+   */
   const handleNavigate = (event, hash) => {
     event?.preventDefault();
     setMenuOpen(false);

@@ -2,6 +2,14 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import '../styles/views/MenSiteView.scss';
 
+/**
+ * @typedef {Object} MenSiteFeature
+ * @property {string} title
+ * @property {string} content
+ * @property {'media' | undefined} [type]
+ */
+
+/** @type {MenSiteFeature[]} */
 const HERO_FEATURES = [
   {
     title: 'Capital terapéutico que crece',
@@ -18,6 +26,7 @@ const HERO_FEATURES = [
   },
 ];
 
+/** @type {MenSiteFeature[]} */
 const SECOND_FEATURES = [
   {
     title: 'Reintegración paulatina',
@@ -34,11 +43,23 @@ const SECOND_FEATURES = [
   },
 ];
 
+/**
+ * @typedef {Object} MenSiteViewProps
+ * @property {(hash?: string) => void} [onNavigate]
+ * @property {() => void} [onOpenPrivacy]
+ */
+
+/**
+ * @param {MenSiteViewProps} props
+ */
 export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
   const handleCTA = () => {
     onNavigate?.('#contacto');
   };
 
+  /**
+   * @param {import('react').FormEvent<HTMLFormElement>} event
+   */
   const handleBusinessSubmit = (event) => {
     event.preventDefault();
     onNavigate?.('#contacto');

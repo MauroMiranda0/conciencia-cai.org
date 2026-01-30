@@ -18,12 +18,28 @@ export default function App() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
   const [activeView, setActiveView] = useState(VIEWS.HOME);
-  const [pendingHash, setPendingHash] = useState(null);
+  const [pendingHash, setPendingHash] = useState(
+    /** @type {string | null} */ (null)
+  );
 
+  const showMenSite = () => {
+    setActiveView(VIEWS.MEN);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  };
+
+  /**
+   * @param {string | undefined} hash
+   */
   const handleNavigate = (hash) => {
     if (!hash) return;
     if (hash === '#metodo') {
       setModelOpen(true);
+      return;
+    }
+    if (hash === '#sede-varonil') {
+      showMenSite();
       return;
     }
     const target = hash === '#inicio' ? '#main' : hash;
@@ -45,23 +61,13 @@ export default function App() {
     }
   }, [activeView, pendingHash]);
 
-  const handleViewSedeDetail = (site) => {
-    const tone = site?.tone ?? site?.sede ?? '';
-    if (tone === 'men' || tone === 'hombres') {
-      setActiveView(VIEWS.MEN);
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  };
-
   return (
     <>
       {activeView === VIEWS.HOME ? (
         <HomeView
           onNavigate={handleNavigate}
           onOpenPrivacy={() => setPrivacyOpen(true)}
-          onViewSedeDetail={handleViewSedeDetail}
+          onShowMenSite={showMenSite}
         />
       ) : null}
       {activeView === VIEWS.MEN ? (

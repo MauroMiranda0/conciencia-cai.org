@@ -51,6 +51,15 @@ const PRACTICES = [
 
 const DOWNLOAD_PATH = '/docs/modelo-minnesota.pdf';
 
+/**
+ * @typedef {Object} ModelModalProps
+ * @property {boolean} [open]
+ * @property {() => void} [onClose]
+ */
+
+/**
+ * @param {ModelModalProps} props
+ */
 export default function ModelModal({ open, onClose }) {
   if (!open) return null;
 
