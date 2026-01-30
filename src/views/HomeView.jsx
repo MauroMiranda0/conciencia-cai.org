@@ -1,8 +1,10 @@
+import { useCallback, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import HeroGallery from '../components/HeroGallery.jsx';
 import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
+import { scrollToHash } from '../utils/dom.js';
 
 const HERO_PROMISES = [
   {
@@ -19,19 +21,51 @@ const HERO_PROMISES = [
   },
 ];
 
+const SCROLL_OFFSET = 92;
+
 export default function HomeView({ onNavigate, onOpenPrivacy }) {
+  const [selectedSede, setSelectedSede] = useState('');
+
+  const handleNavigate = useCallback(
+    (target) => {
+      if (!target) return;
+      if (onNavigate) {
+        onNavigate(target);
+        return;
+      }
+      scrollToHash(target, SCROLL_OFFSET);
+    },
+    [onNavigate]
+  );
+
+  const handleOpenPrivacy = useCallback(() => {
+    onOpenPrivacy?.();
+  }, [onOpenPrivacy]);
+
+  const handleSelectSede = useCallback((sede) => {
+    setSelectedSede(sede ?? '');
+  }, []);
+
   return (
     <>
       <a href="#main" className="skip-link">
         Saltar al contenido
       </a>
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={handleNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
-        <HeroGallery promises={HERO_PROMISES} />
+        <HeroGallery
+          promises={HERO_PROMISES}
+          onNavigate={handleNavigate}
+          onSelectSede={handleSelectSede}
+        />
         <HumanGuide />
-        <ContactSection onOpenPrivacy={onOpenPrivacy} />
+        <ContactSection
+          selectedSede={selectedSede}
+          onSelectSede={handleSelectSede}
+          onOpenPrivacy={handleOpenPrivacy}
+        />
       </main>
-      <Footer onOpenPrivacy={onOpenPrivacy} />
+      <Footer onOpenPrivacy={handleOpenPrivacy} onNavigate={handleNavigate} />
     </>
   );
 }

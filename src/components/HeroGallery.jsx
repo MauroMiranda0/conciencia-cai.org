@@ -63,6 +63,7 @@ export default function HeroGallery({
   promises = DEFAULT_PROMISES,
   sites = DEFAULT_SITES,
   onNavigate,
+  onSelectSede,
 }) {
   const menSite = sites.find((site) => site.tone === 'men') ?? sites[0];
   const womenSite =
@@ -70,7 +71,10 @@ export default function HeroGallery({
     sites.find((site) => site !== menSite) ??
     sites[1];
 
-  const handleContactSite = () => {
+  const handleContactSite = (sede) => {
+    if (sede) {
+      onSelectSede?.(sede);
+    }
     onNavigate?.('#contacto');
   };
 
