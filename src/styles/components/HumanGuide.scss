@@ -10,10 +10,6 @@
   z-index: 1;
 
   .container {
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: 28px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
     padding: clamp(32px, 5vw, 64px);
     display: grid;
     gap: clamp(16px, 3vw, 32px);
