@@ -32,8 +32,7 @@ export default function PrivacyModal({ open, onClose }) {
     <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Aviso de Privacidad">
       <div className="modal-card modal-card--privacy">
         <header className="modal-card__header">
-          <p className="eyebrow">Aviso de Privacidad Integral</p>
-          <h2>Conciencia CAI · Centro de Atención Integral</h2>
+          <h2>Aviso de Privacidad Integral</h2>
           <p className="modal-card__lede">
             Responsable: Conciencia CAI, con domicilio en Pachuca, Hidalgo. Protegemos tus datos
             personales bajo los principios de licitud, consentimiento, información, calidad,

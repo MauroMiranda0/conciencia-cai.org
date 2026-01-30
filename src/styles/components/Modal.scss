@@ -32,6 +32,14 @@
   }
 }
 
+.eyebrow p{
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  letter-spacing: 1.2px;
+}
+
 .modal-card__lede {
   margin: 0;
   color: var(--color-muted);
