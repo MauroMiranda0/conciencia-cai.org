@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import logoAzul from '../assets/brand/logoAzul.jpg';
 import logoRosa from '../assets/brand/logoRosa.jpg';
 import '../styles/components/Navbar.scss';
@@ -13,50 +14,52 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Navbar({ onNavigate }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNavigate = (event, hash) => {
+    event?.preventDefault();
+    setMenuOpen(false);
+    onNavigate?.(hash);
+  };
+
   return (
     <header className="navbar" role="banner">
-      <div className="navbar__inner">
-        <div className="navbar__brand">
-          <div className="navbar__logos">
-            <LogoCard src={logoAzul} alt="CON-CIENCIA Varonil" />
-            <div className="navbar__copy">
-              <p className="navbar__title">Centro de Atención Integral de las Adicciones</p>
-            </div>
-            <LogoCard src={logoRosa} alt="CON-CIENCIA Femenil" />
-          </div>
-        </div>
-        <div className="navbar__actions">
-          <nav aria-label="Navegación principal" className="navbar__nav">
-            {LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onNavigate?.(link.href);
-                }}
-                className="navbar__link"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="navbar__cta-group">
+      <nav className="nav container">
+        <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
+          <span className="nav__logo-group">
+            <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
+            <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
+          </span>
+          <span className="nav__logo-copy">
+            <span>Conciencia CAI</span>
+            <small>Centro de Atención Integral de las Adicciones</small>
+          </span>
+        </a>
+
+        <div className={`nav__menu ${menuOpen ? 'nav__menu--open' : ''}`} id="nav-menu">
+          
+          <div className="nav__buttons">
             <button
               type="button"
-              className="btn btn--primary navbar__cta"
-              onClick={() => onNavigate?.('#contacto')}
+              className="nav__button-link"
+              onClick={() => handleNavigate(null, '#metodo')}
             >
-              Línea de apoyo 24/7
+              Modelo Minnesota
             </button>
-            <p className="navbar__cta-note">Escucha confidencial con especialistas clínicos.</p>
+            <button
+              type="button"
+              className="nav__button-ghost"
+              onClick={() => handleNavigate(null, '#contacto')}
+            >
+              Agenda tu valoración
+            </button>
           </div>
-          <div className="navbar__social" aria-label="Redes sociales">
+          <div className="nav__social" aria-label="Redes sociales">
             {SOCIAL_LINKS.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
-                className="navbar__social-link"
+                className="nav__social-link"
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Visitar ${social.label}`}
@@ -65,17 +68,31 @@ export default function Navbar({ onNavigate }) {
               </a>
             ))}
           </div>
+          <button
+            type="button"
+            className="nav__close"
+            id="nav-close"
+            aria-label="Cerrar menú"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span />
+            <span />
+          </button>
         </div>
-      </div>
-    </header>
-  );
-}
 
-function LogoCard({ src, alt }) {
-  return (
-    <div className="navbar__logo-card">
-      <img src={src} alt={alt} loading="lazy" decoding="async" />
-    </div>
+        <button
+          type="button"
+          className="nav__toggle"
+          id="nav-toggle"
+          aria-label="Abrir menú"
+          onClick={() => setMenuOpen(true)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </nav>
+    </header>
   );
 }
 
