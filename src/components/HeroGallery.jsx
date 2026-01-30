@@ -63,7 +63,7 @@ export default function HeroGallery({
   promises = DEFAULT_PROMISES,
   sites = DEFAULT_SITES,
   onNavigate,
-  onSelectSede,
+  onViewSedeDetail,
 }) {
   const menSite = sites.find((site) => site.tone === 'men') ?? sites[0];
   const womenSite =
@@ -71,15 +71,9 @@ export default function HeroGallery({
     sites.find((site) => site !== menSite) ??
     sites[1];
 
-  const handleContactSite = (sede) => {
-    if (sede) {
-      onSelectSede?.(sede);
-    }
-    onNavigate?.('#contacto');
-  };
-
-  const handleViewSede = () => {
-    onNavigate?.('#sedes');
+  const handleViewSedeDetail = (site) => {
+    if (!site) return;
+    onViewSedeDetail?.(site);
   };
 
   return (
@@ -90,11 +84,7 @@ export default function HeroGallery({
           <img src={photoMen} alt="Atención profesional en la sede masculina" loading="lazy" />
           <figcaption>Sede masculina</figcaption>
         </figure>
-        <HeroCallToActionMen
-          site={menSite}
-          onContactSite={handleContactSite}
-          onViewSede={handleViewSede}
-        />
+        <HeroCallToActionMen site={menSite} onViewSedeDetail={handleViewSedeDetail} />
       </div>
 
       <div>
@@ -126,11 +116,7 @@ export default function HeroGallery({
           <img src={photoWomen} alt="Proceso terapéutico en la sede femenina" loading="lazy" />
           <figcaption>Sede femenina</figcaption>
         </figure>
-        <HeroCallToActionWomen
-          site={womenSite}
-          onContactSite={handleContactSite}
-          onViewSede={handleViewSede}
-        />
+        <HeroCallToActionWomen site={womenSite} onViewSedeDetail={handleViewSedeDetail} />
       </div>
     </div>
   );

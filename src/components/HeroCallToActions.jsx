@@ -1,6 +1,6 @@
 import '../styles/components/HeroCallToActions.scss';
 
-export function HeroCallToActionCard({ site, onContactSite}) {
+export function HeroCallToActionCard({ site, onViewSedeDetail }) {
   if (!site) return null;
   const highlights = site.highlights ?? [];
   const tone = site.tone ?? 'men';
@@ -21,7 +21,7 @@ export function HeroCallToActionCard({ site, onContactSite}) {
         <button
           type="button"
           className="btn btn--primary hero-sites__btn"
-          onClick={() => onContactSite?.(site.sede ?? tone)}
+          onClick={() => onViewSedeDetail?.(site)}
         >
           Información de esta sede
         </button>
@@ -30,42 +30,29 @@ export function HeroCallToActionCard({ site, onContactSite}) {
   );
 }
 
-export function HeroCallToActionMen({ site, onContactSite, onViewSede }) {
+export function HeroCallToActionMen({ site, onViewSedeDetail }) {
   return (
     <div className="hero-call-to-action hero-call-to-action--men">
-      <HeroCallToActionCard
-        site={{ tone: 'men', ...(site ?? {}) }}
-        onContactSite={onContactSite}
-        onViewSede={onViewSede}
-      />
+      <HeroCallToActionCard site={{ tone: 'men', ...(site ?? {}) }} onViewSedeDetail={onViewSedeDetail} />
     </div>
   );
 }
 
-export function HeroCallToActionWomen({ site, onContactSite, onViewSede }) {
+export function HeroCallToActionWomen({ site, onViewSedeDetail }) {
   return (
     <div className="hero-call-to-action hero-call-to-action--women">
-      <HeroCallToActionCard
-        site={{ tone: 'women', ...(site ?? {}) }}
-        onContactSite={onContactSite}
-        onViewSede={onViewSede}
-      />
+      <HeroCallToActionCard site={{ tone: 'women', ...(site ?? {}) }} onViewSedeDetail={onViewSedeDetail} />
     </div>
   );
 }
 
-export default function HeroCallToActions({ sites = [], onContactSite, onViewSede }) {
+export default function HeroCallToActions({ sites = [], onViewSedeDetail }) {
   if (!sites.length) return null;
 
   return (
     <div className="hero-call-to-actions hero-vista__sites" aria-label="Sedes especializadas">
       {sites.map((site) => (
-        <HeroCallToActionCard
-          key={site.title}
-          site={site}
-          onContactSite={onContactSite}
-          onViewSede={onViewSede}
-        />
+        <HeroCallToActionCard key={site.title} site={site} onViewSedeDetail={onViewSedeDetail} />
       ))}
     </div>
   );

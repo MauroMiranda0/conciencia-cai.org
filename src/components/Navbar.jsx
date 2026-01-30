@@ -3,11 +3,6 @@ import logoAzul from '../assets/brand/logoAzul.jpg';
 import logoRosa from '../assets/brand/logoRosa.jpg';
 import '../styles/components/Navbar.scss';
 
-const LINKS = [
-  { href: '#metodo', label: 'Modelo' },
-  { href: '#contacto', label: 'Valoración' },
-];
-
 const SOCIAL_LINKS = [
   { href: 'https://www.facebook.com/', label: 'Facebook', icon: 'facebook' },
   { href: 'https://www.instagram.com/', label: 'Instagram', icon: 'instagram' },

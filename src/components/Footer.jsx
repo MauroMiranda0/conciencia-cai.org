@@ -50,10 +50,6 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
               </span>
             </a>
             <p className="footer-detail">
-              <LocationIcon />
-              Boulevard Luis Donaldo Colosio 137, Pachuca, Hidalgo.
-            </p>
-            <p className="footer-detail">
               <MailIcon />
               <a href="mailto:contacto@conciencia-cai.org">contacto@conciencia-cai.org</a>
             </p>
@@ -112,14 +108,6 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
       </div>
       <div className="footer-copyright">© {new Date().getFullYear()} Conciencia CAI. Todos los derechos reservados.</div>
     </footer>
-  );
-}
-
-function LocationIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2a7 7 0 0 0-7 7c0 4.3 5.7 11.4 6.1 11.8.5.6 1.3.6 1.8 0 .4-.4 6.1-7.5 6.1-11.8a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
-    </svg>
   );
 }
 

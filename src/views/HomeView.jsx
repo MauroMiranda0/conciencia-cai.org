@@ -23,7 +23,7 @@ const HERO_PROMISES = [
 
 const SCROLL_OFFSET = 92;
 
-export default function HomeView({ onNavigate, onOpenPrivacy }) {
+export default function HomeView({ onNavigate, onOpenPrivacy, onViewSedeDetail }) {
   const [selectedSede, setSelectedSede] = useState('');
 
   const handleNavigate = useCallback(
@@ -53,11 +53,7 @@ export default function HomeView({ onNavigate, onOpenPrivacy }) {
       </a>
       <Navbar onNavigate={handleNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
-        <HeroGallery
-          promises={HERO_PROMISES}
-          onNavigate={handleNavigate}
-          onSelectSede={handleSelectSede}
-        />
+        <HeroGallery promises={HERO_PROMISES} onNavigate={handleNavigate} onViewSedeDetail={onViewSedeDetail} />
         <HumanGuide />
         <ContactSection
           selectedSede={selectedSede}
