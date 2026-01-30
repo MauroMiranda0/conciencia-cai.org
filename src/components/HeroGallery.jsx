@@ -96,7 +96,6 @@ export default function HeroGallery({
       <div>
         <article className="hero-vista__trust-card">
           <p className="hero-vista__trust-eyebrow">Modelo terapéutico</p>
-          <h3>Guía clínica con sentido humano</h3>
           <p>
             Nuestro Modelo Minnesota, integrado al Programa de 12 Pasos, combina ciencia médica,
             psicología y espiritualidad para acompañar cada etapa.

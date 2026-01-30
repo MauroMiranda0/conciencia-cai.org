@@ -1,0 +1,47 @@
+.hero-vista__human-guide {
+  padding: clamp(48px, 8vw, 96px) 0;
+
+  .container {
+    padding: clamp(32px, 5vw, 64px);
+    display: grid;
+    gap: clamp(16px, 3vw, 32px);
+  }
+}
+
+.human-guide__header {
+  text-align: left;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--accent-color);
+  }
+}
+
+.human-guide__content {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 28px);
+  font-size: 1.05rem;
+  color: var(--color-muted);
+}
+
+.human-guide__intro {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+
+  strong {
+    color: var(--accent-color);
+  }
+}
+
+.human-guide__description {
+  margin: 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .hero-vista__human-guide .container {
+    padding: 24px;
+  }
+}

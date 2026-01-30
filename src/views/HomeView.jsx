@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar.jsx';
 import HeroGallery from '../components/HeroGallery.jsx';
+import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 
 const HERO_PROMISES = [
@@ -25,7 +26,8 @@ export default function HomeView({ onNavigate, onOpenPrivacy }) {
       </a>
       <Navbar onNavigate={onNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
-          <HeroGallery promises={HERO_PROMISES} />
+        <HeroGallery promises={HERO_PROMISES} />
+        <HumanGuide />
       </main>
       <Footer onOpenPrivacy={onOpenPrivacy} />
     </>
