@@ -28,16 +28,20 @@ export default function Navbar({ onNavigate }) {
         <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
           <span className="nav__logo-group">
             <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
-            <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
           </span>
+
           <span className="nav__logo-copy">
             <span>Conciencia CAI</span>
             <small>Centro de Atención Integral de las Adicciones</small>
           </span>
+
+          <span className="nav__logo-group">
+            <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
+          </span>
         </a>
 
         <div className={`nav__menu ${menuOpen ? 'nav__menu--open' : ''}`} id="nav-menu">
-          
+
           <div className="nav__buttons">
             <button
               type="button"

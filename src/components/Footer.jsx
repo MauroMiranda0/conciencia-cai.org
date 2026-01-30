@@ -35,15 +35,19 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
       <div className="footer-content">
         <div className="container footer-grid">
           <div className="footer-col footer-contact">
-            <a href="#inicio" className="footer-logo" onClick={(event) => handleNavigate(event, '#inicio')}>
-              <div className="footer-logo__group">
-                <img src={logoAzul} alt="Conciencia CAI Varonil" loading="lazy" />
-                <img src={logoRosa} alt="Conciencia CAI Femenil" loading="lazy" />
-              </div>
-              <div className="footer-logo__copy">
+            <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
+              <span className="nav__logo-group">
+                <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
+              </span>
+
+              <span className="nav__logo-copy">
                 <span>Conciencia CAI</span>
                 <small>Centro de Atención Integral de las Adicciones</small>
-              </div>
+              </span>
+
+              <span className="nav__logo-group">
+                <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
+              </span>
             </a>
             <p className="footer-detail">
               <LocationIcon />
