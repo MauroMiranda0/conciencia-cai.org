@@ -56,4 +56,10 @@
   .hero-vista__human-guide .container {
     padding: 24px;
   }
+
+  .hero-vista__human-guide {
+    min-height: auto;
+    margin-top: -24px;
+    margin-bottom: -32px;
+  }
 }

@@ -3,6 +3,8 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: clamp(24px, 4vw, 48px);
   align-items: start;
+  width: min(1200px, 100%);
+  margin: 0 auto;
 }
 
 .hero-vista__gallery > * {
@@ -61,6 +63,33 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.55), transparent 60%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-vista__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-vista__container {
+    width: 100%;
+  }
+
+  .hero-vista__media--men,
+  .hero-vista__media--women {
+    width: 100%;
+    margin: 0;
+    height: clamp(280px, 45vw, 380px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-vista__gallery {
+    gap: 24px;
+  }
+
+  .hero-vista__trust-card {
+    padding: 20px;
   }
 }
 
