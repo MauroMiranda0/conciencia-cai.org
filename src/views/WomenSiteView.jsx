@@ -1,7 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
+import womenCareRituals from '../assets/illustrations/women/care-rituals.svg';
+import womenEgressGarden from '../assets/illustrations/women/egress-garden.svg';
 import '../styles/views/WomenSiteView.scss';
 
 /**
@@ -9,6 +11,9 @@ import '../styles/views/WomenSiteView.scss';
  * @property {string} title
  * @property {string} [content]
  * @property {'media' | undefined} [type]
+ * @property {string} [media]
+ * @property {string} [mediaAlt]
+ * @property {'dashed'} [mediaVariant]
  */
 
 /** @type {WomenSiteFeature[]} */
@@ -18,6 +23,8 @@ const HERO_FEATURES = [
     content:
       'Residencia con espacios de arte, rituales de autocuidado y mentorías de propósito para mujeres que desean recuperar el equilibrio.',
     type: 'media',
+    media: womenCareRituals,
+    mediaAlt: 'Ilustración de rituales de autocuidado y acompañamiento femenino',
   },
   {
     title: 'Siempre contenidas · Siempre accesibles',
@@ -38,6 +45,9 @@ const SECOND_FEATURES = [
     content:
       'Sesiones de mindfulness, activaciones corporales suaves y diarios de gratitud que fortalecen la agencia personal.',
     type: 'media',
+    media: womenEgressGarden,
+    mediaAlt: 'Gráfico abstracto sobre planes de egreso y redes femeninas',
+    mediaVariant: 'dashed',
   },
   {
     title: 'Red de soporte femenino',
@@ -79,6 +89,33 @@ const USE_CASES = [
   'Ansiedad, depresión o duelos interrumpidos que afectan la vida cotidiana.',
 ];
 
+const WOMEN_MICRO_SIGNALS = {
+  care: [
+    {
+      label: 'El Cuidador',
+      title: 'Respuesta cálida inmediata',
+      detail: 'Coordinadoras femeninas responden cada mensaje antes de 30 minutos.',
+    },
+    {
+      label: 'El Cuidador',
+      title: 'Red de contención activa',
+      detail: 'Doulas emocionales monitorean los canales de apoyo en vivo.',
+    },
+  ],
+  sage: [
+    {
+      label: 'El Sabio',
+      title: 'Lectura integral del caso',
+      detail: 'Interpretamos indicadores de trauma y los explicamos paso a paso.',
+    },
+    {
+      label: 'El Sabio',
+      title: 'Mentorías financieras guiadas',
+      detail: 'Compartimos planes para reconstruir autonomía económica con claridad.',
+    },
+  ],
+};
+
 /**
  * @typedef {Object} WomenSiteViewProps
  * @property {(hash?: string) => void} [onNavigate]
@@ -90,6 +127,20 @@ const USE_CASES = [
  */
 export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
   const businessRef = useRef(null);
+  const [microMode, setMicroMode] = useState('care');
+  const [microIndex, setMicroIndex] = useState(0);
+  const microSignals = WOMEN_MICRO_SIGNALS[microMode] ?? WOMEN_MICRO_SIGNALS.care;
+  const activeMicroSignal = microSignals[microIndex % microSignals.length];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+    const timer = window.setInterval(() => {
+      setMicroIndex((prev) => prev + 1);
+    }, 9000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const handleCTA = () => {
     if (businessRef.current) {
@@ -111,6 +162,9 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
     onNavigate?.('#contacto');
   };
 
+  const activateCareSignal = () => setMicroMode('care');
+  const activateSageSignal = () => setMicroMode('sage');
+
   return (
     <>
       <a href="#main" className="skip-link">
@@ -128,12 +182,33 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
               problemático con acompañamiento especializado y seguro.
             </p>
             <div className="women-site__hero-actions">
-              <button type="button" className="btn btn--primary" onClick={handleCTA}>
+              <button
+                type="button"
+                className="btn btn--primary"
+                onClick={handleCTA}
+                onMouseEnter={activateCareSignal}
+                onMouseLeave={activateCareSignal}
+                onFocus={activateCareSignal}
+                onBlur={activateCareSignal}
+              >
                 Agendar valoración
               </button>
-              <button type="button" className="btn btn--secondary" onClick={() => onNavigate?.('#metodo')}>
+              <button
+                type="button"
+                className="btn btn--secondary"
+                onClick={() => onNavigate?.('#metodo')}
+                onMouseEnter={activateSageSignal}
+                onMouseLeave={activateCareSignal}
+                onFocus={activateSageSignal}
+                onBlur={activateCareSignal}
+              >
                 Explorar metodología
               </button>
+            </div>
+            <div className="women-site__micro-hint" data-variant={microMode} aria-live="polite">
+              <p>{activeMicroSignal.label}</p>
+              <strong>{activeMicroSignal.title}</strong>
+              <span>{activeMicroSignal.detail}</span>
             </div>
             <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
@@ -157,10 +232,13 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             {HERO_FEATURES.map((feature) => (
               <article key={feature.title} className="women-card site-card women-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.type === 'media' ? (
-                  <div className="women-site__feature-media" aria-hidden="true">
-                    Visual terapéutico
-                  </div>
+                {feature.media ? (
+                  <figure
+                    className={`women-site__feature-media${feature.mediaVariant === 'dashed' ? ' women-site__feature-media--dashed' : ''}`}
+                    aria-hidden={feature.mediaAlt ? undefined : true}
+                  >
+                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
+                  </figure>
                 ) : (
                   <p
                     className="women-site__text"
@@ -182,10 +260,13 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             {SECOND_FEATURES.map((feature) => (
               <article key={feature.title} className="women-card site-card women-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.type === 'media' ? (
-                  <div className="women-site__feature-media women-site__feature-media--dashed" aria-hidden="true">
-                    Diagrama o fotografía
-                  </div>
+                {feature.media ? (
+                  <figure
+                    className={`women-site__feature-media${feature.mediaVariant === 'dashed' ? ' women-site__feature-media--dashed' : ''}`}
+                    aria-hidden={feature.mediaAlt ? undefined : true}
+                  >
+                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
+                  </figure>
                 ) : (
                   <p
                     className="women-site__text"

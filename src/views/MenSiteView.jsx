@@ -1,7 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
+import menHeroStructure from '../assets/illustrations/men/structure-flow.svg';
+import menReintegrationFlow from '../assets/illustrations/men/reintegration-circuits.svg';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -9,6 +11,9 @@ import '../styles/views/MenSiteView.scss';
  * @property {string} title
  * @property {string} content
  * @property {'media' | undefined} [type]
+ * @property {string} [media]
+ * @property {string} [mediaAlt]
+ * @property {'dashed'} [mediaVariant]
  */
 
 /** @type {MenSiteFeature[]} */
@@ -17,6 +22,8 @@ const HERO_FEATURES = [
     title: 'Capital terapéutico que crece',
     content: 'Rutinas estructuradas, actividad física supervisada y mentorías de propósito.',
     type: 'media',
+    media: menHeroStructure,
+    mediaAlt: 'Secuencia gráfica que simboliza rutinas y mentorías varoniles',
   },
   {
     title: 'Siempre vigilado · Siempre accesible',
@@ -34,6 +41,9 @@ const SECOND_FEATURES = [
     title: 'Reintegración paulatina',
     content: 'Simulaciones de entorno laboral, talleres de liderazgo y manejo emocional.',
     type: 'media',
+    media: menReintegrationFlow,
+    mediaAlt: 'Diagrama abstracto de reintegración y seguimiento clínico varonil',
+    mediaVariant: 'dashed',
   },
   {
     title: 'Acompañamiento familiar',
@@ -72,6 +82,33 @@ const USE_CASES = [
   'Duelos no resueltos, ansiedad o depresión que limita el ejercicio del rol paterno.',
 ];
 
+const MEN_MICRO_SIGNALS = {
+  care: [
+    {
+      label: 'El Cuidador',
+      title: 'Respuesta clínica < 5 min',
+      detail: 'Coordinación varonil monitorea las solicitudes y activa al equipo en tiempo real.',
+    },
+    {
+      label: 'El Cuidador',
+      title: 'Mentores en turno',
+      detail: 'Siempre hay un mentor senior acompañando la valoración que programes.',
+    },
+  ],
+  sage: [
+    {
+      label: 'El Sabio',
+      title: 'Rutas pedagógicas claras',
+      detail: 'Explicamos cada fase del Modelo Minnesota antes de iniciarla.',
+    },
+    {
+      label: 'El Sabio',
+      title: 'Bitácoras interpretadas',
+      detail: 'Compartimos métricas y recomendaciones estratégicas tras cada módulo.',
+    },
+  ],
+};
+
 /**
  * @typedef {Object} MenSiteViewProps
  * @property {(hash?: string) => void} [onNavigate]
@@ -83,6 +120,20 @@ const USE_CASES = [
  */
 export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
   const businessRef = useRef(null);
+  const [microMode, setMicroMode] = useState('care');
+  const [microIndex, setMicroIndex] = useState(0);
+  const microSignals = MEN_MICRO_SIGNALS[microMode] ?? MEN_MICRO_SIGNALS.care;
+  const activeMicroSignal = microSignals[microIndex % microSignals.length];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+    const timer = window.setInterval(() => {
+      setMicroIndex((prev) => prev + 1);
+    }, 9000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const handleCTA = () => {
     if (businessRef.current) {
@@ -104,6 +155,9 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
     onNavigate?.('#contacto');
   };
 
+  const activateCareSignal = () => setMicroMode('care');
+  const activateSageSignal = () => setMicroMode('sage');
+
   return (
     <>
       <a href="#main" className="skip-link">
@@ -121,12 +175,33 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.
             </p>
             <div className="men-site__hero-actions">
-              <button type="button" className="btn btn--primary" onClick={handleCTA}>
+              <button
+                type="button"
+                className="btn btn--primary"
+                onClick={handleCTA}
+                onMouseEnter={activateCareSignal}
+                onMouseLeave={activateCareSignal}
+                onFocus={activateCareSignal}
+                onBlur={activateCareSignal}
+              >
                 Agendar valoración
               </button>
-              <button type="button" className="btn btn--secondary" onClick={() => onNavigate?.('#metodo')}>
+              <button
+                type="button"
+                className="btn btn--secondary"
+                onClick={() => onNavigate?.('#metodo')}
+                onMouseEnter={activateSageSignal}
+                onMouseLeave={activateCareSignal}
+                onFocus={activateSageSignal}
+                onBlur={activateCareSignal}
+              >
                 Explorar metodología
               </button>
+            </div>
+            <div className="men-site__micro-hint" data-variant={microMode} aria-live="polite">
+              <p>{activeMicroSignal.label}</p>
+              <strong>{activeMicroSignal.title}</strong>
+              <span>{activeMicroSignal.detail}</span>
             </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
@@ -151,10 +226,13 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             {HERO_FEATURES.map((feature) => (
               <article key={feature.title} className="men-card site-card men-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.type === 'media' ? (
-                  <div className="men-site__feature-media" aria-hidden="true">
-                    Visual terapéutico
-                  </div>
+                {feature.media ? (
+                  <figure
+                    className={`men-site__feature-media${feature.mediaVariant === 'dashed' ? ' men-site__feature-media--dashed' : ''}`}
+                    aria-hidden={feature.mediaAlt ? undefined : true}
+                  >
+                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
+                  </figure>
                 ) : (
                   <p
                     className="men-site__text"
@@ -176,10 +254,13 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             {SECOND_FEATURES.map((feature) => (
               <article key={feature.title} className="men-card site-card men-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.type === 'media' ? (
-                  <div className="men-site__feature-media men-site__feature-media--dashed" aria-hidden="true">
-                    Diagrama o fotografía
-                  </div>
+                {feature.media ? (
+                  <figure
+                    className={`men-site__feature-media${feature.mediaVariant === 'dashed' ? ' men-site__feature-media--dashed' : ''}`}
+                    aria-hidden={feature.mediaAlt ? undefined : true}
+                  >
+                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
+                  </figure>
                 ) : (
                   <p
                     className="men-site__text"

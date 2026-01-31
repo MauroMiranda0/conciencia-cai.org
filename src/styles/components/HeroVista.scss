@@ -174,3 +174,107 @@
     height: auto;
   }
 }
+
+.hero-vista__micro-panel {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: clamp(12px, 2vw, 24px);
+}
+
+.hero-vista__micro-pill {
+  position: relative;
+  padding: 18px 20px 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
+  }
+
+  strong {
+    display: block;
+    margin: 4px 0;
+    font-size: 1.05rem;
+    color: #0f172a;
+  }
+
+  span {
+    color: #475569;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    display: block;
+  }
+}
+
+.hero-vista__micro-pill--care {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.13), rgba(14, 165, 233, 0.1));
+  border-color: rgba(14, 165, 233, 0.35);
+  animation: caregiverPulse 4s ease-in-out infinite;
+}
+
+.hero-vista__micro-pill--men {
+  border-color: rgba(15, 118, 110, 0.55);
+}
+
+.hero-vista__micro-pill--women {
+  border-color: rgba(236, 72, 153, 0.45);
+}
+
+.hero-vista__micro-pill--sage {
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(107, 33, 168, 0.12));
+  border-color: rgba(124, 58, 237, 0.35);
+}
+
+.hero-vista__micro-label {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.65);
+}
+
+.hero-vista__micro-trigger {
+  margin-top: 12px;
+  border: none;
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(15, 23, 42, 0.18);
+    transform: translateY(-1px);
+    outline: none;
+  }
+}
+
+@keyframes caregiverPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(14, 165, 233, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-vista__micro-pill {
+    animation: none;
+  }
+}

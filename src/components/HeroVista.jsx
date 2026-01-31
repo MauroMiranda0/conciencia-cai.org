@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import photoMen from '../assets/Therapy-for-Men-1.webp';
 import photoWomen from '../assets/Therapy-for-Women-1.jpg';
 import info12steps from '../assets/infografia.webp';
@@ -54,6 +55,36 @@ const DEFAULT_SITES = [
   },
 ];
 
+const CARE_INTENT_COPY = {
+  default: {
+    title: 'Coordinación lista para ayudarte',
+    body: 'Un cuidador clínico monitorea cada solicitud entrante en tiempo real.',
+  },
+  men: {
+    title: 'Guardias varoniles en turno',
+    body: 'Supervisores nocturnos y mentores senior acompañan la admisión de hombres.',
+  },
+  women: {
+    title: 'Coordinadoras de contención activa',
+    body: 'Doula emocional asignada hace seguimiento continuo a las familias.',
+  },
+};
+
+const SAGE_GUIDANCE = [
+  {
+    title: 'Bitácora clínica actualizada',
+    body: 'El equipo documenta hallazgos terapéuticos cada 4 horas.',
+  },
+  {
+    title: 'Puentes con especialistas externos',
+    body: 'Se activan interconsultas médicas cuando detectamos indicadores críticos.',
+  },
+  {
+    title: 'Métricas del Modelo Minnesota',
+    body: 'Supervisamos progreso por fase y compartimos reportes interpretados.',
+  },
+];
+
 /**
  * @typedef {Object} HeroPromise
  * @property {string} [title]
@@ -91,6 +122,8 @@ export default function HeroVista({
   onShowWomenSite,
   onSelectSede,
 }) {
+  const [careIntent, setCareIntent] = useState('default');
+  const [sageIndex, setSageIndex] = useState(0);
   const normalizedPromises =
     Array.isArray(promises) && promises.length > 0 ? promises : DEFAULT_PROMISES;
   const normalizedSites = Array.isArray(sites) && sites.length > 0 ? sites : DEFAULT_SITES;
@@ -101,6 +134,26 @@ export default function HeroVista({
     normalizedSites.find((site) => inferSiteGender(site?.tone, site?.sede) === 'women') ??
     normalizedSites.find((site) => site !== menSite) ??
     fallbackSite;
+  const activeCareSignal = CARE_INTENT_COPY[careIntent] ?? CARE_INTENT_COPY.default;
+  const activeSageSignal = SAGE_GUIDANCE[sageIndex] ?? SAGE_GUIDANCE[0];
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || SAGE_GUIDANCE.length < 2) {
+      return undefined;
+    }
+    const timer = window.setInterval(() => {
+      setSageIndex((prev) => (prev + 1) % SAGE_GUIDANCE.length);
+    }, 9000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const handleIntentChange = (intent = 'default') => {
+    setCareIntent(intent ?? 'default');
+  };
+
+  const handleAdvanceSage = () => {
+    setSageIndex((prev) => (prev + 1) % SAGE_GUIDANCE.length);
+  };
 
   return (
     <div className="hero-vista__gallery" aria-label="Espacios de internamiento">
@@ -116,6 +169,7 @@ export default function HeroVista({
           onShowWomenSite={onShowWomenSite}
           onSelectSede={onSelectSede}
           onNavigate={onNavigate}
+          onIntentChange={handleIntentChange}
         />
       </div>
 
@@ -160,7 +214,31 @@ export default function HeroVista({
           onShowWomenSite={onShowWomenSite}
           onSelectSede={onSelectSede}
           onNavigate={onNavigate}
+          onIntentChange={handleIntentChange}
         />
+      </div>
+
+      <div className="hero-vista__micro-panel" aria-live="polite">
+        <div
+          className={`hero-vista__micro-pill hero-vista__micro-pill--care hero-vista__micro-pill--${careIntent}`}
+        >
+          <p className="hero-vista__micro-label">El Cuidador</p>
+          <strong>{activeCareSignal.title}</strong>
+          <span>{activeCareSignal.body}</span>
+        </div>
+        <div className="hero-vista__micro-pill hero-vista__micro-pill--sage">
+          <p className="hero-vista__micro-label">El Sabio</p>
+          <strong>{activeSageSignal.title}</strong>
+          <span>{activeSageSignal.body}</span>
+          <button
+            type="button"
+            className="hero-vista__micro-trigger"
+            onClick={handleAdvanceSage}
+            aria-label="Ver otra guía del equipo clínico"
+          >
+            Nueva guía
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -18,12 +18,20 @@ import { inferSiteGender, normalizeSedeValue } from '../utils/sites.js';
  * @property {() => void} [onShowWomenSite]
  * @property {(sede?: string) => void} [onSelectSede]
  * @property {(hash?: string) => void} [onNavigate]
+ * @property {(intent?: 'men' | 'women' | 'default') => void} [onIntentChange]
  */
 
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onSelectSede, onNavigate }) {
+export function HeroCallToActionCard({
+  site,
+  onShowMenSite,
+  onShowWomenSite,
+  onSelectSede,
+  onNavigate,
+  onIntentChange,
+}) {
   if (!site) return null;
   /** @type {string[]} */
   const highlights = site.highlights ?? [];
@@ -64,8 +72,20 @@ export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onS
     navigateTo('#contacto');
   };
 
+  const handleIntentChange = (intent) => {
+    onIntentChange?.(intent);
+  };
+
   return (
-    <article className={`hero-vista__site-card hero-vista__site-card--${toneClass}`}>
+    <article
+      className={`hero-vista__site-card hero-vista__site-card--${toneClass}`}
+      onMouseEnter={() => handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')}
+      onMouseLeave={() => handleIntentChange('default')}
+      onFocusCapture={() =>
+        handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')
+      }
+      onBlurCapture={() => handleIntentChange('default')}
+    >
       {site.focus ? <p className="hero-vista__site-focus">{site.focus}</p> : null}
       <h3>{site.title}</h3>
       {site.description ? <p className="hero-vista__site-description">{site.description}</p> : null}
@@ -81,6 +101,12 @@ export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onS
           type="button"
           className="btn btn--primary hero-sites__btn"
           onClick={handleClick}
+          onMouseEnter={() => handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')}
+          onMouseLeave={() => handleIntentChange('default')}
+          onFocus={() =>
+            handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')
+          }
+          onBlur={() => handleIntentChange('default')}
         >
           Información de esta sede
         </button>
@@ -92,7 +118,14 @@ export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onS
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionMen({ site, onShowMenSite, onShowWomenSite, onSelectSede, onNavigate }) {
+export function HeroCallToActionMen({
+  site,
+  onShowMenSite,
+  onShowWomenSite,
+  onSelectSede,
+  onNavigate,
+  onIntentChange,
+}) {
   const normalizedMenSite = {
     ...(site ?? {}),
     tone: 'men',
@@ -107,6 +140,7 @@ export function HeroCallToActionMen({ site, onShowMenSite, onShowWomenSite, onSe
         onShowWomenSite={onShowWomenSite}
         onSelectSede={onSelectSede}
         onNavigate={onNavigate}
+        onIntentChange={onIntentChange}
       />
     </div>
   );
@@ -115,7 +149,7 @@ export function HeroCallToActionMen({ site, onShowMenSite, onShowWomenSite, onSe
 /**
  * @param {HeroCTACardProps} props
  */
-export function HeroCallToActionWomen({ site, onShowWomenSite, onSelectSede, onNavigate }) {
+export function HeroCallToActionWomen({ site, onShowWomenSite, onSelectSede, onNavigate, onIntentChange }) {
   const normalizedWomenSite = {
     ...(site ?? {}),
     tone: 'women',
@@ -129,6 +163,7 @@ export function HeroCallToActionWomen({ site, onShowWomenSite, onSelectSede, onN
         onShowWomenSite={onShowWomenSite}
         onSelectSede={onSelectSede}
         onNavigate={onNavigate}
+        onIntentChange={onIntentChange}
       />
     </div>
   );
@@ -141,6 +176,7 @@ export function HeroCallToActionWomen({ site, onShowWomenSite, onSelectSede, onN
  * @property {() => void} [onShowWomenSite]
  * @property {(sede?: string) => void} [onSelectSede]
  * @property {(hash?: string) => void} [onNavigate]
+ * @property {(intent?: 'men' | 'women' | 'default') => void} [onIntentChange]
  */
 
 /**
@@ -152,6 +188,7 @@ export default function HeroCallToActions({
   onShowWomenSite,
   onSelectSede,
   onNavigate,
+  onIntentChange,
 }) {
   if (!sites.length) return null;
 
@@ -165,6 +202,7 @@ export default function HeroCallToActions({
           onShowWomenSite={onShowWomenSite}
           onSelectSede={onSelectSede}
           onNavigate={onNavigate}
+          onIntentChange={onIntentChange}
         />
       ))}
     </div>
