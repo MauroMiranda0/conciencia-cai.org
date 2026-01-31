@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import logoAzul from '../assets/brand/logoAzul.jpg';
 import logoRosa from '../assets/brand/logoRosa.jpg';
 import '../styles/components/Navbar.scss';
@@ -17,21 +16,18 @@ const SOCIAL_LINKS = [
  * @param {NavbarProps} props
  */
 export default function Navbar({ onNavigate }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   /**
    * @param {import('react').MouseEvent<HTMLAnchorElement | HTMLButtonElement> | null} event
    * @param {string} hash
    */
   const handleNavigate = (event, hash) => {
     event?.preventDefault();
-    setMenuOpen(false);
     onNavigate?.(hash);
   };
 
   return (
     <header className="navbar" role="banner">
-      <nav className="nav container">
+      <div className="nav container">
         <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
           <span className="nav__logo-group">
             <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
@@ -47,23 +43,26 @@ export default function Navbar({ onNavigate }) {
           </span>
         </a>
 
-        <div className={`nav__menu ${menuOpen ? 'nav__menu--open' : ''}`} id="nav-menu">
-
+        <div className="nav__cta">
+          <p className="nav__cta-note">Acompañamiento confidencial 24/7 · Pachuca, Hidalgo</p>
           <div className="nav__buttons">
             <button
               type="button"
-              className="nav__button-link"
-              onClick={() => handleNavigate(null, '#metodo')}
+              className="nav__button-ghost"
+              onClick={(event) => handleNavigate(event, '#metodo')}
             >
               Modelo Minnesota
             </button>
             <button
               type="button"
-              className="nav__button-ghost"
-              onClick={() => handleNavigate(null, '#contacto')}
+              className="nav__button-link"
+              onClick={(event) => handleNavigate(event, '#contacto')}
             >
               Agenda tu valoración
             </button>
+            <a className="nav__hotline" href="tel:7711234567">
+              Línea directa · 771 123 4567
+            </a>
           </div>
           <div className="nav__social" aria-label="Redes sociales">
             {SOCIAL_LINKS.map((social) => (
@@ -79,30 +78,8 @@ export default function Navbar({ onNavigate }) {
               </a>
             ))}
           </div>
-          <button
-            type="button"
-            className="nav__close"
-            id="nav-close"
-            aria-label="Cerrar menú"
-            onClick={() => setMenuOpen(false)}
-          >
-            <span />
-            <span />
-          </button>
         </div>
-
-        <button
-          type="button"
-          className="nav__toggle"
-          id="nav-toggle"
-          aria-label="Abrir menú"
-          onClick={() => setMenuOpen(true)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </nav>
+      </div>
     </header>
   );
 }

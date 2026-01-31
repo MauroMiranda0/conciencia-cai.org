@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { normalizeSedeValue } from '../utils/sites.js';
 import '../styles/sections/ContactSection.scss';
 
 const INITIAL_STATE = {
@@ -14,22 +15,57 @@ const INITIAL_STATE = {
  * @property {string} [selectedSede]
  * @property {(sede: string) => void} [onSelectSede]
  * @property {() => void} [onOpenPrivacy]
+ * @property {string} [id]
+ * @property {string} [eyebrow]
+ * @property {string} [title]
+ * @property {string} [description]
+ * @property {string} [lockedSedeValue]
+ * @property {string} [successMessage]
+ * @property {string} [channelNote]
+ * @property {import('react').ReactNode} [asideContent]
  */
 
 /**
  * @param {ContactSectionProps} props
  */
-export default function ContactSection({ selectedSede, onSelectSede, onOpenPrivacy }) {
+export default function ContactSection({
+  selectedSede,
+  onSelectSede,
+  onOpenPrivacy,
+  id = 'contacto',
+  eyebrow = 'Dar el primer paso',
+  title = 'Es parte del proceso',
+  description = 'Si tú o un familiar están atravesando una situación relacionada con el consumo de sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en el inicio de un camino real hacia la recuperación.',
+  lockedSedeValue,
+  successMessage = 'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.',
+  channelNote,
+  asideContent,
+}) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
   const [errors, setErrors] = useState(
     /** @type {Record<string, string>} */ ({})
   );
   const [status, setStatus] = useState('');
+  const normalizedLockedSede = useMemo(
+    () => normalizeSedeValue(lockedSedeValue),
+    [lockedSedeValue]
+  );
+  const sedeLabel =
+    normalizedLockedSede === 'hombres'
+      ? 'Sede Varonil'
+      : normalizedLockedSede === 'mujeres'
+        ? 'Sede Femenil'
+        : '';
 
   useEffect(() => {
+    if (normalizedLockedSede) {
+      setFormData((prev) => ({ ...prev, sede: normalizedLockedSede }));
+      onSelectSede?.(normalizedLockedSede);
+      return;
+    }
     if (typeof selectedSede === 'undefined') return;
     setFormData((prev) => ({ ...prev, sede: selectedSede }));
-  }, [selectedSede]);
+  }, [normalizedLockedSede, onSelectSede, selectedSede]);
 
   /**
    * @param {import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event
@@ -53,9 +89,6 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
   /**
    * @param {import('react').FormEvent<HTMLFormElement>} event
    */
-  /**
-   * @param {import('react').FormEvent<HTMLFormElement>} event
-   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const nextErrors = validate();
@@ -64,9 +97,7 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
       setStatus('Por favor revisa los campos marcados.');
       return;
     }
-    setStatus(
-      'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.'
-    );
+    setStatus(successMessage);
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
   };
 
@@ -79,22 +110,23 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
   };
 
   return (
-    <section className="contact-section" id="contacto" aria-label="Contacto">
-      <div className="container contact-section__grid">
+    <section className="contact-section" id={id} aria-label="Contacto confidencial">
+      <div className={`container contact-section__grid${asideContent ? ' contact-section__grid--with-aside' : ''}`}>
         <div className="contact-section__intro reveal">
-          <p className="hero-vista__trust-eyebrow">Dar el primer paso</p>
-          <h2>Es parte del proceso</h2>
-          <p className="text-muted">
-            Si tú o un familiar están atravesando una situación relacionada con el consumo de
-            sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en
-            el inicio de un camino real hacia la recuperación.
-          </p>
+          <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          <p className="text-muted">{description}</p>
+          {channelNote ? <p className="contact-section__note">{channelNote}</p> : null}
         </div>
         <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
           <div className="field">
             <label htmlFor="name">Nombre</label>
             <input id="name" name="name" value={formData.name} onChange={handleChange} required />
-            {errors.name && <span className="field__error">{errors.name}</span>}
+            {errors.name && (
+              <span className="field__error" role="alert" aria-live="assertive">
+                {errors.name}
+              </span>
+            )}
           </div>
           <div className="field">
             <label htmlFor="phone">Teléfono (10 dígitos)</label>
@@ -107,7 +139,11 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
               onChange={handleChange}
               required
             />
-            {errors.phone && <span className="field__error">{errors.phone}</span>}
+            {errors.phone && (
+              <span className="field__error" role="alert" aria-live="assertive">
+                {errors.phone}
+              </span>
+            )}
           </div>
           <div className="field">
             <label htmlFor="email">Correo</label>
@@ -119,16 +155,33 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
               onChange={handleChange}
               required
             />
-            {errors.email && <span className="field__error">{errors.email}</span>}
+            {errors.email && (
+              <span className="field__error" role="alert" aria-live="assertive">
+                {errors.email}
+              </span>
+            )}
           </div>
           <div className="field">
             <label htmlFor="sede">¿A qué sede deseas contactar?</label>
-            <select id="sede" name="sede" value={formData.sede} onChange={handleSedeChange}>
-              <option value="">Selecciona una opción</option>
-              <option value="mujeres">Sede Femenil</option>
-              <option value="hombres">Sede Varonil</option>
-            </select>
-            {errors.sede && <span className="field__error">{errors.sede}</span>}
+            {normalizedLockedSede ? (
+              <>
+                <input type="hidden" id="sede" name="sede" value={normalizedLockedSede} readOnly />
+                <p className="contact-section__sede-pill" aria-live="polite">
+                  {sedeLabel || 'Sede seleccionada automáticamente'}
+                </p>
+              </>
+            ) : (
+              <select id="sede" name="sede" value={formData.sede} onChange={handleSedeChange}>
+                <option value="">Selecciona una opción</option>
+                <option value="mujeres">Sede Femenil</option>
+                <option value="hombres">Sede Varonil</option>
+              </select>
+            )}
+            {errors.sede && (
+              <span className="field__error" role="alert" aria-live="assertive">
+                {errors.sede}
+              </span>
+            )}
           </div>
           <div className="field">
             <label htmlFor="message">Mensaje (opcional)</label>
@@ -158,6 +211,7 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
             </div>
           )}
         </form>
+        {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
       </div>
     </section>
   );

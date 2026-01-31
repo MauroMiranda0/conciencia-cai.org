@@ -34,6 +34,29 @@
   gap: clamp(16px, 3vw, 24px);
 }
 
+.women-site__switch {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: -12px 0 12px;
+}
+
+.women-site__switch-link {
+  border: none;
+  background: transparent;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
 .women-site__eyebrow {
   color: rgba(190, 24, 93, 0.8);
 }
@@ -333,47 +356,6 @@
   margin: 0;
   font-weight: 700;
   color: #831843;
-}
-
-.women-site__business {
-  display: grid;
-  gap: 16px;
-}
-
-.women-site__business h2 {
-  margin: 0;
-}
-
-.women-site__business p {
-  margin: 0;
-  color: #6b21a8;
-}
-
-.women-site__form {
-  display: grid;
-  gap: 12px;
-}
-
-.women-site__form input,
-.women-site__form textarea {
-  border: 1px solid rgba(190, 24, 93, 0.12);
-  border-radius: 14px;
-  padding: 12px;
-  font: inherit;
-  background: rgba(255, 255, 255, 0.92);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.women-site__form input:focus,
-.women-site__form textarea:focus {
-  border-color: rgba(190, 24, 93, 0.4);
-  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
-  outline: none;
-}
-
-.women-site__form textarea {
-  resize: none;
-  min-height: 140px;
 }
 
 @media (min-width: 900px) {

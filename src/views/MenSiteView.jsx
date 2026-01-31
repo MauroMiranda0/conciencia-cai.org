@@ -1,9 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
+import MethodOverview from '../components/MethodOverview.jsx';
+import Gallery from '../components/Gallery.jsx';
+import Testimonials from '../components/Testimonials.jsx';
+import AboutValues from '../components/AboutValues.jsx';
+import ContactSection from '../sections/ContactSection.jsx';
+import MapEmbed from '../components/MapEmbed.jsx';
 import menHeroStructure from '../assets/illustrations/men/structure-flow.svg';
 import menReintegrationFlow from '../assets/illustrations/men/reintegration-circuits.svg';
+import menRoomPlaceholder from '../assets/placeholders/men-room.svg';
+import menCommonPlaceholder from '../assets/placeholders/men-common.svg';
+import menGardenPlaceholder from '../assets/placeholders/men-garden.svg';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -82,6 +91,52 @@ const USE_CASES = [
   'Duelos no resueltos, ansiedad o depresión que limita el ejercicio del rol paterno.',
 ];
 
+const MEN_GALLERY_ITEMS = [
+  {
+    src: menRoomPlaceholder,
+    alt: 'Habitaciones con supervisión 24/7 en la sede varonil',
+    label: 'Habitaciones',
+    caption: 'Espacios ventilados con monitoreo clínico permanente.',
+  },
+  {
+    src: menCommonPlaceholder,
+    alt: 'Áreas comunes para mentorías y talleres varoniles',
+    label: 'Áreas comunes',
+    caption: 'Talleres de propósito, reuniones y contratos de convivencia.',
+  },
+  {
+    src: menGardenPlaceholder,
+    alt: 'Jardines y rutas de ejercicio para residentes varoniles',
+    label: 'Activación',
+    caption: 'Jardines activos para ejercicio consciente y meditación guiada.',
+  },
+];
+
+const MEN_TESTIMONIALS = [
+  {
+    quote:
+      'Nos explicaron cada fase del Modelo Minnesota y recibimos reportes semanales con compromisos claros para mi hermano.',
+    author: 'Familiar anónimo',
+    role: 'Hermano de residente',
+  },
+  {
+    quote:
+      'El acompañamiento varonil es firme, pero humano. Me ayudaron a construir rutinas y retomar mi rol sin violencia.',
+    author: 'Anónimo',
+    role: 'Egresado sede varonil',
+  },
+  {
+    quote:
+      'Siempre se sintió la presencia de mentores disponibles. Nunca tuve que enfrentar solo una crisis.',
+    author: 'Anónimo',
+    role: 'Residente en seguimiento',
+  },
+];
+
+const CONTACT_SECTION_ID = 'contacto-varonil';
+const MEN_MAP_SRC =
+  'https://maps.google.com/maps?q=Camino%20Real%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
+
 const MEN_MICRO_SIGNALS = {
   care: [
     {
@@ -113,13 +168,13 @@ const MEN_MICRO_SIGNALS = {
  * @typedef {Object} MenSiteViewProps
  * @property {(hash?: string) => void} [onNavigate]
  * @property {() => void} [onOpenPrivacy]
+ * @property {() => void} [onShowWomenSite]
  */
 
 /**
  * @param {MenSiteViewProps} props
  */
-export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
-  const businessRef = useRef(null);
+export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite }) {
   const [microMode, setMicroMode] = useState('care');
   const [microIndex, setMicroIndex] = useState(0);
   const microSignals = MEN_MICRO_SIGNALS[microMode] ?? MEN_MICRO_SIGNALS.care;
@@ -136,27 +191,20 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
   }, []);
 
   const handleCTA = () => {
-    if (businessRef.current) {
-      businessRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      const firstInput = businessRef.current.querySelector('input, textarea');
-      if (firstInput instanceof HTMLElement) {
-        firstInput.focus();
-      }
+    const section = document.getElementById(CONTACT_SECTION_ID);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
     onNavigate?.('#contacto');
   };
 
-  /**
-   * @param {import('react').FormEvent<HTMLFormElement>} event
-   */
-  const handleBusinessSubmit = (event) => {
-    event.preventDefault();
-    onNavigate?.('#contacto');
-  };
-
   const activateCareSignal = () => setMicroMode('care');
   const activateSageSignal = () => setMicroMode('sage');
+  const handleViewWomenSite = () => {
+    onShowWomenSite?.();
+    onNavigate?.('#sede-femenil');
+  };
 
   return (
     <>
@@ -205,6 +253,14 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
+          <div className="men-site__switch">
+            <button type="button" className="men-site__switch-link" onClick={() => onNavigate?.('#inicio')}>
+              ← Volver al inicio
+            </button>
+            <button type="button" className="men-site__switch-link" onClick={handleViewWomenSite}>
+              Ver sede femenil
+            </button>
+          </div>
 
           <section className="men-card site-card men-site__intro">
             <div>
@@ -288,22 +344,42 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
                 <p>Mapas de seguridad emocional · Rituales diarios · Mentorías deportivas</p>
               </div>
             </div>
-            <div className="men-card site-card men-site__business" ref={businessRef}>
-              <h2>Contacto directo con coordinación</h2>
-              <p>Déjanos tu mensaje y un coordinador clínico te llamará en menos de 30 minutos.</p>
-              <form className="men-site__form" onSubmit={handleBusinessSubmit}>
-                <input type="text" placeholder="Nombre" aria-label="Nombre" />
-                <input type="text" placeholder="Apellidos" aria-label="Apellidos" />
-                <textarea placeholder="Cuéntanos brevemente la situación" aria-label="Mensaje" />
-                <button type="submit" className="btn btn--primary">
-                  Enviar solicitud
-                </button>
-              </form>
-            </div>
           </section>
         </div>
+        <MethodOverview tone="men" title="Método Minnesota con disciplina y acompañamiento" />
+        <Gallery
+          items={MEN_GALLERY_ITEMS}
+          title="Galería sede varonil"
+          eyebrow="Ruta de color azul"
+          description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
+        />
+        <AboutValues tone="men" />
+        <Testimonials
+          items={MEN_TESTIMONIALS}
+          tone="men"
+          title="Testimonios que resguardamos"
+          description="Historias de familias y residentes que confían en el acompañamiento cuidador y sabio de Conciencia CAI."
+        />
+        <ContactSection
+          id={CONTACT_SECTION_ID}
+          eyebrow="Contacto sede varonil"
+          title="Coordinación clínica responde 24/7"
+          description="Comparte tu situación y recibirás una llamada confidencial en menos de 30 minutos."
+          lockedSedeValue="hombres"
+          successMessage="Gracias. Coordinación varonil recibió tu mensaje y te contactará con total confidencialidad."
+          channelNote="Guardias varoniles y consejeros clínicos monitorean esta línea permanentemente."
+          onOpenPrivacy={onOpenPrivacy}
+          asideContent={
+            <MapEmbed
+              title="Ubicación sede varonil"
+              address="Camino Real #120, Pachuca, Hidalgo"
+              phone="771 123 4567"
+              mapSrc={MEN_MAP_SRC}
+            />
+          }
+        />
       </main>
-      <Footer onOpenPrivacy={onOpenPrivacy} onNavigate={onNavigate} />
+      <Footer onOpenPrivacy={onOpenPrivacy} onNavigate={onNavigate} activeSite="hombres" />
     </>
   );
 }

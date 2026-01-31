@@ -10,18 +10,37 @@ const INFO_LINKS = [
   { href: '#contacto', label: 'Valoración confidencial' },
   { href: '#sedes', label: 'Sedes en Pachuca' },
 ];
+const SITE_DETAILS = [
+  {
+    id: 'hombres',
+    label: 'Sede Varonil',
+    address: 'Camino Real #120, Pachuca, Hidalgo',
+    phone: '771 123 4567',
+    hash: '#sede-varonil',
+    tone: 'men',
+  },
+  {
+    id: 'mujeres',
+    label: 'Sede Femenil',
+    address: 'Sierra Madre #45, Pachuca, Hidalgo',
+    phone: '771 765 4321',
+    hash: '#sede-femenil',
+    tone: 'women',
+  },
+];
 const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 /**
  * @typedef {Object} FooterProps
  * @property {() => void} [onOpenPrivacy]
  * @property {(hash?: string) => void} [onNavigate]
+ * @property {'hombres' | 'mujeres' | ''} [activeSite]
  */
 
 /**
  * @param {FooterProps} props
  */
-export default function Footer({ onOpenPrivacy, onNavigate }) {
+export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
   const [emailValue, setEmailValue] = useState('');
   const [status, setStatus] = useState('');
 
@@ -86,6 +105,31 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
               <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
                 <InstagramIcon />
               </a>
+            </div>
+          </div>
+          <div className="footer-col footer-sites">
+            <h2>Nuestras sedes</h2>
+            <div className="footer-sites__list" id="sedes">
+              {SITE_DETAILS.map((site) => {
+                const isActive = site.id === activeSite;
+                return (
+                  <article
+                    key={site.id}
+                    className={`footer-site footer-site--${site.tone}${isActive ? ' footer-site--active' : ''}`}
+                    aria-current={isActive ? 'location' : undefined}
+                  >
+                    <div className="footer-site__badge">{isActive ? 'Estás aquí' : 'Disponible'}</div>
+                    <h3>{site.label}</h3>
+                    <p>{site.address}</p>
+                    <a href={`tel:${site.phone.replace(/\s+/g, '')}`} className="footer-site__phone">
+                      Llamar {site.phone}
+                    </a>
+                    <button type="button" onClick={(event) => handleNavigate(site.hash, event)}>
+                      Ver detalles
+                    </button>
+                  </article>
+                );
+              })}
             </div>
           </div>
           <div className="footer-col footer-info">

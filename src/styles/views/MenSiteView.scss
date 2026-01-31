@@ -34,6 +34,29 @@
   gap: clamp(16px, 3vw, 24px);
 }
 
+.men-site__switch {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: -12px 0 12px;
+}
+
+.men-site__switch-link {
+  border: none;
+  background: transparent;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
 .men-site__eyebrow {
   color: rgba(15, 23, 42, 0.7);
 }
@@ -313,47 +336,6 @@
   margin: 0;
   font-weight: 700;
   color: #0f172a;
-}
-
-.men-site__business {
-  display: grid;
-  gap: 16px;
-}
-
-.men-site__business h2 {
-  margin: 0;
-}
-
-.men-site__business p {
-  margin: 0;
-  color: #475569;
-}
-
-.men-site__form {
-  display: grid;
-  gap: 12px;
-}
-
-.men-site__form input,
-.men-site__form textarea {
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 14px;
-  padding: 12px;
-  font: inherit;
-  background: rgba(255, 255, 255, 0.92);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.men-site__form input:focus,
-.men-site__form textarea:focus {
-  border-color: rgba(15, 76, 92, 0.45);
-  box-shadow: 0 0 0 3px rgba(15, 76, 92, 0.12);
-  outline: none;
-}
-
-.men-site__form textarea {
-  resize: none;
-  min-height: 140px;
 }
 
 @media (min-width: 900px) {

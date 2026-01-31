@@ -16,25 +16,32 @@ body {
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, var(--color-blue-50), #ffffff 45%, var(--color-rose-50));
+  background: linear-gradient(150deg, #f8fafc, #ffffff 60%, #fdf2f8);
   color: var(--color-text);
   line-height: 1.5;
   position: relative;
   --accent-color: var(--color-blue-700);
-  --accent-soft: var(--color-blue-50);
+  --accent-contrast: #fff;
+  --accent-soft: rgba(31, 78, 121, 0.08);
+  --accent-muted: rgba(31, 78, 121, 0.12);
   --accent-shadow: rgba(31, 78, 121, 0.24);
+  --focus-ring: rgba(31, 78, 121, 0.35);
 }
 
 body.theme-men {
   --accent-color: var(--color-blue-700);
-  --accent-soft: var(--color-blue-50);
-  --accent-shadow: rgba(31, 78, 121, 0.24);
+  --accent-soft: rgba(31, 78, 121, 0.08);
+  --accent-muted: rgba(14, 116, 144, 0.12);
+  --accent-shadow: rgba(31, 78, 121, 0.2);
+  --focus-ring: rgba(14, 116, 144, 0.4);
 }
 
 body.theme-women {
   --accent-color: var(--color-rose-700);
-  --accent-soft: var(--color-rose-50);
+  --accent-soft: rgba(190, 24, 93, 0.08);
+  --accent-muted: rgba(190, 24, 93, 0.12);
   --accent-shadow: rgba(190, 24, 93, 0.24);
+  --focus-ring: rgba(236, 72, 153, 0.45);
 }
 
 body::before {

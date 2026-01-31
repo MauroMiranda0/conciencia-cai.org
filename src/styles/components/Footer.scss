@@ -10,7 +10,7 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: clamp(24px, 5vw, 48px);
 }
 
@@ -117,7 +117,8 @@
 }
 
 .footer-info h2,
-.footer-newsletter h2 {
+.footer-newsletter h2,
+.footer-sites h2 {
   margin: 0 0 6px;
   font-size: 1.1rem;
 }
@@ -176,6 +177,75 @@
   color: var(--color-muted);
 }
 
+.footer-sites__list {
+  display: grid;
+  gap: 14px;
+}
+
+.footer-site {
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 6px;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  a.footer-site__phone {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  button {
+    border: none;
+    background: rgba(15, 23, 42, 0.05);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(15, 23, 42, 0.09);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.footer-site__badge {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.footer-site--active {
+  border-color: var(--accent-color);
+}
+
+.footer-site--men {
+  --accent-color: #1f4e79;
+}
+
+.footer-site--women {
+  --accent-color: #be185d;
+}
+
 .footer-contact {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -185,7 +255,8 @@
 }
 
 .footer-info,
-.footer-newsletter {
+.footer-newsletter,
+.footer-sites {
   padding: 12px 0;
 }
 

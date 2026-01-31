@@ -75,10 +75,26 @@ export function HeroCallToActionCard({
   const handleIntentChange = (intent) => {
     onIntentChange?.(intent);
   };
+  const supportCopy = 'Atención confidencial. Te orientamos sin juicio.';
 
   return (
     <article
       className={`hero-vista__site-card hero-vista__site-card--${toneClass}`}
+      style={
+        toneMatchesMen
+          ? {
+              '--accent-color': '#1f4e79',
+              '--accent-soft': 'rgba(31, 78, 121, 0.08)',
+              '--focus-ring': 'rgba(31, 78, 121, 0.35)',
+            }
+          : toneMatchesWomen
+            ? {
+                '--accent-color': '#be185d',
+                '--accent-soft': 'rgba(190, 24, 93, 0.12)',
+                '--focus-ring': 'rgba(236, 72, 153, 0.4)',
+              }
+            : undefined
+      }
       onMouseEnter={() => handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')}
       onMouseLeave={() => handleIntentChange('default')}
       onFocusCapture={() =>
@@ -110,6 +126,9 @@ export function HeroCallToActionCard({
         >
           Información de esta sede
         </button>
+        <p className="hero-vista__site-support" aria-live="polite">
+          {supportCopy}
+        </p>
       </div>
     </article>
   );

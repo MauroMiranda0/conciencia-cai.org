@@ -1,9 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
+import MethodOverview from '../components/MethodOverview.jsx';
+import Gallery from '../components/Gallery.jsx';
+import Testimonials from '../components/Testimonials.jsx';
+import AboutValues from '../components/AboutValues.jsx';
+import ContactSection from '../sections/ContactSection.jsx';
+import MapEmbed from '../components/MapEmbed.jsx';
 import womenCareRituals from '../assets/illustrations/women/care-rituals.svg';
 import womenEgressGarden from '../assets/illustrations/women/egress-garden.svg';
+import womenSuitePlaceholder from '../assets/placeholders/women-suite.svg';
+import womenGardenPlaceholder from '../assets/placeholders/women-garden.svg';
+import womenCirclePlaceholder from '../assets/placeholders/women-circle.svg';
 import '../styles/views/WomenSiteView.scss';
 
 /**
@@ -89,6 +98,49 @@ const USE_CASES = [
   'Ansiedad, depresión o duelos interrumpidos que afectan la vida cotidiana.',
 ];
 
+const WOMEN_GALLERY_ITEMS = [
+  {
+    src: womenSuitePlaceholder,
+    alt: 'Suites privadas y seguras en la sede femenil',
+    label: 'Suites',
+    caption: 'Habitaciones protegidas y acompañadas por doulas emocionales.',
+  },
+  {
+    src: womenGardenPlaceholder,
+    alt: 'Jardín terapéutico para rituales femeniles',
+    label: 'Jardín terapéutico',
+    caption: 'Sesiones de mindfulness y activaciones suaves al aire libre.',
+  },
+  {
+    src: womenCirclePlaceholder,
+    alt: 'Círculos de contención y palabra segura',
+    label: 'Círculos de contención',
+    caption: 'Comunidades solidarias que sostienen la seguridad emocional.',
+  },
+];
+
+const WOMEN_TESTIMONIALS = [
+  {
+    quote: 'Sentí seguridad desde la primera llamada; nos guiaron con mucha dignidad y sin juicios.',
+    author: 'Familiar anónimo',
+    role: 'Madre de residente',
+  },
+  {
+    quote: 'Las mentorías financieras y la red de contención me ayudaron a reconstruir autonomía.',
+    author: 'Anónima',
+    role: 'Egresada sede femenil',
+  },
+  {
+    quote: 'Siempre hubo una coordinadora disponible para sostener cualquier crisis emocional.',
+    author: 'Anónima',
+    role: 'Residente en seguimiento',
+  },
+];
+
+const CONTACT_SECTION_ID = 'contacto-femenil';
+const WOMEN_MAP_SRC =
+  'https://maps.google.com/maps?q=Sierra%20Madre%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
+
 const WOMEN_MICRO_SIGNALS = {
   care: [
     {
@@ -120,13 +172,13 @@ const WOMEN_MICRO_SIGNALS = {
  * @typedef {Object} WomenSiteViewProps
  * @property {(hash?: string) => void} [onNavigate]
  * @property {() => void} [onOpenPrivacy]
+ * @property {() => void} [onShowMenSite]
  */
 
 /**
  * @param {WomenSiteViewProps} props
  */
-export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
-  const businessRef = useRef(null);
+export default function WomenSiteView({ onNavigate, onOpenPrivacy, onShowMenSite }) {
   const [microMode, setMicroMode] = useState('care');
   const [microIndex, setMicroIndex] = useState(0);
   const microSignals = WOMEN_MICRO_SIGNALS[microMode] ?? WOMEN_MICRO_SIGNALS.care;
@@ -143,27 +195,20 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
   }, []);
 
   const handleCTA = () => {
-    if (businessRef.current) {
-      businessRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      const firstInput = businessRef.current.querySelector('input, textarea');
-      if (firstInput instanceof HTMLElement) {
-        firstInput.focus();
-      }
+    const section = document.getElementById(CONTACT_SECTION_ID);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
     onNavigate?.('#contacto');
   };
 
-  /**
-   * @param {import('react').FormEvent<HTMLFormElement>} event
-   */
-  const handleBusinessSubmit = (event) => {
-    event.preventDefault();
-    onNavigate?.('#contacto');
-  };
-
   const activateCareSignal = () => setMicroMode('care');
   const activateSageSignal = () => setMicroMode('sage');
+  const handleViewMenSite = () => {
+    onShowMenSite?.();
+    onNavigate?.('#sede-varonil');
+  };
 
   return (
     <>
@@ -212,6 +257,14 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             </div>
             <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
+          <div className="women-site__switch">
+            <button type="button" className="women-site__switch-link" onClick={() => onNavigate?.('#inicio')}>
+              ← Volver al inicio
+            </button>
+            <button type="button" className="women-site__switch-link" onClick={handleViewMenSite}>
+              Ver sede varonil
+            </button>
+          </div>
 
           <section className="women-card site-card women-site__intro">
             <div>
@@ -296,23 +349,42 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
                 <p>Redes de contención · Rituales de autocuidado · Mentorías financieras</p>
               </div>
             </div>
-
-            <div className="women-card site-card women-site__business" ref={businessRef}>
-              <h2>Contacto directo con coordinación</h2>
-              <p>Comparte tu situación y una coordinadora clínica te responderá en menos de 30 minutos.</p>
-              <form className="women-site__form" onSubmit={handleBusinessSubmit}>
-                <input type="text" placeholder="Nombre" aria-label="Nombre" />
-                <input type="text" placeholder="Apellidos" aria-label="Apellidos" />
-                <textarea placeholder="Cuéntanos brevemente la situación" aria-label="Mensaje" />
-                <button type="submit" className="btn btn--primary">
-                  Enviar solicitud
-                </button>
-              </form>
-            </div>
           </section>
         </div>
+        <MethodOverview tone="women" title="Método Minnesota con contención y claridad" />
+        <Gallery
+          items={WOMEN_GALLERY_ITEMS}
+          title="Galería sede femenil"
+          eyebrow="Ruta de color rosa"
+          description="Ambientes diseñados para garantizar seguridad emocional, autocuidado y acompañamiento continuo."
+        />
+        <AboutValues tone="women" />
+        <Testimonials
+          items={WOMEN_TESTIMONIALS}
+          tone="women"
+          title="Testimonios que resguardamos"
+          description="Escuchamos a familias y mujeres que viven procesos de cambio con empatía y guía profesional."
+        />
+        <ContactSection
+          id={CONTACT_SECTION_ID}
+          eyebrow="Contacto sede femenil"
+          title="Coordinación responde con contención"
+          description="Déjanos tus datos y una coordinadora clínica te acompañará desde la primera llamada."
+          lockedSedeValue="mujeres"
+          successMessage="Gracias. Coordinación femenil atenderá tu mensaje de forma confidencial y sin juicios."
+          channelNote="Doulas emocionales y terapeutas de trauma monitorean este canal 24/7."
+          onOpenPrivacy={onOpenPrivacy}
+          asideContent={
+            <MapEmbed
+              title="Ubicación sede femenil"
+              address="Sierra Madre #45, Pachuca, Hidalgo"
+              phone="771 765 4321"
+              mapSrc={WOMEN_MAP_SRC}
+            />
+          }
+        />
       </main>
-      <Footer onOpenPrivacy={onOpenPrivacy} onNavigate={onNavigate} />
+      <Footer onOpenPrivacy={onOpenPrivacy} onNavigate={onNavigate} activeSite="mujeres" />
     </>
   );
 }

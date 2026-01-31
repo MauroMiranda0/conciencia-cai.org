@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Áreas comunes sede varonil">
+  <defs>
+    <linearGradient id="men-common" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f4e79" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#men-common)" rx="40" />
+  <text x="50%" y="48%" font-size="40" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif">
+    Áreas comunes
+  </text>
+  <text x="50%" y="58%" font-size="24" text-anchor="middle" fill="#d4f1f4" font-family="Segoe UI, Arial, sans-serif">
+    Talleres y mentorías de propósito
+  </text>
+</svg>

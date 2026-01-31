@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import HeroVista from '../components/HeroVista.jsx';
+import MethodOverview from '../components/MethodOverview.jsx';
 import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
@@ -123,11 +124,13 @@ export default function HomeView({
           onShowWomenSite={handleShowWomenSite}
           onSelectSede={handleSelectSede}
         />
+        <MethodOverview />
         <HumanGuide />
         <ContactSection
           selectedSede={selectedSede}
           onSelectSede={handleSelectSede}
           onOpenPrivacy={handleOpenPrivacy}
+          channelNote="Coordinación clínica responde cada mensaje y orienta sin juicios."
         />
       </main>
       <Footer onOpenPrivacy={handleOpenPrivacy} onNavigate={handleNavigate} />
