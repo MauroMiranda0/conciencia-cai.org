@@ -113,7 +113,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
       <main id="main" className="men-site" aria-label="Sede varonil">
         <div className="men-site__halo" aria-hidden="true" />
         <div className="container men-site__layout">
-          <section className="men-site__hero men-card" aria-labelledby="men-site-hero-title">
+          <section className="men-site__hero men-card site-card" aria-labelledby="men-site-hero-title">
             <p className="eyebrow men-site__eyebrow">Modelo residencial · Varonil</p>
             <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
             <p className="men-site__lead">
@@ -131,7 +131,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
 
-          <section className="men-card men-site__intro">
+          <section className="men-card site-card men-site__intro">
             <div>
               <h2>¿Qué distingue a la sede varonil?</h2>
               <p>
@@ -149,7 +149,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
 
           <section className="men-site__grid" aria-label="Componentes terapéuticos principales">
             {HERO_FEATURES.map((feature) => (
-              <article key={feature.title} className="men-card men-site__feature">
+              <article key={feature.title} className="men-card site-card men-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
                 {feature.type === 'media' ? (
                   <div className="men-site__feature-media" aria-hidden="true">
@@ -165,7 +165,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             ))}
           </section>
 
-          <section className="men-card men-site__program-note">
+          <section className="men-card site-card men-site__program-note">
             <p>
               Terapias grupales, trabajo corporal, acompañamiento espiritual y hábitos conscientes que preparan al
               residente para retomar su liderazgo sin violencia y con claridad emocional.
@@ -174,7 +174,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
 
           <section className="men-site__grid" aria-label="Rutas de seguimiento y egreso">
             {SECOND_FEATURES.map((feature) => (
-              <article key={feature.title} className="men-card men-site__feature">
+              <article key={feature.title} className="men-card site-card men-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
                 {feature.type === 'media' ? (
                   <div className="men-site__feature-media men-site__feature-media--dashed" aria-hidden="true">
@@ -191,7 +191,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
           </section>
 
           <section className="men-site__bottom">
-            <div className="men-card men-site__use-cases">
+            <div className="men-card site-card men-site__use-cases">
               <h2>Casos que acompañamos</h2>
               <p>
                 Dependencia a alcohol u otras sustancias, conductas impulsivas y duelos no resueltos con impacto directo
@@ -207,7 +207,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
                 <p>Mapas de seguridad emocional · Rituales diarios · Mentorías deportivas</p>
               </div>
             </div>
-            <div className="men-card men-site__business" ref={businessRef}>
+            <div className="men-card site-card men-site__business" ref={businessRef}>
               <h2>Contacto directo con coordinación</h2>
               <p>Déjanos tu mensaje y un coordinador clínico te llamará en menos de 30 minutos.</p>
               <form className="men-site__form" onSubmit={handleBusinessSubmit}>

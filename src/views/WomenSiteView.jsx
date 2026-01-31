@@ -120,7 +120,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
       <main id="main" className="women-site" aria-label="Sede femenil">
         <div className="women-site__halo" aria-hidden="true" />
         <div className="container women-site__layout">
-          <section className="women-site__hero women-card" aria-labelledby="women-site-hero-title">
+          <section className="women-site__hero women-card site-card" aria-labelledby="women-site-hero-title">
             <p className="eyebrow women-site__eyebrow">Modelo residencial · Femenil</p>
             <h1 id="women-site-hero-title">Sede femenil · Conciencia CAI</h1>
             <p className="women-site__lead">
@@ -138,7 +138,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
 
-          <section className="women-card women-site__intro">
+          <section className="women-card site-card women-site__intro">
             <div>
               <h2>¿Qué hace única a la sede femenil?</h2>
               <p>
@@ -155,7 +155,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
 
           <section className="women-site__grid" aria-label="Componentes terapéuticos principales">
             {HERO_FEATURES.map((feature) => (
-              <article key={feature.title} className="women-card women-site__feature">
+              <article key={feature.title} className="women-card site-card women-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
                 {feature.type === 'media' ? (
                   <div className="women-site__feature-media" aria-hidden="true">
@@ -171,7 +171,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             ))}
           </section>
 
-          <section className="women-card women-site__program-note">
+          <section className="women-card site-card women-site__program-note">
             <p>
               Programamos experiencias inmersivas de autocuidado, círculos de palabra y mentorías financieras para
               impulsar proyectos de vida independientes.
@@ -180,7 +180,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
 
           <section className="women-site__grid" aria-label="Rutas de seguimiento y egreso">
             {SECOND_FEATURES.map((feature) => (
-              <article key={feature.title} className="women-card women-site__feature">
+              <article key={feature.title} className="women-card site-card women-site__feature">
                 <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
                 {feature.type === 'media' ? (
                   <div className="women-site__feature-media women-site__feature-media--dashed" aria-hidden="true">
@@ -197,7 +197,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
           </section>
 
           <section className="women-site__bottom">
-            <div className="women-card women-site__use-cases">
+            <div className="women-card site-card women-site__use-cases">
               <h2>Casos que acompañamos</h2>
               <p>
                 Programas clínicos y espirituales con enfoque de género que sostienen los cambios necesarios para romper
@@ -216,7 +216,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
               </div>
             </div>
 
-            <div className="women-card women-site__business" ref={businessRef}>
+            <div className="women-card site-card women-site__business" ref={businessRef}>
               <h2>Contacto directo con coordinación</h2>
               <p>Comparte tu situación y una coordinadora clínica te responderá en menos de 30 minutos.</p>
               <form className="women-site__form" onSubmit={handleBusinessSubmit}>
