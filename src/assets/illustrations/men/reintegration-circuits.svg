@@ -1,0 +1,40 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="menGridBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#155e75" stop-opacity="0.15" />
+    </linearGradient>
+    <radialGradient id="menGridPulse" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#cffafe" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" rx="32" fill="url(#menGridBg)" />
+  <rect x="40" y="40" width="560" height="280" rx="28" fill="#031222" opacity="0.12" />
+  <g stroke="#0f172a" stroke-opacity="0.18" stroke-width="1.5">
+    <path d="M40 100h560" />
+    <path d="M40 160h560" />
+    <path d="M40 220h560" />
+    <path d="M40 280h560" />
+    <path d="M120 40v280" />
+    <path d="M240 40v280" />
+    <path d="M360 40v280" />
+    <path d="M480 40v280" />
+  </g>
+  <circle cx="180" cy="180" r="120" fill="url(#menGridPulse)" />
+  <g stroke="#38bdf8" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M160 120c60 0 60 60 120 60s60 -60 120 -60" opacity="0.7" />
+    <path d="M160 210c60 0 60 -60 120 -60s60 60 120 60" opacity="0.35" />
+  </g>
+  <g>
+    <rect x="360" y="110" width="160" height="140" rx="26" fill="#042f2e" opacity="0.65" />
+    <rect x="370" y="120" width="140" height="120" rx="22" fill="#0f766e" opacity="0.65" />
+    <rect x="382" y="134" width="116" height="28" rx="14" fill="#14b8a6" opacity="0.7" />
+    <rect x="382" y="172" width="80" height="18" rx="9" fill="#99f6e4" opacity="0.9" />
+    <rect x="382" y="200" width="116" height="18" rx="9" fill="#0ea5e9" opacity="0.5" />
+  </g>
+  <g fill="#f0fdf4" font-family="'Inter','Segoe UI',sans-serif" font-weight="600">
+    <text x="100" y="312" font-size="18">Planes de egreso · Reintegración familiar</text>
+    <text x="392" y="312" font-size="14" fill="#99f6e4">Seguimiento 12 meses</text>
+  </g>
+</svg>

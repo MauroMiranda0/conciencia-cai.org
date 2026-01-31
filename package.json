@@ -15,9 +15,17 @@
     "ci:quality": "npm run lint:js && npm run lint:css && npm run typecheck",
     "ci:security": "npm run audit"
   },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
     "prettier": "^3.8.1",
     "sass": "^1.97.3",
     "stylelint": "^17.0.0",

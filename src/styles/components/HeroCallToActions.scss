@@ -1,0 +1,134 @@
+.hero-call-to-actions {
+  width: 100%;
+}
+
+.hero-call-to-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: clamp(20px, 4vw, 36px);
+}
+
+.hero-call-to-action--men,
+.hero-call-to-action--women {
+  margin: 0 auto;
+}
+
+.hero-vista__sites {
+  margin-top: clamp(32px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.hero-vista__site-card {
+  display: grid;
+  gap: 15px;
+  min-height: 100%;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 6px;
+
+    li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.hero-vista__site-card--men {
+  margin: 0 0 0 100px;
+  gap: 15px;
+
+  ul li::before {
+    background: rgba(15, 76, 92, 0.8);
+  }
+}
+
+.hero-vista__site-card--women {
+  margin: 0 100px 0 0;
+  gap: 15px;
+
+  ul li::before {
+    background: rgba(190, 81, 108, 0.85);
+  }
+}
+
+.hero-vista__site-focus {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+}
+
+.hero-vista__site-description {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.hero-sites__btn {
+  width: 100%;
+  justify-content: center;
+  border-radius: 28px;
+}
+
+.hero-vista__site-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 1024px) {
+  .hero-vista__site-card--men,
+  .hero-vista__site-card--women {
+    margin: 0;
+  }
+
+  .hero-vista__site-card {
+    padding: 0 8px;
+  }
+}
+
+.hero-sites__link {
+  width: 100%;
+  justify-content: center;
+  border-radius: 18px;
+}
+
+.hero-vista__privacy {
+  margin: 24px auto 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  button {
+    border: none;
+    background: none;
+    color: var(--accent-color);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}

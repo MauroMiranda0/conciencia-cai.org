@@ -1,0 +1,10 @@
+/**
+ * @param {import('react').SVGProps<SVGSVGElement>} props
+ */
+export default function InstagramIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" role="img" aria-hidden="true" {...props}>
+      <path d="M16.8 3H7.2A4.2 4.2 0 0 0 3 7.2v9.6A4.2 4.2 0 0 0 7.2 21h9.6a4.2 4.2 0 0 0 4.2-4.2V7.2A4.2 4.2 0 0 0 16.8 3zm2.5 13.8a2.5 2.5 0 0 1-2.5 2.5H7.2a2.5 2.5 0 0 1-2.5-2.5V7.2a2.5 2.5 0 0 1 2.5-2.5h9.6a2.5 2.5 0 0 1 2.5 2.5zm-6.1-7.9a4.1 4.1 0 1 0 4.1 4.1 4.1 4.1 0 0 0-4.1-4.1zm0 6.5A2.4 2.4 0 1 1 15.6 13a2.4 2.4 0 0 1-2.4 2.4zm5.2-7.5a1 1 0 1 1-1-1 1 1 0 0 1 1 1z" />
+    </svg>
+  );
+}
