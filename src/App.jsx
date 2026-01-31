@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import HomeView from './views/HomeView.jsx';
 import MenSiteView from './views/MenSiteView.jsx';
 import WomenSiteView from './views/WomenSiteView.jsx';
@@ -20,52 +20,65 @@ export default function App() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
   const [activeView, setActiveView] = useState(VIEWS.HOME);
+  const [selectedSede, setSelectedSede] = useState('');
   const [pendingHash, setPendingHash] = useState(
     /** @type {string | null} */ (null)
   );
+  const initialHashHandled = useRef(false);
 
-  const showMenSite = () => {
+  const showMenSite = useCallback(() => {
     setActiveView(VIEWS.MEN);
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  };
+  }, []);
 
-  const showWomenSite = () => {
+  const showWomenSite = useCallback(() => {
     setActiveView(VIEWS.WOMEN);
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  };
+  }, []);
 
   /**
    * @param {string | undefined} hash
    */
-  const handleNavigate = (hash) => {
+  const handleNavigate = useCallback(
+    (hash) => {
+      if (!hash) return;
+      if (hash === '#metodo') {
+        setModelOpen(true);
+        return;
+      }
+      if (hash === '#sede-varonil') {
+        showMenSite();
+        return;
+      }
+      if (hash === '#sede-femenil') {
+        showWomenSite();
+        return;
+      }
+      const target = hash === '#inicio' ? '#main' : hash;
+      if (activeView !== VIEWS.HOME && target !== '#main') {
+        setActiveView(VIEWS.HOME);
+        setPendingHash(target);
+        return;
+      }
+      if (target === '#main') {
+        setActiveView(VIEWS.HOME);
+      }
+      scrollToHash(target, DEFAULT_OFFSET);
+    },
+    [activeView, showMenSite, showWomenSite]
+  );
+
+  useEffect(() => {
+    if (initialHashHandled.current) return;
+    initialHashHandled.current = true;
+    const { hash } = window.location;
     if (!hash) return;
-    if (hash === '#metodo') {
-      setModelOpen(true);
-      return;
-    }
-    if (hash === '#sede-varonil') {
-      showMenSite();
-      return;
-    }
-    if (hash === '#sede-femenil') {
-      showWomenSite();
-      return;
-    }
-    const target = hash === '#inicio' ? '#main' : hash;
-    if (activeView !== VIEWS.HOME && target !== '#main') {
-      setActiveView(VIEWS.HOME);
-      setPendingHash(target);
-      return;
-    }
-    if (target === '#main') {
-      setActiveView(VIEWS.HOME);
-    }
-    scrollToHash(target, DEFAULT_OFFSET);
-  };
+    handleNavigate(hash);
+  }, [handleNavigate]);
 
   useEffect(() => {
     if (activeView === VIEWS.HOME && pendingHash) {
@@ -82,6 +95,8 @@ export default function App() {
           onOpenPrivacy={() => setPrivacyOpen(true)}
           onShowMenSite={showMenSite}
           onShowWomenSite={showWomenSite}
+          selectedSede={selectedSede}
+          onSelectSede={setSelectedSede}
         />
       ) : null}
       {activeView === VIEWS.MEN ? (

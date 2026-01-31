@@ -1,4 +1,5 @@
 import '../styles/components/HeroCallToActions.scss';
+import { inferSiteGender, normalizeSedeValue } from '../utils/sites.js';
 
 /**
  * @typedef {Object} HeroSiteSummary
@@ -28,31 +29,43 @@ export function HeroCallToActionCard({ site, onShowMenSite, onShowWomenSite, onS
   const highlights = site.highlights ?? [];
   const tone = (site.tone ?? 'men').toLowerCase();
   const normalizedTone = tone;
-  const normalizedSede = (site?.sede ?? '').toLowerCase();
-  const toneMatchesMen = ['men', 'masculina', 'varonil'].includes(normalizedTone);
-  const sedeMatchesMen = ['hombres', 'sede varonil', 'varonil'].includes(normalizedSede);
-  const toneMatchesWomen = ['women', 'femenina', 'femenil'].includes(normalizedTone);
-  const sedeMatchesWomen = ['mujeres', 'sede femenil', 'femenil'].includes(normalizedSede);
+  const gender = inferSiteGender(site?.tone, site?.sede);
+  const toneMatchesMen = gender === 'men';
+  const toneMatchesWomen = gender === 'women';
+  const toneClass = gender ?? normalizedTone;
+  const preferredSede = normalizeSedeValue(site?.sede ?? tone);
+
+  const navigateTo = (hash = '#contacto') => {
+    onNavigate?.(hash);
+  };
 
   const handleClick = () => {
-    const isMenSite = toneMatchesMen || sedeMatchesMen;
-    if (isMenSite) {
+    if (toneMatchesMen) {
+      onSelectSede?.(preferredSede);
       onShowMenSite?.();
-      onNavigate?.('#sede-varonil');
+      if (onShowMenSite) {
+        navigateTo('#sede-varonil');
+      } else {
+        navigateTo('#contacto');
+      }
       return;
     }
-    const isWomenSite = toneMatchesWomen || sedeMatchesWomen;
-    if (isWomenSite) {
+    if (toneMatchesWomen) {
+      onSelectSede?.(preferredSede);
       onShowWomenSite?.();
-      onNavigate?.('#sede-femenil');
+      if (onShowWomenSite) {
+        navigateTo('#sede-femenil');
+      } else {
+        navigateTo('#contacto');
+      }
       return;
     }
-    onSelectSede?.(site?.sede ?? tone);
-    onNavigate?.('#contacto');
+    onSelectSede?.(preferredSede);
+    navigateTo('#contacto');
   };
 
   return (
-    <article className={`hero-vista__site-card hero-vista__site-card--${tone}`}>
+    <article className={`hero-vista__site-card hero-vista__site-card--${toneClass}`}>
       {site.focus ? <p className="hero-vista__site-focus">{site.focus}</p> : null}
       <h3>{site.title}</h3>
       {site.description ? <p className="hero-vista__site-description">{site.description}</p> : null}

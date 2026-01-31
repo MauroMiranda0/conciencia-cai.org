@@ -5,6 +5,7 @@ import {
   HeroCallToActionMen,
   HeroCallToActionWomen,
 } from './HeroCallToActions.jsx';
+import { inferSiteGender } from '../utils/sites.js';
 
 import '../styles/components/HeroVista.scss';
 
@@ -94,9 +95,10 @@ export default function HeroVista({
     Array.isArray(promises) && promises.length > 0 ? promises : DEFAULT_PROMISES;
   const normalizedSites = Array.isArray(sites) && sites.length > 0 ? sites : DEFAULT_SITES;
   const fallbackSite = normalizedSites[0] ?? DEFAULT_SITES[0];
-  const menSite = normalizedSites.find((site) => site.tone === 'men') ?? fallbackSite;
+  const menSite =
+    normalizedSites.find((site) => inferSiteGender(site?.tone, site?.sede) === 'men') ?? fallbackSite;
   const womenSite =
-    normalizedSites.find((site) => site.tone === 'women') ??
+    normalizedSites.find((site) => inferSiteGender(site?.tone, site?.sede) === 'women') ??
     normalizedSites.find((site) => site !== menSite) ??
     fallbackSite;
 

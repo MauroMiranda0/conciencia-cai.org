@@ -10,6 +10,7 @@ const INFO_LINKS = [
   { href: '#contacto', label: 'Valoración confidencial' },
   { href: '#sedes', label: 'Sedes en Pachuca' },
 ];
+const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 /**
  * @typedef {Object} FooterProps
@@ -38,8 +39,13 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
    */
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!emailValue.trim()) {
+    const trimmedEmail = emailValue.trim();
+    if (!trimmedEmail) {
       setStatus('Ingresa un correo para recibir recursos y guías.');
+      return;
+    }
+    if (!EMAIL_REGEX.test(trimmedEmail)) {
+      setStatus('Ingresa un correo válido para recibir recursos y guías.');
       return;
     }
     setStatus('Gracias. Te enviaremos guías clínicas y materiales para familias.');

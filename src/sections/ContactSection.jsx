@@ -27,9 +27,8 @@ export default function ContactSection({ selectedSede, onSelectSede, onOpenPriva
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    if (selectedSede) {
-      setFormData((prev) => ({ ...prev, sede: selectedSede }));
-    }
+    if (typeof selectedSede === 'undefined') return;
+    setFormData((prev) => ({ ...prev, sede: selectedSede }));
   }, [selectedSede]);
 
   /**

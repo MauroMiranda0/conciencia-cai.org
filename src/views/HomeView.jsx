@@ -1,27 +1,35 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import HeroVista from '../components/HeroVista.jsx';
 import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import { scrollToHash } from '../utils/dom.js';
+import { normalizeSedeValue } from '../utils/sites.js';
 
 const HERO_PROMISES = [
   {
     title: 'Ingreso confidencial',
-    description: 'Protocolos éticos y administrativos que resguardan la información desde el primer contacto.',
+    description:
+      'Protocolos éticos y administrativos que resguardan la información desde el primer contacto.',
   },
   {
     title: 'Equipo multidisciplinario',
-    description: 'Médicos, psicólogos y consejeros certificados coordinan cada fase del tratamiento.',
+    description:
+      'Médicos, psicólogos y consejeros certificados coordinan cada fase del tratamiento.',
   },
   {
     title: 'Modelo Minnesota + 12 Pasos',
-    description: 'Metodología comprobada que integra ciencia, espiritualidad y acompañamiento familiar.',
+    description:
+      'Metodología comprobada que integra ciencia, espiritualidad y acompañamiento familiar.',
   },
 ];
 
 const SCROLL_OFFSET = 92;
+const MEN_SITE_HASH = '#sede-varonil';
+const WOMEN_SITE_HASH = '#sede-femenil';
+const CONTACT_HASH = '#contacto';
+const MODEL_INFO_URL = '/docs/modelo-minnesota.pdf';
 
 /**
  * @typedef {Object} HomeViewProps
@@ -29,25 +37,37 @@ const SCROLL_OFFSET = 92;
  * @property {() => void} [onOpenPrivacy]
  * @property {() => void} [onShowMenSite]
  * @property {() => void} [onShowWomenSite]
+ * @property {string} [selectedSede]
+ * @property {(sede?: string) => void} [onSelectSede]
  */
 
 /**
  * @param {HomeViewProps} props
  */
-export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite, onShowWomenSite }) {
-  const [selectedSede, setSelectedSede] = useState('');
+export default function HomeView({
+  onNavigate,
+  onOpenPrivacy,
+  onShowMenSite,
+  onShowWomenSite,
+  selectedSede,
+  onSelectSede,
+}) {
 
   const handleNavigate = useCallback(
     /**
-     * @param {string | undefined} target
+     * @param {string} [hash]
      */
-    (target) => {
-      if (!target) return;
+    (hash) => {
+      if (!hash) return;
       if (onNavigate) {
-        onNavigate(target);
+        onNavigate(hash);
         return;
       }
-      scrollToHash(target, SCROLL_OFFSET);
+      if (hash === '#metodo' && typeof window !== 'undefined') {
+        window.open(MODEL_INFO_URL, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      scrollToHash(hash, SCROLL_OFFSET);
     },
     [onNavigate]
   );
@@ -61,23 +81,46 @@ export default function HomeView({ onNavigate, onOpenPrivacy, onShowMenSite, onS
      * @param {string} [sede]
      */
     (sede) => {
-      setSelectedSede(sede ?? '');
+      onSelectSede?.(normalizeSedeValue(sede));
     },
-    []
+    [onSelectSede]
   );
+
+  const handleShowMenSite = useCallback(() => {
+    handleSelectSede('hombres');
+    if (onShowMenSite) {
+      onShowMenSite();
+      return;
+    }
+    if (onNavigate) {
+      onNavigate(MEN_SITE_HASH);
+      return;
+    }
+    scrollToHash(CONTACT_HASH, SCROLL_OFFSET);
+  }, [handleSelectSede, onNavigate, onShowMenSite]);
+
+  const handleShowWomenSite = useCallback(() => {
+    handleSelectSede('mujeres');
+    if (onShowWomenSite) {
+      onShowWomenSite();
+      return;
+    }
+    if (onNavigate) {
+      onNavigate(WOMEN_SITE_HASH);
+      return;
+    }
+    scrollToHash(CONTACT_HASH, SCROLL_OFFSET);
+  }, [handleSelectSede, onNavigate, onShowWomenSite]);
 
   return (
     <>
-      <a href="#main" className="skip-link">
-        Saltar al contenido
-      </a>
       <Navbar onNavigate={handleNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
         <HeroVista
           promises={HERO_PROMISES}
           onNavigate={handleNavigate}
-          onShowMenSite={onShowMenSite}
-          onShowWomenSite={onShowWomenSite}
+          onShowMenSite={handleShowMenSite}
+          onShowWomenSite={handleShowWomenSite}
           onSelectSede={handleSelectSede}
         />
         <HumanGuide />

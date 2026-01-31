@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import SiteHighlights from '../components/SiteHighlights.jsx';
 import '../styles/views/WomenSiteView.scss';
 
 /**
@@ -49,11 +51,32 @@ const SECOND_FEATURES = [
   },
 ];
 
+const HERO_HIGHLIGHTS = [
+  {
+    title: 'Acompañamiento trauma informado',
+    description: 'Protocolos sensibles al trauma, doulas emocionales y contención continua.',
+  },
+  {
+    title: 'Autonomía y autocuidado',
+    description: 'Rituales cotidianos, mentorías financieras y espacios creativos supervisados.',
+  },
+  {
+    title: 'Red segura',
+    description: 'Círculos de confianza, acuerdos comunitarios y acompañamiento espiritual práctico.',
+  },
+];
+
+const WOMEN_SITE_PILLARS = [
+  'Modelo Minnesota + 12 Pasos adaptado a procesos femeninos y maternidades diversas.',
+  'Equipo interdisciplinario con terapeutas de trauma, doulas emocionales y facilitadoras financieras.',
+  'Planes de egreso acompañados con padrinazgo entre egresadas y seguimiento híbrido 12 meses.',
+];
+
 /** @type {string[]} */
 const USE_CASES = [
-  'Procesos de violencia o control coercitivo',
-  'Trastornos por consumo de alcohol u otras sustancias',
-  'Ansiedad, depresión o duelos interrumpidos que afectan la vida cotidiana',
+  'Procesos de violencia o control coercitivo.',
+  'Trastornos por consumo de alcohol u otras sustancias.',
+  'Ansiedad, depresión o duelos interrumpidos que afectan la vida cotidiana.',
 ];
 
 /**
@@ -66,7 +89,17 @@ const USE_CASES = [
  * @param {WomenSiteViewProps} props
  */
 export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
+  const businessRef = useRef(null);
+
   const handleCTA = () => {
+    if (businessRef.current) {
+      businessRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const firstInput = businessRef.current.querySelector('input, textarea');
+      if (firstInput instanceof HTMLElement) {
+        firstInput.focus();
+      }
+      return;
+    }
     onNavigate?.('#contacto');
   };
 
@@ -85,101 +118,118 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
       </a>
       <Navbar onNavigate={onNavigate} />
       <main id="main" className="women-site" aria-label="Sede femenil">
-        <section className="women-site__hero women-card">
-          <div className="women-site__hero-rays" aria-hidden="true" />
-          <div className="women-site__hero-inner">
-            <div className="women-site__hero-plus">+</div>
-            <h1>Sede femenil · Conciencia CAI</h1>
-            <p>
+        <div className="women-site__halo" aria-hidden="true" />
+        <div className="container women-site__layout">
+          <section className="women-site__hero women-card" aria-labelledby="women-site-hero-title">
+            <p className="eyebrow women-site__eyebrow">Modelo residencial · Femenil</p>
+            <h1 id="women-site-hero-title">Sede femenil · Conciencia CAI</h1>
+            <p className="women-site__lead">
               Un refugio terapéutico diseñado para mujeres que buscan sanar trauma, dependencia emocional o consumo
               problemático con acompañamiento especializado y seguro.
             </p>
-            <button type="button" className="btn-sketched btn-sketched--rose" onClick={handleCTA}>
-              Agendar valoración
-            </button>
-          </div>
-        </section>
+            <div className="women-site__hero-actions">
+              <button type="button" className="btn btn--primary" onClick={handleCTA}>
+                Agendar valoración
+              </button>
+              <button type="button" className="btn btn--secondary" onClick={() => onNavigate?.('#metodo')}>
+                Explorar metodología
+              </button>
+            </div>
+            <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
+          </section>
 
-        <section className="women-site__intro">
-          <h2>¿Qué hace única a la sede femenil?</h2>
-          <button type="button" className="btn-sketched btn-sketched--outline-rose" onClick={() => onNavigate?.('#metodo')}>
-            Explorar metodología
-          </button>
-          <p>
-            Integramos modelos de trauma informado, espiritualidad práctica y círculos de mujeres para impulsar procesos
-            de reconexión con el cuerpo, la voz y la libertad financiera.
-          </p>
-        </section>
+          <section className="women-card women-site__intro">
+            <div>
+              <h2>¿Qué hace única a la sede femenil?</h2>
+              <p>
+                Integramos modelos de trauma informado, espiritualidad práctica y círculos de mujeres para impulsar
+                procesos de reconexión con el cuerpo, la voz y la libertad financiera.
+              </p>
+            </div>
+            <ul className="women-site__pillars" role="list">
+              {WOMEN_SITE_PILLARS.map((pillar) => (
+                <li key={pillar}>{pillar}</li>
+              ))}
+            </ul>
+          </section>
 
-        <section className="women-site__grid">
-          {HERO_FEATURES.map((feature) => (
-            <article key={feature.title} className="women-card">
-              <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-              {feature.type === 'media' ? (
-                <div className="women-site__media" aria-hidden="true">
-                  Visual terapéutico
-                </div>
-              ) : (
-                <p className="women-site__text" dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }} />
-              )}
-            </article>
-          ))}
-        </section>
+          <section className="women-site__grid" aria-label="Componentes terapéuticos principales">
+            {HERO_FEATURES.map((feature) => (
+              <article key={feature.title} className="women-card women-site__feature">
+                <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
+                {feature.type === 'media' ? (
+                  <div className="women-site__feature-media" aria-hidden="true">
+                    Visual terapéutico
+                  </div>
+                ) : (
+                  <p
+                    className="women-site__text"
+                    dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
+                  />
+                )}
+              </article>
+            ))}
+          </section>
 
-        <section className="women-site__paragraph">
-          <p>
-            Programamos experiencias inmersivas de autocuidado, círculos de palabra y mentorías financieras para impulsar
-            proyectos de vida independientes.
-          </p>
-        </section>
-
-        <section className="women-site__grid">
-          {SECOND_FEATURES.map((feature) => (
-            <article key={feature.title} className="women-card">
-              <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-              {feature.type === 'media' ? (
-                <div className="women-site__media women-site__media--dashed" aria-hidden="true">
-                  Diagrama o fotografía
-                </div>
-              ) : (
-                <p className="women-site__text" dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }} />
-              )}
-            </article>
-          ))}
-        </section>
-
-        <section className="women-site__bottom">
-          <div className="women-site__use-cases">
-            <h2>Casos que acompañamos</h2>
+          <section className="women-card women-site__program-note">
             <p>
-              Programas clínicos y espirituales con enfoque de género que sostienen los cambios necesarios para romper
-              ciclos de violencia y dependencia.
+              Programamos experiencias inmersivas de autocuidado, círculos de palabra y mentorías financieras para
+              impulsar proyectos de vida independientes.
             </p>
-            <div className="women-card women-site__use-cases-media">
-              <div className="women-site__use-cases-overlay" aria-hidden="true" />
-              <div className="women-site__use-cases-circle women-site__use-cases-circle--left" aria-hidden="true" />
-              <div className="women-site__use-cases-circle women-site__use-cases-circle--right" aria-hidden="true" />
-              <ul>
+          </section>
+
+          <section className="women-site__grid" aria-label="Rutas de seguimiento y egreso">
+            {SECOND_FEATURES.map((feature) => (
+              <article key={feature.title} className="women-card women-site__feature">
+                <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
+                {feature.type === 'media' ? (
+                  <div className="women-site__feature-media women-site__feature-media--dashed" aria-hidden="true">
+                    Diagrama o fotografía
+                  </div>
+                ) : (
+                  <p
+                    className="women-site__text"
+                    dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
+                  />
+                )}
+              </article>
+            ))}
+          </section>
+
+          <section className="women-site__bottom">
+            <div className="women-card women-site__use-cases">
+              <h2>Casos que acompañamos</h2>
+              <p>
+                Programas clínicos y espirituales con enfoque de género que sostienen los cambios necesarios para romper
+                ciclos de violencia y dependencia.
+              </p>
+              <ul className="women-site__use-cases-list">
                 {USE_CASES.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+              <div className="women-site__use-cases-media" aria-hidden="true">
+                <div className="women-site__use-cases-overlay" aria-hidden="true" />
+                <div className="women-site__use-cases-circle women-site__use-cases-circle--left" aria-hidden="true" />
+                <div className="women-site__use-cases-circle women-site__use-cases-circle--right" aria-hidden="true" />
+                <p>Redes de contención · Rituales de autocuidado · Mentorías financieras</p>
+              </div>
             </div>
-          </div>
 
-          <div className="women-card women-site__business">
-            <h2>Contacto directo con coordinación</h2>
-            <p>Comparte tu situación y una coordinadora clínica te responderá en menos de 30 minutos.</p>
-            <form className="women-site__form" onSubmit={handleBusinessSubmit}>
-              <input type="text" placeholder="Nombre" aria-label="Nombre" />
-              <input type="text" placeholder="Apellidos" aria-label="Apellidos" />
-              <textarea placeholder="Cuéntanos brevemente la situación" aria-label="Mensaje" />
-              <button type="submit" className="btn-sketched btn-sketched--amber">
-                Enviar solicitud
-              </button>
-            </form>
-          </div>
-        </section>
+            <div className="women-card women-site__business" ref={businessRef}>
+              <h2>Contacto directo con coordinación</h2>
+              <p>Comparte tu situación y una coordinadora clínica te responderá en menos de 30 minutos.</p>
+              <form className="women-site__form" onSubmit={handleBusinessSubmit}>
+                <input type="text" placeholder="Nombre" aria-label="Nombre" />
+                <input type="text" placeholder="Apellidos" aria-label="Apellidos" />
+                <textarea placeholder="Cuéntanos brevemente la situación" aria-label="Mensaje" />
+                <button type="submit" className="btn btn--primary">
+                  Enviar solicitud
+                </button>
+              </form>
+            </div>
+          </section>
+        </div>
       </main>
       <Footer onOpenPrivacy={onOpenPrivacy} onNavigate={onNavigate} />
     </>
