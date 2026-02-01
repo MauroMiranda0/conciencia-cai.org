@@ -25,6 +25,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-top: 0;
+
+  .nav__logo {
+    display: inline-flex;
+    flex-wrap: nowrap;
+  }
 }
 
 .footer-contact {
@@ -38,6 +44,7 @@
 
 .footer-info {
   justify-content: center;
+  margin-left: 85px;
 }
 
 @media (min-width: 768px) {
@@ -49,6 +56,32 @@
   .footer-contact,
   .footer-info {
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer-col {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .footer-contact,
+  .footer-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-detail {
+    justify-content: center;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 }
 

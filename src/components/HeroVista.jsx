@@ -124,6 +124,7 @@ export default function HeroVista({
 }) {
   const [careIntent, setCareIntent] = useState('default');
   const [sageIndex, setSageIndex] = useState(0);
+  const [microArchetype, setMicroArchetype] = useState('care');
   const normalizedPromises =
     Array.isArray(promises) && promises.length > 0 ? promises : DEFAULT_PROMISES;
   const normalizedSites = Array.isArray(sites) && sites.length > 0 ? sites : DEFAULT_SITES;
@@ -149,14 +150,20 @@ export default function HeroVista({
 
   const handleIntentChange = (intent = 'default') => {
     setCareIntent(intent ?? 'default');
+    setMicroArchetype('care');
   };
 
   const handleAdvanceSage = () => {
     setSageIndex((prev) => (prev + 1) % SAGE_GUIDANCE.length);
+    setMicroArchetype('sage');
   };
 
   return (
-    <div className="hero-vista__gallery" aria-label="Espacios de internamiento">
+    <div
+      className="hero-vista__gallery"
+      aria-label="Espacios de internamiento"
+      data-archetype={microArchetype}
+    >
 
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--men">
@@ -218,7 +225,7 @@ export default function HeroVista({
         />
       </div>
 
-      <div className="hero-vista__micro-panel" aria-live="polite">
+      <div className="hero-vista__micro-panel" aria-live="polite" data-archetype={microArchetype}>
         <div
           className={`hero-vista__micro-pill hero-vista__micro-pill--care hero-vista__micro-pill--${careIntent}`}
         >

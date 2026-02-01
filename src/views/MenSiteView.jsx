@@ -212,10 +212,14 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
         Saltar al contenido
       </a>
       <Navbar onNavigate={onNavigate} />
-      <main id="main" className="men-site" aria-label="Sede varonil">
+      <main id="main" className="men-site" aria-label="Sede varonil" data-archetype={microMode}>
         <div className="men-site__halo" aria-hidden="true" />
         <div className="container men-site__layout">
-          <section className="men-site__hero men-card site-card" aria-labelledby="men-site-hero-title">
+          <section
+            className="men-site__hero men-card site-card"
+            aria-labelledby="men-site-hero-title"
+            data-archetype={microMode}
+          >
             <p className="eyebrow men-site__eyebrow">Modelo residencial · Varonil</p>
             <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
             <p className="men-site__lead">
@@ -250,6 +254,24 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
               <p>{activeMicroSignal.label}</p>
               <strong>{activeMicroSignal.title}</strong>
               <span>{activeMicroSignal.detail}</span>
+              <div className="men-site__micro-actions" role="group" aria-label="Cambiar señal micro arquetípica">
+                <button
+                  type="button"
+                  className={`men-site__micro-toggle${microMode === 'care' ? ' is-active' : ''}`}
+                  onClick={activateCareSignal}
+                  aria-pressed={microMode === 'care'}
+                >
+                  Cuidado
+                </button>
+                <button
+                  type="button"
+                  className={`men-site__micro-toggle${microMode === 'sage' ? ' is-active' : ''}`}
+                  onClick={activateSageSignal}
+                  aria-pressed={microMode === 'sage'}
+                >
+                  Claridad
+                </button>
+              </div>
             </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>

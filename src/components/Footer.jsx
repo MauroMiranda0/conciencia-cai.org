@@ -51,6 +51,23 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
               </span>
             </a>
           </div>
+          <div className="footer-col footer-info">
+            <h2>Información</h2>
+            <ul>
+              {INFO_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} onClick={(event) => handleNavigate(link.href, event)}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <button type="button" onClick={onOpenPrivacy}>
+                  Aviso de privacidad
+                </button>
+              </li>
+            </ul>
+          </div>
           <div className="footer-col footer-contact">
             <p className="footer-detail">
               <MailIcon />
@@ -68,23 +85,6 @@ export default function Footer({ onOpenPrivacy, onNavigate }) {
                 <InstagramIcon />
               </a>
             </div>
-          </div>
-          <div className="footer-col footer-info">
-            <h2>Información</h2>
-            <ul>
-              {INFO_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} onClick={(event) => handleNavigate(link.href, event)}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <button type="button" onClick={onOpenPrivacy}>
-                  Aviso de privacidad
-                </button>
-              </li>
-            </ul>
           </div>
         </div>
       </div>

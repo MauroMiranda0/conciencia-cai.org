@@ -10,6 +10,19 @@ const INITIAL_STATE = {
   message: '',
 };
 
+const CONTACT_MICRO_TONES = {
+  care: {
+    label: 'El Cuidador',
+    title: 'Te acompañamos desde el primer mensaje',
+    detail: 'Coordinación clínica recibe tu solicitud en tiempo real y responde con contención inmediata.',
+  },
+  sage: {
+    label: 'El Sabio',
+    title: 'Te guiamos con procesos claros',
+    detail: 'Explicamos requisitos, tiempos y pasos del Modelo Minnesota antes de avanzar.',
+  },
+};
+
 /**
  * @typedef {Object} ContactSectionProps
  * @property {string} [selectedSede]
@@ -46,6 +59,7 @@ export default function ContactSection({
     /** @type {Record<string, string>} */ ({})
   );
   const [status, setStatus] = useState('');
+  const [microTone, setMicroTone] = useState('care');
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
@@ -66,6 +80,17 @@ export default function ContactSection({
     if (typeof selectedSede === 'undefined') return;
     setFormData((prev) => ({ ...prev, sede: selectedSede }));
   }, [normalizedLockedSede, onSelectSede, selectedSede]);
+
+  const microCopy = CONTACT_MICRO_TONES[microTone] ?? CONTACT_MICRO_TONES.care;
+
+  const handleMicroTone = (tone = 'care') => {
+    setMicroTone(tone);
+  };
+
+  const getMicroHandlers = (tone = 'care') => ({
+    onFocus: () => handleMicroTone(tone),
+    onMouseEnter: () => handleMicroTone(tone),
+  });
 
   /**
    * @param {import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event
@@ -119,9 +144,21 @@ export default function ContactSection({
           {channelNote ? <p className="contact-section__note">{channelNote}</p> : null}
         </div>
         <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
+          <div className="contact-form__micro" data-variant={microTone} aria-live="polite">
+            <p>{microCopy.label}</p>
+            <strong>{microCopy.title}</strong>
+            <span>{microCopy.detail}</span>
+          </div>
           <div className="field">
             <label htmlFor="name">Nombre</label>
-            <input id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              {...getMicroHandlers('care')}
+            />
             {errors.name && (
               <span className="field__error" role="alert" aria-live="assertive">
                 {errors.name}
@@ -138,6 +175,7 @@ export default function ContactSection({
               value={formData.phone}
               onChange={handleChange}
               required
+              {...getMicroHandlers('care')}
             />
             {errors.phone && (
               <span className="field__error" role="alert" aria-live="assertive">
@@ -154,6 +192,7 @@ export default function ContactSection({
               value={formData.email}
               onChange={handleChange}
               required
+              {...getMicroHandlers('sage')}
             />
             {errors.email && (
               <span className="field__error" role="alert" aria-live="assertive">
@@ -166,12 +205,22 @@ export default function ContactSection({
             {normalizedLockedSede ? (
               <>
                 <input type="hidden" id="sede" name="sede" value={normalizedLockedSede} readOnly />
-                <p className="contact-section__sede-pill" aria-live="polite">
+                <p
+                  className="contact-section__sede-pill"
+                  aria-live="polite"
+                  onMouseEnter={() => handleMicroTone('sage')}
+                >
                   {sedeLabel || 'Sede seleccionada automáticamente'}
                 </p>
               </>
             ) : (
-              <select id="sede" name="sede" value={formData.sede} onChange={handleSedeChange}>
+              <select
+                id="sede"
+                name="sede"
+                value={formData.sede}
+                onChange={handleSedeChange}
+                {...getMicroHandlers('sage')}
+              >
                 <option value="">Selecciona una opción</option>
                 <option value="mujeres">Sede Femenil</option>
                 <option value="hombres">Sede Varonil</option>
@@ -191,10 +240,16 @@ export default function ContactSection({
               rows={4}
               value={formData.message}
               onChange={handleChange}
+              {...getMicroHandlers('care')}
             />
           </div>
           <div className="contact-form__footer">
-            <button type="submit" className="btn btn--primary">
+            <button
+              type="submit"
+              className="btn btn--primary"
+              onMouseEnter={() => handleMicroTone('care')}
+              onFocus={() => handleMicroTone('care')}
+            >
               Enviar
             </button>
             <p className="text-muted">
