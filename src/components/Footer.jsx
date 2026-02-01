@@ -98,15 +98,7 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
               <PhoneIcon />
               <a href="tel:7711234567">771 123 4567</a>
             </p>
-            <div className="footer-social" aria-label="Redes sociales">
-              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
-                <FacebookIcon />
-              </a>
-              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
-                <InstagramIcon />
-              </a>
-            </div>
-          </div>
+            
           <div className="footer-col footer-sites">
             <h2>Nuestras sedes</h2>
             <div className="footer-sites__list" id="sedes">
@@ -121,15 +113,21 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
                     <div className="footer-site__badge">{isActive ? 'Estás aquí' : 'Disponible'}</div>
                     <h3>{site.label}</h3>
                     <p>{site.address}</p>
-                    <a href={`tel:${site.phone.replace(/\s+/g, '')}`} className="footer-site__phone">
-                      Llamar {site.phone}
-                    </a>
                     <button type="button" onClick={(event) => handleNavigate(site.hash, event)}>
                       Ver detalles
                     </button>
                   </article>
                 );
               })}
+            </div>
+          </div>
+            <div className="footer-social" aria-label="Redes sociales">
+              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
+                <FacebookIcon />
+              </a>
+              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <InstagramIcon />
+              </a>
             </div>
           </div>
           <div className="footer-col footer-info">

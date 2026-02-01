@@ -4,6 +4,7 @@ import MenSiteView from './views/MenSiteView.jsx';
 import WomenSiteView from './views/WomenSiteView.jsx';
 import PrivacyModal from './components/PrivacyModal.jsx';
 import ModelModal from './components/ModelModal.jsx';
+import FloatingNavButtons from './components/FloatingNavButtons.jsx';
 import { scrollToHash } from './utils/dom.js';
 import './styles/globals.scss';
 import './styles/components/Button.scss';
@@ -131,6 +132,7 @@ export default function App() {
           onShowMenSite={showMenSite}
         />
       ) : null}
+      <FloatingNavButtons onNavigate={handleNavigate} />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
     </>
