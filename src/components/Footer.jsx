@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import logoAzul from '../assets/brand/logoAzul.jpg';
 import logoRosa from '../assets/brand/logoRosa.jpg';
 import FacebookIcon from './icons/FacebookIcon.jsx';
@@ -8,27 +8,7 @@ import '../styles/components/Footer.scss';
 const INFO_LINKS = [
   { href: '#metodo', label: 'Modelo Minnesota' },
   { href: '#contacto', label: 'Valoración confidencial' },
-  { href: '#sedes', label: 'Sedes en Pachuca' },
 ];
-const SITE_DETAILS = [
-  {
-    id: 'hombres',
-    label: 'Sede Varonil',
-    address: 'Camino Real #120, Pachuca, Hidalgo',
-    phone: '771 123 4567',
-    hash: '#sede-varonil',
-    tone: 'men',
-  },
-  {
-    id: 'mujeres',
-    label: 'Sede Femenil',
-    address: 'Sierra Madre #45, Pachuca, Hidalgo',
-    phone: '771 765 4321',
-    hash: '#sede-femenil',
-    tone: 'women',
-  },
-];
-const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 /**
  * @typedef {Object} FooterProps
@@ -40,9 +20,7 @@ const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 /**
  * @param {FooterProps} props
  */
-export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
-  const [emailValue, setEmailValue] = useState('');
-  const [status, setStatus] = useState('');
+export default function Footer({ onOpenPrivacy, onNavigate }) {
 
   /**
    * @param {string} hash
@@ -53,29 +31,11 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
     onNavigate?.(hash);
   };
 
-  /**
-   * @param {import('react').FormEvent<HTMLFormElement>} event
-   */
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const trimmedEmail = emailValue.trim();
-    if (!trimmedEmail) {
-      setStatus('Ingresa un correo para recibir recursos y guías.');
-      return;
-    }
-    if (!EMAIL_REGEX.test(trimmedEmail)) {
-      setStatus('Ingresa un correo válido para recibir recursos y guías.');
-      return;
-    }
-    setStatus('Gracias. Te enviaremos guías clínicas y materiales para familias.');
-    setEmailValue('');
-  };
-
   return (
     <footer className="app-footer">
       <div className="footer-content">
         <div className="container footer-grid">
-          <div className="footer-col footer-contact">
+          <div className="footer-col footer-brand">
             <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate('#inicio', event)}>
               <span className="nav__logo-group">
                 <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
@@ -90,6 +50,8 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
                 <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
               </span>
             </a>
+          </div>
+          <div className="footer-col footer-contact">
             <p className="footer-detail">
               <MailIcon />
               <a href="mailto:contacto@conciencia-cai.org">contacto@conciencia-cai.org</a>
@@ -98,29 +60,6 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
               <PhoneIcon />
               <a href="tel:7711234567">771 123 4567</a>
             </p>
-            
-          <div className="footer-col footer-sites">
-            <h2>Nuestras sedes</h2>
-            <div className="footer-sites__list" id="sedes">
-              {SITE_DETAILS.map((site) => {
-                const isActive = site.id === activeSite;
-                return (
-                  <article
-                    key={site.id}
-                    className={`footer-site footer-site--${site.tone}${isActive ? ' footer-site--active' : ''}`}
-                    aria-current={isActive ? 'location' : undefined}
-                  >
-                    <div className="footer-site__badge">{isActive ? 'Estás aquí' : 'Disponible'}</div>
-                    <h3>{site.label}</h3>
-                    <p>{site.address}</p>
-                    <button type="button" onClick={(event) => handleNavigate(site.hash, event)}>
-                      Ver detalles
-                    </button>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
             <div className="footer-social" aria-label="Redes sociales">
               <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
                 <FacebookIcon />
@@ -146,27 +85,6 @@ export default function Footer({ onOpenPrivacy, onNavigate, activeSite = '' }) {
                 </button>
               </li>
             </ul>
-          </div>
-          <div className="footer-col footer-newsletter">
-            <h2>Recibe guías y recursos</h2>
-            <p>Enviamos materiales clínicos, rituales familiares y agendas de acompañamiento.</p>
-            <form className="newsletter-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                placeholder="Tu correo"
-                value={emailValue}
-                onChange={(event) => setEmailValue(event.target.value)}
-                aria-label="Correo electrónico"
-              />
-              <button type="submit" className="btn btn--primary">
-                Suscribirme
-              </button>
-            </form>
-            {status ? (
-              <p className="newsletter-status" role="status" aria-live="polite">
-                {status}
-              </p>
-            ) : null}
           </div>
         </div>
       </div>
