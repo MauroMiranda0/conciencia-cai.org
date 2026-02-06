@@ -6,6 +6,7 @@ import {
   HeroCallToActionMen,
   HeroCallToActionWomen,
 } from './HeroCallToActions.jsx';
+import HeroArchetypePanel from './HeroArchetypePanel.jsx';
 import { inferSiteGender } from '../utils/sites.js';
 
 import '../styles/components/HeroVista.scss';
@@ -228,28 +229,13 @@ export default function HeroVista({
         />
       </div>
 
-      <div className="hero-vista__micro-panel" aria-live="polite" data-archetype={microArchetype}>
-        <div
-          className={`hero-vista__micro-pill hero-vista__micro-pill--care hero-vista__micro-pill--${careIntent}`}
-        >
-          <p className="hero-vista__micro-label">El Cuidador</p>
-          <strong>{activeCareSignal.title}</strong>
-          <span>{activeCareSignal.body}</span>
-        </div>
-        <div className="hero-vista__micro-pill hero-vista__micro-pill--sage">
-          <p className="hero-vista__micro-label">El Sabio</p>
-          <strong>{activeSageSignal.title}</strong>
-          <span>{activeSageSignal.body}</span>
-          <button
-            type="button"
-            className="hero-vista__micro-trigger"
-            onClick={handleAdvanceSage}
-            aria-label="Ver otra guía del equipo clínico"
-          >
-            Nueva guía
-          </button>
-        </div>
-      </div>
+      <HeroArchetypePanel
+        microArchetype={microArchetype}
+        careIntent={careIntent}
+        careSignal={activeCareSignal}
+        sageSignal={activeSageSignal}
+        onAdvanceSage={handleAdvanceSage}
+      />
     </div>
   );
 }
