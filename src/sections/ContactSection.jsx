@@ -10,19 +10,6 @@ const INITIAL_STATE = {
   message: '',
 };
 
-const CONTACT_MICRO_TONES = {
-  care: {
-    label: 'El Cuidador',
-    title: 'Te acompañamos desde el primer mensaje',
-    detail: 'Coordinación clínica recibe tu solicitud en tiempo real y responde con contención inmediata.',
-  },
-  sage: {
-    label: 'El Sabio',
-    title: 'Te guiamos con procesos claros',
-    detail: 'Explicamos requisitos, tiempos y pasos del Modelo Minnesota antes de avanzar.',
-  },
-};
-
 /**
  * @typedef {Object} ContactSectionProps
  * @property {string} [selectedSede]
@@ -34,7 +21,6 @@ const CONTACT_MICRO_TONES = {
  * @property {string} [description]
  * @property {string} [lockedSedeValue]
  * @property {string} [successMessage]
- * @property {string} [channelNote]
  * @property {import('react').ReactNode} [asideContent]
  */
 
@@ -46,20 +32,18 @@ export default function ContactSection({
   onSelectSede,
   onOpenPrivacy,
   id = 'contacto',
-  eyebrow = 'Dar el primer paso',
-  title = 'Es parte del proceso',
-  description = 'Si tú o un familiar están atravesando una situación relacionada con el consumo de sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en el inicio de un camino real hacia la recuperación.',
+  eyebrow = 'Dar el primer paso, es parte del proceso',
+  title = 'Guía clínica con sentido humano',
+  description = 'Si tú o un familiar están atravesando una situación relacionada con el consumo de sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en el inicio de un camino real hacia la recuperación. Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo, dudas y cansancio emocional. En CONCIENCIA CAI, priorizamos la empatía, la claridad y el trato digno desde el primer contacto.',
   lockedSedeValue,
   successMessage = 'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.',
-  channelNote,
   asideContent,
 }) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
   const [errors, setErrors] = useState(
-    /** @type {Record<string, string>} */ ({})
+    /** @type {Record<string, string>} */({})
   );
   const [status, setStatus] = useState('');
-  const [microTone, setMicroTone] = useState('care');
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
@@ -81,10 +65,13 @@ export default function ContactSection({
     setFormData((prev) => ({ ...prev, sede: selectedSede }));
   }, [normalizedLockedSede, onSelectSede, selectedSede]);
 
-  const microCopy = CONTACT_MICRO_TONES[microTone] ?? CONTACT_MICRO_TONES.care;
-
-  const handleMicroTone = (tone = 'care') => {
-    setMicroTone(tone);
+  /**
+   * @param {string} _tone
+   */
+  const handleMicroTone = (_tone) => {
+    // placeholder for micro-interaction logic (e.g., set a small UI tone/animation)
+    // currently a no-op to avoid undefined reference
+    return;
   };
 
   const getMicroHandlers = (tone = 'care') => ({
@@ -141,14 +128,8 @@ export default function ContactSection({
           <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
           <h2>{title}</h2>
           <p className="text-muted">{description}</p>
-          {channelNote ? <p className="contact-section__note">{channelNote}</p> : null}
         </div>
         <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
-          <div className="contact-form__micro" data-variant={microTone} aria-live="polite">
-            <p>{microCopy.label}</p>
-            <strong>{microCopy.title}</strong>
-            <span>{microCopy.detail}</span>
-          </div>
           <div className="field">
             <label htmlFor="name">Nombre</label>
             <input
@@ -252,12 +233,15 @@ export default function ContactSection({
             >
               Enviar
             </button>
-            <p className="text-muted">
+            <p className="contact-form__guide-note">
               Al enviar aceptas nuestro{' '}
               <button type="button" className="link" onClick={onOpenPrivacy}>
                 Aviso de Privacidad
               </button>
               .
+              Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del
+              Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu
+              confidencialidad en todo momento.
             </p>
           </div>
           {status && (

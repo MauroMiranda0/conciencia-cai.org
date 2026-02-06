@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import HeroVista from '../components/HeroVista.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
-import HumanGuide from '../components/HumanGuide.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import { scrollToHash } from '../utils/dom.js';
@@ -131,10 +130,7 @@ export default function HomeView({
         <div className="reveal reveal--delay-1" data-section="method">
           <MethodOverview />
         </div>
-        <div className="reveal reveal--delay-2" data-section="guide">
-          <HumanGuide />
-        </div>
-        <div className="reveal reveal--delay-3" data-section="contact">
+        <div className="reveal reveal--delay-2" data-section="contact">
           <ContactSection
             selectedSede={selectedSede}
             onSelectSede={handleSelectSede}
