@@ -6,6 +6,14 @@
   isolation: isolate;
 }
 
+.men-site[data-archetype='sage'] .men-site__halo {
+  background:
+    radial-gradient(circle at 12% 30%, rgba(14, 165, 233, 0.2), transparent 55%),
+    radial-gradient(circle at 80% 5%, rgba(59, 130, 246, 0.16), transparent 45%),
+    linear-gradient(120deg, rgba(15, 76, 92, 0.2), transparent 65%);
+  filter: blur(1px);
+}
+
 .men-site__halo {
   position: absolute;
   inset: 0;
@@ -32,6 +40,34 @@
 .men-site__hero {
   display: grid;
   gap: clamp(16px, 3vw, 24px);
+}
+
+.men-site__hero[data-archetype='sage'] {
+  border-color: rgba(14, 165, 233, 0.32);
+  box-shadow: 0 28px 60px rgba(14, 165, 233, 0.15);
+}
+
+.men-site__switch {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: -12px 0 12px;
+}
+
+.men-site__switch-link {
+  border: none;
+  background: transparent;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
 }
 
 .men-site__eyebrow {
@@ -90,6 +126,37 @@
 .men-site__micro-hint[data-variant='sage'] {
   background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(15, 76, 92, 0.12));
   border-color: rgba(14, 165, 233, 0.25);
+}
+
+.men-site__micro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.men-site__micro-toggle {
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 999px;
+  background: transparent;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &.is-active {
+    background: rgba(14, 165, 233, 0.15);
+    border-color: rgba(14, 165, 233, 0.45);
+    color: #0f172a;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(14, 165, 233, 0.45);
+    outline-offset: 2px;
+  }
 }
 
 @keyframes microHintFloat {
@@ -313,47 +380,6 @@
   margin: 0;
   font-weight: 700;
   color: #0f172a;
-}
-
-.men-site__business {
-  display: grid;
-  gap: 16px;
-}
-
-.men-site__business h2 {
-  margin: 0;
-}
-
-.men-site__business p {
-  margin: 0;
-  color: #475569;
-}
-
-.men-site__form {
-  display: grid;
-  gap: 12px;
-}
-
-.men-site__form input,
-.men-site__form textarea {
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 14px;
-  padding: 12px;
-  font: inherit;
-  background: rgba(255, 255, 255, 0.92);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.men-site__form input:focus,
-.men-site__form textarea:focus {
-  border-color: rgba(15, 76, 92, 0.45);
-  box-shadow: 0 0 0 3px rgba(15, 76, 92, 0.12);
-  outline: none;
-}
-
-.men-site__form textarea {
-  resize: none;
-  min-height: 140px;
 }
 
 @media (min-width: 900px) {

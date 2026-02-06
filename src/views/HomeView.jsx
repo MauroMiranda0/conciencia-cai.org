@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import HeroVista from '../components/HeroVista.jsx';
-import HumanGuide from '../components/HumanGuide.jsx';
+import MethodOverview from '../components/MethodOverview.jsx';
 import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import { scrollToHash } from '../utils/dom.js';
@@ -52,7 +52,6 @@ export default function HomeView({
   selectedSede,
   onSelectSede,
 }) {
-
   const handleNavigate = useCallback(
     /**
      * @param {string} [hash]
@@ -114,21 +113,31 @@ export default function HomeView({
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        Saltar al contenido
+      </a>
       <Navbar onNavigate={handleNavigate} />
       <main id="main" className="home-view__stage" aria-label="Inicio">
-        <HeroVista
-          promises={HERO_PROMISES}
-          onNavigate={handleNavigate}
-          onShowMenSite={handleShowMenSite}
-          onShowWomenSite={handleShowWomenSite}
-          onSelectSede={handleSelectSede}
-        />
-        <HumanGuide />
-        <ContactSection
-          selectedSede={selectedSede}
-          onSelectSede={handleSelectSede}
-          onOpenPrivacy={handleOpenPrivacy}
-        />
+        <div className="reveal" data-section="hero">
+          <HeroVista
+            promises={HERO_PROMISES}
+            onNavigate={handleNavigate}
+            onShowMenSite={handleShowMenSite}
+            onShowWomenSite={handleShowWomenSite}
+            onSelectSede={handleSelectSede}
+          />
+        </div>
+        <div className="reveal reveal--delay-1" data-section="method">
+          <MethodOverview />
+        </div>
+        <div className="reveal reveal--delay-2" data-section="contact">
+          <ContactSection
+            selectedSede={selectedSede}
+            onSelectSede={handleSelectSede}
+            onOpenPrivacy={handleOpenPrivacy}
+            channelNote="Coordinación clínica responde cada mensaje y orienta sin juicios."
+          />
+        </div>
       </main>
       <Footer onOpenPrivacy={handleOpenPrivacy} onNavigate={handleNavigate} />
     </>

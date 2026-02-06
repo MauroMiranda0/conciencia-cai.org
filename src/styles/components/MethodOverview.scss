@@ -1,0 +1,74 @@
+.method-overview {
+  padding: clamp(32px, 7vw, 72px) 0;
+
+  &__grid {
+    display: grid;
+    gap: clamp(24px, 4vw, 40px);
+  }
+
+  &__intro {
+    max-width: 720px;
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-muted);
+    }
+  }
+
+  &__lead {
+    color: var(--accent-color);
+  }
+
+  &__steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  &__step {
+    padding: 18px 20px;
+    border-radius: 24px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    display: grid;
+    gap: 12px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+  }
+
+  &__step-index {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+  }
+}
+
+.method-overview--men .method-overview__step {
+  border-color: rgba(15, 76, 92, 0.2);
+  background: linear-gradient(135deg, rgba(15, 76, 92, 0.06), rgba(255, 255, 255, 0.95));
+}
+
+.method-overview--women .method-overview__step {
+  border-color: rgba(190, 24, 93, 0.18);
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(255, 255, 255, 0.95));
+}

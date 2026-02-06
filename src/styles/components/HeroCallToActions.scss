@@ -96,6 +96,21 @@
   gap: 8px;
 }
 
+.hero-vista__site-support {
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.hero-vista__site-card--men .hero-vista__site-support {
+  color: rgba(15, 76, 92, 0.85);
+}
+
+.hero-vista__site-card--women .hero-vista__site-support {
+  color: rgba(190, 24, 93, 0.85);
+}
+
 @media (max-width: 1024px) {
   .hero-vista__site-card--men,
   .hero-vista__site-card--women {

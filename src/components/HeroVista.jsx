@@ -6,6 +6,7 @@ import {
   HeroCallToActionMen,
   HeroCallToActionWomen,
 } from './HeroCallToActions.jsx';
+import HeroArchetypePanel from './HeroArchetypePanel.jsx';
 import { inferSiteGender } from '../utils/sites.js';
 
 import '../styles/components/HeroVista.scss';
@@ -124,6 +125,7 @@ export default function HeroVista({
 }) {
   const [careIntent, setCareIntent] = useState('default');
   const [sageIndex, setSageIndex] = useState(0);
+  const [microArchetype, setMicroArchetype] = useState('care');
   const normalizedPromises =
     Array.isArray(promises) && promises.length > 0 ? promises : DEFAULT_PROMISES;
   const normalizedSites = Array.isArray(sites) && sites.length > 0 ? sites : DEFAULT_SITES;
@@ -134,7 +136,10 @@ export default function HeroVista({
     normalizedSites.find((site) => inferSiteGender(site?.tone, site?.sede) === 'women') ??
     normalizedSites.find((site) => site !== menSite) ??
     fallbackSite;
-  const activeCareSignal = CARE_INTENT_COPY[careIntent] ?? CARE_INTENT_COPY.default;
+  const activeCareSignal =
+    CARE_INTENT_COPY[
+      /** @type {keyof typeof CARE_INTENT_COPY} */ (careIntent)
+    ] ?? CARE_INTENT_COPY.default;
   const activeSageSignal = SAGE_GUIDANCE[sageIndex] ?? SAGE_GUIDANCE[0];
 
   useEffect(() => {
@@ -149,14 +154,25 @@ export default function HeroVista({
 
   const handleIntentChange = (intent = 'default') => {
     setCareIntent(intent ?? 'default');
+    setMicroArchetype('care');
   };
 
   const handleAdvanceSage = () => {
     setSageIndex((prev) => (prev + 1) % SAGE_GUIDANCE.length);
+    setMicroArchetype('sage');
+  };
+
+  const handleRewindSage = () => {
+    setSageIndex((prev) => (prev - 1 + SAGE_GUIDANCE.length) % SAGE_GUIDANCE.length);
+    setMicroArchetype('sage');
   };
 
   return (
-    <div className="hero-vista__gallery" aria-label="Espacios de internamiento">
+    <div
+      className="hero-vista__gallery"
+      aria-label="Espacios de internamiento"
+      data-archetype={microArchetype}
+    >
 
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--men">
@@ -218,28 +234,14 @@ export default function HeroVista({
         />
       </div>
 
-      <div className="hero-vista__micro-panel" aria-live="polite">
-        <div
-          className={`hero-vista__micro-pill hero-vista__micro-pill--care hero-vista__micro-pill--${careIntent}`}
-        >
-          <p className="hero-vista__micro-label">El Cuidador</p>
-          <strong>{activeCareSignal.title}</strong>
-          <span>{activeCareSignal.body}</span>
-        </div>
-        <div className="hero-vista__micro-pill hero-vista__micro-pill--sage">
-          <p className="hero-vista__micro-label">El Sabio</p>
-          <strong>{activeSageSignal.title}</strong>
-          <span>{activeSageSignal.body}</span>
-          <button
-            type="button"
-            className="hero-vista__micro-trigger"
-            onClick={handleAdvanceSage}
-            aria-label="Ver otra guía del equipo clínico"
-          >
-            Nueva guía
-          </button>
-        </div>
-      </div>
+      <HeroArchetypePanel
+        microArchetype={microArchetype}
+        careIntent={careIntent}
+        careSignal={activeCareSignal}
+        sageSignal={activeSageSignal}
+        onAdvanceSage={handleAdvanceSage}
+        onRewindSage={handleRewindSage}
+      />
     </div>
   );
 }

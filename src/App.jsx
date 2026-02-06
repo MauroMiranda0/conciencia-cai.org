@@ -4,6 +4,7 @@ import MenSiteView from './views/MenSiteView.jsx';
 import WomenSiteView from './views/WomenSiteView.jsx';
 import PrivacyModal from './components/PrivacyModal.jsx';
 import ModelModal from './components/ModelModal.jsx';
+import FloatingNavButtons from './components/FloatingNavButtons.jsx';
 import { scrollToHash } from './utils/dom.js';
 import './styles/globals.scss';
 import './styles/components/Button.scss';
@@ -26,18 +27,23 @@ export default function App() {
   );
   const initialHashHandled = useRef(false);
 
-  const showMenSite = useCallback(() => {
-    setActiveView(VIEWS.MEN);
-    requestAnimationFrame(() => {
+  const scrollTop = () => {
+    if (typeof window === 'undefined') return;
+    window.requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  };
+
+  const showMenSite = useCallback(() => {
+    setActiveView(VIEWS.MEN);
+    setSelectedSede('hombres');
+    scrollTop();
   }, []);
 
   const showWomenSite = useCallback(() => {
     setActiveView(VIEWS.WOMEN);
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    setSelectedSede('mujeres');
+    scrollTop();
   }, []);
 
   /**
@@ -87,6 +93,19 @@ export default function App() {
     }
   }, [activeView, pendingHash]);
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const { classList } = document.body;
+    classList.toggle('theme-men', activeView === VIEWS.MEN);
+    classList.toggle('theme-women', activeView === VIEWS.WOMEN);
+    if (activeView === VIEWS.HOME) {
+      classList.remove('theme-men', 'theme-women');
+    }
+    return () => {
+      classList.remove('theme-men', 'theme-women');
+    };
+  }, [activeView]);
+
   return (
     <>
       {activeView === VIEWS.HOME ? (
@@ -100,11 +119,20 @@ export default function App() {
         />
       ) : null}
       {activeView === VIEWS.MEN ? (
-        <MenSiteView onNavigate={handleNavigate} onOpenPrivacy={() => setPrivacyOpen(true)} />
+        <MenSiteView
+          onNavigate={handleNavigate}
+          onOpenPrivacy={() => setPrivacyOpen(true)}
+          onShowWomenSite={showWomenSite}
+        />
       ) : null}
       {activeView === VIEWS.WOMEN ? (
-        <WomenSiteView onNavigate={handleNavigate} onOpenPrivacy={() => setPrivacyOpen(true)} />
+        <WomenSiteView
+          onNavigate={handleNavigate}
+          onOpenPrivacy={() => setPrivacyOpen(true)}
+          onShowMenSite={showMenSite}
+        />
       ) : null}
+      <FloatingNavButtons onNavigate={handleNavigate} />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
     </>

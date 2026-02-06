@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Jardín sede femenil">
+  <defs>
+    <linearGradient id="women-garden" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f472b6" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#women-garden)" rx="40" />
+  <text x="50%" y="48%" font-size="40" text-anchor="middle" fill="#fff7fb" font-family="Segoe UI, Arial, sans-serif">
+    Jardín terapéutico
+  </text>
+  <text x="50%" y="58%" font-size="22" text-anchor="middle" fill="#fdf2f8" font-family="Segoe UI, Arial, sans-serif">
+    Respiración y rituales de autocuidado
+  </text>
+</svg>

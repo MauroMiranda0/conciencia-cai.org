@@ -1,0 +1,72 @@
+.about-values {
+  padding: clamp(32px, 7vw, 80px) 0;
+
+  &__grid {
+    display: grid;
+    gap: clamp(24px, 4vw, 48px);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  &__intro {
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--color-muted);
+    }
+  }
+
+  &__panel {
+    border-radius: 28px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    padding: clamp(20px, 3vw, 28px);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+
+    h3 {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 0 0 12px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    li::before {
+      content: '';
+      position: absolute;
+      top: 0.6em;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-color);
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-muted);
+    }
+  }
+}
+
+.about-values--men .about-values__panel {
+  border-color: rgba(15, 76, 92, 0.2);
+}
+
+.about-values--women .about-values__panel {
+  border-color: rgba(190, 24, 93, 0.2);
+}
