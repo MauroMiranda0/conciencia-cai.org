@@ -162,6 +162,11 @@ export default function HeroVista({
     setMicroArchetype('sage');
   };
 
+  const handleRewindSage = () => {
+    setSageIndex((prev) => (prev - 1 + SAGE_GUIDANCE.length) % SAGE_GUIDANCE.length);
+    setMicroArchetype('sage');
+  };
+
   return (
     <div
       className="hero-vista__gallery"
@@ -235,6 +240,7 @@ export default function HeroVista({
         careSignal={activeCareSignal}
         sageSignal={activeSageSignal}
         onAdvanceSage={handleAdvanceSage}
+        onRewindSage={handleRewindSage}
       />
     </div>
   );

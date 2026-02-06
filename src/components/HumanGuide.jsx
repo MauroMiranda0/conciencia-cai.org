@@ -15,11 +15,6 @@ export default function HumanGuide() {
             digno desde el primer contacto.
           </p>
 
-          <p className="human-guide__description">
-            La atención se fundamenta en principios éticos y humanos, garantizando un acompañamiento integral que
-            respeta la dignidad de cada persona. El enfoque clínico se complementa con sensibilidad y cercanía,
-            asegurando que la recuperación sea tanto técnica como emocional.
-          </p>
         </div>
       </div>
     </section>
