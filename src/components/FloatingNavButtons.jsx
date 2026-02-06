@@ -9,12 +9,16 @@ const FLOATING_BUTTONS = [
 /**
  * @typedef {Object} FloatingNavButtonsProps
  * @property {(hash?: string) => void} [onNavigate]
+ * @property {boolean} [isHidden]
  */
 
 /**
  * @param {FloatingNavButtonsProps} props
  */
-export default function FloatingNavButtons({ onNavigate }) {
+export default function FloatingNavButtons({ onNavigate, isHidden }) {
+  if (isHidden) {
+    return null;
+  }
   /**
    * @param {import('react').MouseEvent<HTMLButtonElement>} event
    * @param {string|undefined} hash

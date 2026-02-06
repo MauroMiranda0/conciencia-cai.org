@@ -132,7 +132,7 @@ export default function App() {
           onShowMenSite={showMenSite}
         />
       ) : null}
-      <FloatingNavButtons onNavigate={handleNavigate} />
+      <FloatingNavButtons onNavigate={handleNavigate} isHidden={privacyOpen || modelOpen} />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
     </>

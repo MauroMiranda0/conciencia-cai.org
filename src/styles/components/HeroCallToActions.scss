@@ -54,8 +54,9 @@
 }
 
 .hero-vista__site-card--men {
-  margin: 0 0 0 100px;
+  margin: 0 auto;
   gap: 15px;
+  transform: translateX(clamp(0px, 4vw, 64px));
 
   ul li::before {
     background: rgba(15, 76, 92, 0.8);
@@ -63,8 +64,9 @@
 }
 
 .hero-vista__site-card--women {
-  margin: 0 100px 0 0;
+  margin: 0 auto;
   gap: 15px;
+  transform: translateX(clamp(-64px, -4vw, 0px));
 
   ul li::before {
     background: rgba(190, 81, 108, 0.85);
@@ -115,6 +117,7 @@
   .hero-vista__site-card--men,
   .hero-vista__site-card--women {
     margin: 0;
+    transform: none;
   }
 
   .hero-vista__site-card {

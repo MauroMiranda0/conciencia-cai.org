@@ -4,7 +4,7 @@
   &__grid {
     display: grid;
     gap: clamp(24px, 4vw, 48px);
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   }
 
   &__intro {
