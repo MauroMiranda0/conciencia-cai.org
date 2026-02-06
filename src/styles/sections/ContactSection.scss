@@ -153,10 +153,12 @@
     transform: scale(1);
     opacity: 0.6;
   }
+
   50% {
     transform: scale(1.03);
     opacity: 0.3;
   }
+
   100% {
     transform: scale(1);
     opacity: 0.6;
@@ -201,6 +203,19 @@
 
   p {
     text-align: justify;
+  }
+}
+
+.contact-form__footer .btn {
+  padding: 0.65rem 3rem;
+  transition: padding 0.2s ease, font-size 0.2s ease;
+}
+
+@media (min-width: 769px) {
+  .contact-form__footer .btn {
+    align-self: flex-end;
+    
+    font-size: 0.92rem;
   }
 }
 
