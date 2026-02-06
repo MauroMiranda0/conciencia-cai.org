@@ -135,7 +135,10 @@ export default function HeroVista({
     normalizedSites.find((site) => inferSiteGender(site?.tone, site?.sede) === 'women') ??
     normalizedSites.find((site) => site !== menSite) ??
     fallbackSite;
-  const activeCareSignal = CARE_INTENT_COPY[careIntent] ?? CARE_INTENT_COPY.default;
+  const activeCareSignal =
+    CARE_INTENT_COPY[
+      /** @type {keyof typeof CARE_INTENT_COPY} */ (careIntent)
+    ] ?? CARE_INTENT_COPY.default;
   const activeSageSignal = SAGE_GUIDANCE[sageIndex] ?? SAGE_GUIDANCE[0];
 
   useEffect(() => {

@@ -65,8 +65,8 @@ export default function FloatingNavButtons({ onNavigate }) {
 function MethodIcon() {
   return (
     <svg viewBox="0 0 24 24" role="img">
-      <path d="M6 3h10.5A3.5 3.5 0 0 1 20 6.5V20a1 1 0 0 1-1.52.85L14 18.27l-4.48 2.58A1 1 0 0 1 8 20V5H6z" />
-      <path d="M8 3.5A1.5 1.5 0 0 1 9.5 2H15a1 1 0 0 1 0 2H9.5A1.5 1.5 0 0 1 8 2.5z" />
+      <path d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L11 12.59V4a1 1 0 0 1 1-1z" />
+      <path d="M6 15a1 1 0 0 0-1 1v3.5A2.5 2.5 0 0 0 7.5 22h9a2.5 2.5 0 0 0 2.5-2.5V16a1 1 0 0 0-2 0v3.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V16a1 1 0 0 0-1-1z" />
     </svg>
   );
 }
