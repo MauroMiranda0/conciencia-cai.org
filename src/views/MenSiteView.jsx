@@ -13,6 +13,7 @@ import menReintegrationFlow from '../assets/illustrations/men/reintegration-circ
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
 import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
+import menHeroBackdrop from '../assets/photos/men/hero-hombre.png';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -133,6 +134,8 @@ const MEN_TESTIMONIALS = [
   },
 ];
 
+const MEN_HERO_BACKGROUND = menHeroBackdrop;
+
 const CONTACT_SECTION_ID = 'contacto-varonil';
 const MEN_MAP_SRC =
   'https://maps.google.com/maps?q=Camino%20Real%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
@@ -150,6 +153,9 @@ const MEN_MAP_SRC =
 export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite }) {
   const [microMode, setMicroMode] = useState('care');
   const [, setMicroIndex] = useState(0);
+  const heroBackgroundStyle = {
+    '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -160,15 +166,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
     }, 9000);
     return () => window.clearInterval(timer);
   }, []);
-
-  const handleCTA = () => {
-    const section = document.getElementById(CONTACT_SECTION_ID);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    onNavigate?.('#contacto');
-  };
 
   const activateCareSignal = () => setMicroMode('care');
   const activateSageSignal = () => setMicroMode('sage');
@@ -187,28 +184,18 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
         <div className="men-site__halo" aria-hidden="true" />
         <div className="container men-site__layout">
           <section
-            className="men-site__hero men-card site-card"
+            className="men-site__hero men-card site-card men-site__hero--photo"
             aria-labelledby="men-site-hero-title"
             data-archetype={microMode}
+            // @ts-ignore
+            style={heroBackgroundStyle}
           >
-            <h2>Modelo residencial · Varonil</h2>
-            <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
+            <h2 id="men-site-hero-title">Sede varonil · Conciencia CAI</h2>
             <p className="men-site__lead">
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.
             </p>
             <div className="men-site__hero-actions">
-              <button
-                type="button"
-                className="btn btn--primary"
-                onClick={handleCTA}
-                onMouseEnter={activateCareSignal}
-                onMouseLeave={activateCareSignal}
-                onFocus={activateCareSignal}
-                onBlur={activateCareSignal}
-              >
-                Agendar valoración
-              </button>
               <button
                 type="button"
                 className="btn btn--secondary"

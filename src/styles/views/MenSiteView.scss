@@ -40,6 +40,70 @@
 .men-site__hero {
   display: grid;
   gap: clamp(16px, 3vw, 24px);
+  isolation: isolate;
+}
+
+.men-site__hero--photo {
+  position: relative;
+  overflow: hidden;
+  color: #e2e8f0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(130deg, rgba(2, 6, 23, 0.8), rgba(15, 118, 110, 0.45)),
+      var(--hero-photo);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: saturate(0.9);
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 20%, rgba(59, 130, 246, 0.32), transparent 55%);
+    mix-blend-mode: screen;
+    opacity: 0.65;
+    z-index: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  h1,
+  h2 {
+    color: #f8fafc;
+  }
+
+  .men-site__lead {
+    color: #e0f2fe;
+  }
+
+  .men-site__hero-highlights li {
+    background: rgba(15, 23, 42, 0.55);
+    border-color: rgba(226, 232, 240, 0.2);
+    color: #f8fafc;
+
+    strong {
+      color: #fff;
+    }
+  }
+
+  .men-site__hero-actions .btn--secondary {
+    color: #e0f2fe;
+    border-color: rgba(224, 242, 254, 0.6);
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(14, 165, 233, 0.12);
+    }
+  }
 }
 
 .men-site__hero[data-archetype='sage'] {
