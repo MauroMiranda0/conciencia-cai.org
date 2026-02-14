@@ -124,12 +124,12 @@ export default function ContactSection({
   return (
     <section className="contact-section" id={id} aria-label="Contacto confidencial">
       <div className={`container contact-section__grid${asideContent ? ' contact-section__grid--with-aside' : ''}`}>
-        <div className="contact-section__main">
-          <div className="contact-section__intro reveal">
-            <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
-            <h2>{title}</h2>
-            <p className="text-muted">{description}</p>
-          </div>
+        <div className="contact-section__intro reveal">
+          <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          <p className="text-muted">{description}</p>
+        </div>
+        <div className="contact-section__content">
           <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
             <div className="field">
               <label htmlFor="name">Nombre</label>
@@ -251,8 +251,8 @@ export default function ContactSection({
               </div>
             )}
           </form>
+          {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
         </div>
-        {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
       </div>
     </section>
   );
