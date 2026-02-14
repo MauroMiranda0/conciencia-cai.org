@@ -8,8 +8,6 @@ import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
-import menHeroStructure from '../assets/illustrations/men/structure-flow.svg';
-import menReintegrationFlow from '../assets/illustrations/men/reintegration-circuits.svg';
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
 import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
@@ -19,55 +17,6 @@ import menTherapyPhoto from '../assets/photos/men/terapia-hombres.png';
 import menCommunityPhoto from '../assets/photos/men/convivencia-hombres.png';
 import menFamilyPhoto from '../assets/photos/men/familia-hombres.png';
 import '../styles/views/MenSiteView.scss';
-
-/**
- * @typedef {Object} MenSiteFeature
- * @property {string} title
- * @property {string} content
- * @property {'media' | undefined} [type]
- * @property {string} [media]
- * @property {string} [mediaAlt]
- * @property {'dashed'} [mediaVariant]
- */
-
-/** @type {MenSiteFeature[]} */
-const HERO_FEATURES = [
-  {
-    title: 'Capital terapéutico que crece',
-    content: 'Rutinas estructuradas, actividad física supervisada y mentorías de propósito.',
-    type: 'media',
-    media: menHeroStructure,
-    mediaAlt: 'Secuencia gráfica que simboliza rutinas y mentorías varoniles',
-  },
-  {
-    title: 'Siempre vigilado · Siempre accesible',
-    content: 'Guardias médicas y consejeros varoniles disponibles 24/7 para emergencias.',
-  },
-  {
-    title: '100% libre de distractores',
-    content: 'Entorno controlado con reglas claras, acompañamiento espiritual y enfoque en disciplina.',
-  },
-];
-
-/** @type {MenSiteFeature[]} */
-const SECOND_FEATURES = [
-  {
-    title: 'Reintegración paulatina',
-    content: 'Simulaciones de entorno laboral, talleres de liderazgo y manejo emocional.',
-    type: 'media',
-    media: menReintegrationFlow,
-    mediaAlt: 'Diagrama abstracto de reintegración y seguimiento clínico varonil',
-    mediaVariant: 'dashed',
-  },
-  {
-    title: 'Acompañamiento familiar',
-    content: 'Reuniones semanales, contratos de convivencia y seguimiento para figuras paternas.',
-  },
-  {
-    title: 'Prevención de recaídas',
-    content: 'Plan de alta con métricas de riesgo, apadrinamiento y coaching digital durante 12 meses.',
-  },
-];
 
 const HERO_HIGHLIGHTS = [
   {
@@ -160,7 +109,7 @@ const MEN_HERO_BACKGROUND = menHeroBackdrop;
 
 const CONTACT_SECTION_ID = 'contacto-varonil';
 const MEN_MAP_SRC =
-  'https://maps.google.com/maps?q=Camino%20Real%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
+  'https://maps.google.com/maps?q=Calle%20Cipr%C3%A9s%20esq.%20con%20Felipe%20%C3%81ngeles,%20Acayuca,%20Hidalgo&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
 /**
  * @typedef {Object} MenSiteViewProps
@@ -172,8 +121,8 @@ const MEN_MAP_SRC =
 /**
  * @param {MenSiteViewProps} props
  */
-export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite }) {
-  const [microMode, setMicroMode] = useState('care');
+export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
+  const [microMode] = useState('care');
   const [, setMicroIndex] = useState(0);
   const heroBackgroundStyle = {
     '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
@@ -196,13 +145,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
       return;
     }
     onNavigate?.('#contacto');
-  };
-
-  const activateCareSignal = () => setMicroMode('care');
-  const activateSageSignal = () => setMicroMode('sage');
-  const handleViewWomenSite = () => {
-    onShowWomenSite?.();
-    onNavigate?.('#sede-femenil');
   };
 
   return (
@@ -322,8 +264,8 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
           asideContent={
             <MapEmbed
               title="Ubicación sede varonil"
-              address="Camino Real #120, Pachuca, Hidalgo"
-              phone="771 123 4567"
+              address="Calle Ciprés esq. con Felipe Ángeles, Acayuca, Hidalgo"
+              phone="771 206 3098"
               mapSrc={MEN_MAP_SRC}
             />
           }
