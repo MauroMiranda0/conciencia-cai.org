@@ -12,13 +12,20 @@
 }
 
 .contact-section__grid--with-aside {
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.contact-section__main {
+  display: grid;
+  gap: clamp(20px, 4vw, 36px);
 }
 
 .contact-section__intro {
   display: grid;
   gap: 16px;
   margin-top: 0;
+  width: 100%;
 
   p {
     margin: 0;
