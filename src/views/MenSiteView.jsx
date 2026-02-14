@@ -226,36 +226,19 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.
             </p>
-            
-              <div className="method-overview__actions">
-                <button
-                  type="button"
-                  className="btn btn--primary"
-                  onClick={handleCTA}
-                >
-                  Agendar valoración
-                </button>
-              </div>
+
+            <div className="method-overview__actions">
+              <button
+                type="button"
+                className="btn btn--primary"
+                onClick={handleCTA}
+              >
+                Agendar valoración
+              </button>
+            </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
           <AboutValues tone="men" />
-          <div className="men-site__switch">
-            <button
-              type="button"
-              className="btn btn--secondary men-site__switch-link"
-              onClick={() => onNavigate?.('#inicio')}
-            >
-              Ir al inicio
-            </button>
-            <button
-              type="button"
-              className="btn btn--secondary men-site__switch-link"
-              onClick={handleViewWomenSite}
-            >
-              Ver sede femenil
-            </button>
-          </div>
-
           <section className="men-site__bottom">
             <div className="men-card site-card men-site__use-cases">
               <h2>Casos que acompañamos</h2>
@@ -281,6 +264,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             </div>
           </section>
         </div>
+        
         <MethodOverview
           tone="men"
           eyebrow="Modelo residencial varonil"

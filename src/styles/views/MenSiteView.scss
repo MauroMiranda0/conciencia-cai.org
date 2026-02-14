@@ -151,24 +151,6 @@
   box-shadow: 0 28px 60px rgba(14, 165, 233, 0.15);
 }
 
-.men-site__switch {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: clamp(-20px, -2vw, -12px) 0 clamp(16px, 2vw, 20px);
-}
-
-.men-site__switch-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: min(220px, 100%);
-  text-transform: none;
-  letter-spacing: normal;
-  font-weight: 600;
-  gap: 6px;
-}
 
 .men-site__eyebrow {
   color: rgba(15, 23, 42, 0.7);

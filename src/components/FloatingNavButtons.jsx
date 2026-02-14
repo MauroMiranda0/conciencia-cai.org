@@ -2,6 +2,8 @@ import '../styles/components/FloatingNavButtons.scss';
 
 const WHATSAPP_URL = 'https://wa.me/5217711234567?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n';
 const FLOATING_BUTTONS = [
+  { hash: '#inicio', label: 'Ir al inicio', type: 'hash', icon: HomeIcon },
+  { hash: '#sede-femenil', label: 'Ver sede femenil', type: 'hash', icon: FemaleIcon },
   { hash: '#metodo', label: 'Modelo Minnesota', type: 'hash', icon: MethodIcon },
   { href: WHATSAPP_URL, label: 'Agenda tu valoración', type: 'external', icon: WhatsappIcon },
 ];
@@ -71,6 +73,22 @@ function MethodIcon() {
     <svg viewBox="0 0 24 24" role="img">
       <path d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L11 12.59V4a1 1 0 0 1 1-1z" />
       <path d="M6 15a1 1 0 0 0-1 1v3.5A2.5 2.5 0 0 0 7.5 22h9a2.5 2.5 0 0 0 2.5-2.5V16a1 1 0 0 0-2 0v3.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V16a1 1 0 0 0-1-1z" />
+    </svg>
+  );
+}
+
+function HomeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M11.3 4.3a1 1 0 0 1 1.4 0l7 7a1 1 0 0 1-1.4 1.4L18 11.8V19a2 2 0 0 1-2 2h-2v-5h-4v5H8a2 2 0 0 1-2-2v-7.2l-.3.3a1 1 0 1 1-1.4-1.4l7-7z" />
+    </svg>
+  );
+}
+
+function FemaleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M12 2a6 6 0 0 0-1 11.9V16H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2h-2v-2.1A6 6 0 0 0 12 2m0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
     </svg>
   );
 }
