@@ -267,11 +267,8 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             <>
               <p>
                 El programa integra supervisión clínica, actividades deportivas guiadas y sesiones de reintegración
-                familiar que sostienen la motivación.
-              </p>
-              <p>
-                Acompañamiento profesional para una recuperación integral. Integramos ciencia, espiritualidad y
-                contención familiar para que cada fase tenga claridad.
+                familiar que sostienen la motivación. Acompañamiento profesional para una recuperación integral.
+                Integramos ciencia, espiritualidad y contención familiar para que cada fase tenga claridad.
               </p>
             </>
           }

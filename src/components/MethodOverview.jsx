@@ -21,7 +21,6 @@ const BASE_STEPS = [
 
 const METHOD_VARIANTS = {
   men: {
-    lead: 'Refuerza hábitos, propósito y responsabilidad varonil.',
     steps: [
       {
         title: 'Rutinas estructuradas',
