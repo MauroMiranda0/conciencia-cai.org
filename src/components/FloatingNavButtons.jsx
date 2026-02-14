@@ -1,9 +1,12 @@
 import '../styles/components/FloatingNavButtons.scss';
 
 const WHATSAPP_URL = 'https://wa.me/5217711234567?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n';
-const FLOATING_BUTTONS = [
+const MEN_FLOATING_BUTTONS = [
   { hash: '#inicio', label: 'Ir al inicio', type: 'hash', icon: HomeIcon },
   { hash: '#sede-femenil', label: 'Ver sede femenil', type: 'hash', icon: FemaleIcon },
+];
+
+const BASE_FLOATING_BUTTONS = [
   { hash: '#metodo', label: 'Modelo Minnesota', type: 'hash', icon: MethodIcon },
   { href: WHATSAPP_URL, label: 'Agenda tu valoración', type: 'external', icon: WhatsappIcon },
 ];
@@ -12,12 +15,13 @@ const FLOATING_BUTTONS = [
  * @typedef {Object} FloatingNavButtonsProps
  * @property {(hash?: string) => void} [onNavigate]
  * @property {boolean} [isHidden]
+ * @property {'home' | 'men' | 'women'} [activeView]
  */
 
 /**
  * @param {FloatingNavButtonsProps} props
  */
-export default function FloatingNavButtons({ onNavigate, isHidden }) {
+export default function FloatingNavButtons({ onNavigate, isHidden, activeView }) {
   if (isHidden) {
     return null;
   }
@@ -30,9 +34,12 @@ export default function FloatingNavButtons({ onNavigate, isHidden }) {
     onNavigate?.(hash);
   };
 
+  const buttons =
+    activeView === 'men' ? [...MEN_FLOATING_BUTTONS, ...BASE_FLOATING_BUTTONS] : BASE_FLOATING_BUTTONS;
+
   return (
     <div className="floating-nav" role="navigation" aria-label="Accesos principales">
-      {FLOATING_BUTTONS.map((button) => {
+      {buttons.map((button) => {
         const Icon = button.icon;
         if (button.type === 'hash') {
           return (
