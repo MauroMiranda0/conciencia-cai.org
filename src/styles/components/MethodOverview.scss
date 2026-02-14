@@ -20,6 +20,33 @@
     }
   }
 
+  &__pillars {
+    margin: clamp(18px, 3vw, 28px) 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+
+    li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.5;
+
+      &::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent-color);
+        margin-top: 6px;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      }
+    }
+  }
+
   &__lead {
     color: var(--accent-color);
   }

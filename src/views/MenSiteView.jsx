@@ -14,6 +14,7 @@ import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
 import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
 import menHeroBackdrop from '../assets/photos/men/hero-hombre.png';
+import menSupportPhoto from '../assets/photos/men/acompanamiento-hombre.png';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -87,9 +88,9 @@ const MEN_SITE_PILLARS = [
 ];
 
 const USE_CASES = [
-  'Dependencia a alcohol u otras sustancias con impacto laboral o familiar.',
-  'Conductas impulsivas, violencia o desregulación emocional en figuras masculinas.',
-  'Duelos no resueltos, ansiedad o depresión que limita el ejercicio del rol paterno.',
+  'Dependencia del alcohol u otras sustancias con impacto laboral o familiar.',
+  'Conductas compulsivas, violencia o desregulación emocional en figuras masculinas.',
+  'Ansiedad o depresión que limita el ejercicio del rol paterno.',
 ];
 
 const MEN_GALLERY_ITEMS = [
@@ -227,76 +228,11 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             </button>
           </div>
 
-          <section className="men-card site-card men-site__intro">
-            <div>
-              <h2>¿Qué distingue a la sede varonil?</h2>
-              <p>
-                Instalaciones diseñadas para fomentar responsabilidad, trabajo en equipo y ejercicio físico controlado.
-                El programa integra supervisión clínica, actividades deportivas guiadas y sesiones de reintegración
-                familiar que sostienen la motivación.
-              </p>
-            </div>
-            <ul className="men-site__pillars" role="list">
-              {MEN_SITE_PILLARS.map((pillar) => (
-                <li key={pillar}>{pillar}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="men-site__grid" aria-label="Componentes terapéuticos principales">
-            {HERO_FEATURES.map((feature) => (
-              <article key={feature.title} className="men-card site-card men-site__feature">
-                <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.media ? (
-                  <figure
-                    className={`men-site__feature-media${feature.mediaVariant === 'dashed' ? ' men-site__feature-media--dashed' : ''}`}
-                    aria-hidden={feature.mediaAlt ? undefined : true}
-                  >
-                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
-                  </figure>
-                ) : (
-                  <p
-                    className="men-site__text"
-                    dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
-                  />
-                )}
-              </article>
-            ))}
-          </section>
-
-          <section className="men-card site-card men-site__program-note">
-            <p>
-              Terapias grupales, trabajo corporal, acompañamiento espiritual y hábitos conscientes que preparan al
-              residente para retomar su liderazgo sin violencia y con claridad emocional.
-            </p>
-          </section>
-
-          <section className="men-site__grid" aria-label="Rutas de seguimiento y egreso">
-            {SECOND_FEATURES.map((feature) => (
-              <article key={feature.title} className="men-card site-card men-site__feature">
-                <h3 dangerouslySetInnerHTML={{ __html: feature.title.replace(/\n/g, '<br/>') }} />
-                {feature.media ? (
-                  <figure
-                    className={`men-site__feature-media${feature.mediaVariant === 'dashed' ? ' men-site__feature-media--dashed' : ''}`}
-                    aria-hidden={feature.mediaAlt ? undefined : true}
-                  >
-                    <img src={feature.media} alt={feature.mediaAlt ?? ''} loading="lazy" decoding="async" />
-                  </figure>
-                ) : (
-                  <p
-                    className="men-site__text"
-                    dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
-                  />
-                )}
-              </article>
-            ))}
-          </section>
-
           <section className="men-site__bottom">
             <div className="men-card site-card men-site__use-cases">
               <h2>Casos que acompañamos</h2>
               <p>
-                Dependencia a alcohol u otras sustancias, conductas impulsivas y duelos no resueltos con impacto directo
+                Dependencia de alcohol u otras sustancias, conductas compulsivas con impacto directo
                 en el rol masculino dentro de la familia.
               </p>
               <ul className="men-site__use-cases-list">
@@ -304,14 +240,44 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <div className="men-site__use-cases-media" aria-hidden="true">
+              <div className="men-site__use-cases-media">
+                <img
+                  src={menSupportPhoto}
+                  alt="Equipo de acompañamiento varonil guiando un ejercicio terapéutico"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="men-site__use-cases-overlay" aria-hidden="true" />
                 <p>Mapas de seguridad emocional · Rituales diarios · Mentorías deportivas</p>
               </div>
             </div>
           </section>
         </div>
-        <MethodOverview tone="men" title="Método Minnesota con disciplina y acompañamiento" />
+        <MethodOverview
+          tone="men"
+          eyebrow="Modelo residencial varonil"
+          title="Método Minnesota con disciplina y acompañamiento"
+          description={
+            <>
+              <p>
+                Instalaciones diseñadas para fomentar responsabilidad, trabajo en equipo y ejercicio físico controlado.
+                El programa integra supervisión clínica, actividades deportivas guiadas y sesiones de reintegración
+                familiar que sostienen la motivación.
+              </p>
+              <p>
+                Acompañamiento profesional para una recuperación integral. Integramos ciencia, espiritualidad y
+                contención familiar para que cada fase tenga claridad.
+              </p>
+            </>
+          }
+          introExtra={
+            <ul className="method-overview__pillars" role="list">
+              {MEN_SITE_PILLARS.map((pillar) => (
+                <li key={pillar}>{pillar}</li>
+              ))}
+            </ul>
+          }
+        />
         <Gallery
           items={MEN_GALLERY_ITEMS}
           title="Galería sede varonil"

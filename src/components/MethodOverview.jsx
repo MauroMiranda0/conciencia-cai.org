@@ -57,7 +57,8 @@ const METHOD_VARIANTS = {
  * @property {MethodTone} [tone]
  * @property {string} [title]
  * @property {string} [eyebrow]
- * @property {string} [description]
+ * @property {string | import('react').ReactNode} [description]
+ * @property {import('react').ReactNode} [introExtra]
  */
 
 /**
@@ -68,6 +69,7 @@ export default function MethodOverview({
   title = 'Método Minnesota con fundamento y sentido humano',
   eyebrow = 'Modelo terapéutico',
   description = 'Acompañamiento profesional para una recuperación integral. Integramos ciencia, espiritualidad y contención familiar para que cada fase tenga claridad.',
+  introExtra = null,
 }) {
   const variant = METHOD_VARIANTS[tone] ?? null;
   const highlightedSteps = variant ? variant.steps : [];
@@ -80,20 +82,37 @@ export default function MethodOverview({
     }
   });
 
+  const descriptionContent =
+    typeof description === 'string' ? (
+      <p>
+        {description}{' '}
+        {variant?.lead ? (
+          <strong className="method-overview__lead" aria-live="polite">
+            {variant.lead}
+          </strong>
+        ) : null}
+      </p>
+    ) : (
+      <>
+        {description}
+        {variant?.lead ? (
+          <p>
+            <strong className="method-overview__lead" aria-live="polite">
+              {variant.lead}
+            </strong>
+          </p>
+        ) : null}
+      </>
+    );
+
   return (
     <section className={`method-overview method-overview--${tone}`} aria-labelledby={`method-${tone}`}>
       <div className="container method-overview__grid">
         <div className="method-overview__intro">
           <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
           <h2 id={`method-${tone}`}>{title}</h2>
-          <p>
-            {description}{' '}
-            {variant?.lead ? (
-              <strong className="method-overview__lead" aria-live="polite">
-                {variant.lead}
-              </strong>
-            ) : null}
-          </p>
+          {descriptionContent}
+          {introExtra}
         </div>
         <ol className="method-overview__steps" role="list">
           {steps.map((step, index) => (
