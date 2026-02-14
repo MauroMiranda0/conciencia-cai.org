@@ -15,7 +15,7 @@ const BASE_STEPS = [
   },
   {
     title: 'Egreso acompañado',
-    detail: 'Seguimiento híbrido durante 12 meses con métricas de riesgo y padrinazgo activo.',
+    detail: 'Seguimiento híbrido durante 12 meses con métricas de riesgo y apadrinamiento activo.',
   },
 ];
 

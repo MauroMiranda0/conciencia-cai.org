@@ -66,7 +66,7 @@ const SECOND_FEATURES = [
   {
     title: 'Plan de egreso acompañado',
     content:
-      'Seguimiento híbrido durante 12 meses, padrinazgo entre egresadas y tableros digitales de prevención de recaídas.',
+  'Seguimiento híbrido durante 12 meses, apadrinamiento entre egresadas y tableros digitales de prevención de recaídas.',
   },
 ];
 
@@ -88,7 +88,7 @@ const HERO_HIGHLIGHTS = [
 const WOMEN_SITE_PILLARS = [
   'Modelo Minnesota + 12 Pasos adaptado a procesos femeninos y maternidades diversas.',
   'Equipo interdisciplinario con terapeutas de trauma, doulas emocionales y facilitadoras financieras.',
-  'Planes de egreso acompañados con padrinazgo entre egresadas y seguimiento híbrido 12 meses.',
+  'Planes de egreso acompañados con apadrinamiento entre egresadas y seguimiento híbrido 12 meses.',
 ];
 
 /** @type {string[]} */

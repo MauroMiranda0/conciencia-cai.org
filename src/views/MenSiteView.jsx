@@ -15,6 +15,9 @@ import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
 import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
 import menHeroBackdrop from '../assets/photos/men/hero-hombre.png';
 import menSupportPhoto from '../assets/photos/men/acompanamiento-hombre.png';
+import menTherapyPhoto from '../assets/photos/men/terapia-hombres.png';
+import menCommunityPhoto from '../assets/photos/men/convivencia-hombres.png';
+import menFamilyPhoto from '../assets/photos/men/familia-hombres.png';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -62,7 +65,7 @@ const SECOND_FEATURES = [
   },
   {
     title: 'Prevención de recaídas',
-    content: 'Plan de alta con métricas de riesgo, padrinazgo y coaching digital durante 12 meses.',
+    content: 'Plan de alta con métricas de riesgo, apadrinamiento y coaching digital durante 12 meses.',
   },
 ];
 
@@ -84,7 +87,7 @@ const HERO_HIGHLIGHTS = [
 const MEN_SITE_PILLARS = [
   'Modelo Minnesota + 12 Pasos reforzado con deporte consciente y acompañamiento espiritual.',
   'Diagnósticos interdisciplinarios, tableros de progreso y mentorías de liderazgo varonil.',
-  'Planes de reintegración con familia, padrinazgo y seguimiento post alta durante 12 meses.',
+  'Planes de reintegración con familia, apadrinamiento y seguimiento post alta durante 12 meses.',
 ];
 
 const USE_CASES = [
@@ -96,21 +99,39 @@ const USE_CASES = [
 const MEN_GALLERY_ITEMS = [
   {
     src: menRoomPhoto,
-    alt: 'Habitación residencial real en la sede varonil',
+    alt: 'Habitación residencial en la sede varonil',
     label: 'Habitaciones',
-    caption: 'Habitaciones reales con control clínico y supervisión 24/7.',
+    caption: 'Habitaciones con control clínico y supervisión 24/7.',
   },
   {
     src: menCommonPhoto,
-    alt: 'Área común real para mentorías y talleres varoniles',
+    alt: 'Área común para mentorías y talleres varoniles',
     label: 'Áreas comunes',
-    caption: 'Salas reales para mentorías, reuniones y contratos de convivencia.',
+    caption: 'Salas para mentorías, reuniones y contratos de convivencia.',
   },
   {
     src: menActivationPhoto,
-    alt: 'Área real de ejercicios y meditación para residentes varoniles',
+    alt: 'Área de ejercicios y meditación para residentes varoniles',
     label: 'Activación',
-    caption: 'Zonas reales para ejercicio consciente y meditación guiada.',
+    caption: 'Zonas para ejercicio consciente y meditación guiada.',
+  },
+  {
+    src: menTherapyPhoto,
+    alt: 'Terapia grupal varonil en sala de acompañamiento clínico',
+    label: 'Terapias',
+    caption: 'Sesiones clínicas grupales con terapeutas especializados en procesos varoniles.',
+  },
+  {
+    src: menCommunityPhoto,
+    alt: 'Espacio de convivencia varonil con mentores y residentes',
+    label: 'Convivencia',
+    caption: 'Áreas para reuniones de contratos, mentorías y acuerdos de convivencia.',
+  },
+  {
+    src: menFamilyPhoto,
+    alt: 'Reunión familiar guiada dentro de la sede varonil',
+    label: 'Familias',
+    caption: 'Sesiones de integración familiar con seguimiento clínico y espiritual.',
   },
 ];
 
@@ -293,8 +314,8 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
         />
         <Gallery
           items={MEN_GALLERY_ITEMS}
-          title="Galería sede varonil"
-          eyebrow="Ruta de color azul"
+          title="Galería"
+          eyebrow="Sede varonil"
           description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
         />
         <AboutValues tone="men" />
