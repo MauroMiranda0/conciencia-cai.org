@@ -168,6 +168,15 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
     return () => window.clearInterval(timer);
   }, []);
 
+  const handleCTA = () => {
+    const section = document.getElementById(CONTACT_SECTION_ID);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    onNavigate?.('#contacto');
+  };
+
   const activateCareSignal = () => setMicroMode('care');
   const activateSageSignal = () => setMicroMode('sage');
   const handleViewWomenSite = () => {
@@ -196,19 +205,16 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.
             </p>
-            <div className="men-site__hero-actions">
-              <button
-                type="button"
-                className="btn btn--secondary"
-                onClick={() => onNavigate?.('#metodo')}
-                onMouseEnter={activateSageSignal}
-                onMouseLeave={activateCareSignal}
-                onFocus={activateSageSignal}
-                onBlur={activateCareSignal}
-              >
-                Explorar metodología
-              </button>
-            </div>
+            
+              <div className="method-overview__actions">
+                <button
+                  type="button"
+                  className="btn btn--primary"
+                  onClick={handleCTA}
+                >
+                  Agendar valoración
+                </button>
+              </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
           <div className="men-site__switch">
@@ -260,7 +266,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
           description={
             <>
               <p>
-                Instalaciones diseñadas para fomentar responsabilidad, trabajo en equipo y ejercicio físico controlado.
                 El programa integra supervisión clínica, actividades deportivas guiadas y sesiones de reintegración
                 familiar que sostienen la motivación.
               </p>
@@ -271,11 +276,22 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             </>
           }
           introExtra={
-            <ul className="method-overview__pillars" role="list">
-              {MEN_SITE_PILLARS.map((pillar) => (
-                <li key={pillar}>{pillar}</li>
-              ))}
-            </ul>
+            <>
+              <ul className="method-overview__pillars" role="list">
+                {MEN_SITE_PILLARS.map((pillar) => (
+                  <li key={pillar}>{pillar}</li>
+                ))}
+              </ul>
+              <div className="method-overview__actions">
+                <button
+                  type="button"
+                  className="btn btn--secondary"
+                  onClick={() => onNavigate?.('#metodo')}
+                >
+                  Explorar metodología
+                </button>
+              </div>
+            </>
           }
         />
         <Gallery

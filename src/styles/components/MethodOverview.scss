@@ -47,6 +47,13 @@
     }
   }
 
+  &__actions {
+    margin-top: clamp(18px, 3vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   &__lead {
     color: var(--accent-color);
   }
