@@ -238,6 +238,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
               </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
+          <AboutValues tone="men" />
           <div className="men-site__switch">
             <button
               type="button"
@@ -318,7 +319,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
           eyebrow="Sede varonil"
           description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
         />
-        <AboutValues tone="men" />
         <Testimonials
           items={MEN_TESTIMONIALS}
           tone="men"
