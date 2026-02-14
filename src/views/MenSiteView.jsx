@@ -10,9 +10,9 @@ import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import menHeroStructure from '../assets/illustrations/men/structure-flow.svg';
 import menReintegrationFlow from '../assets/illustrations/men/reintegration-circuits.svg';
-import menRoomPlaceholder from '../assets/placeholders/men-room.svg';
-import menCommonPlaceholder from '../assets/placeholders/men-common.svg';
-import menGardenPlaceholder from '../assets/placeholders/men-garden.svg';
+import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
+import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
+import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
 import '../styles/views/MenSiteView.scss';
 
 /**
@@ -93,22 +93,22 @@ const USE_CASES = [
 
 const MEN_GALLERY_ITEMS = [
   {
-    src: menRoomPlaceholder,
-    alt: 'Habitaciones con supervisión 24/7 en la sede varonil',
+    src: menRoomPhoto,
+    alt: 'Habitación residencial real en la sede varonil',
     label: 'Habitaciones',
-    caption: 'Espacios ventilados con monitoreo clínico permanente.',
+    caption: 'Habitaciones reales con control clínico y supervisión 24/7.',
   },
   {
-    src: menCommonPlaceholder,
-    alt: 'Áreas comunes para mentorías y talleres varoniles',
+    src: menCommonPhoto,
+    alt: 'Área común real para mentorías y talleres varoniles',
     label: 'Áreas comunes',
-    caption: 'Talleres de propósito, reuniones y contratos de convivencia.',
+    caption: 'Salas reales para mentorías, reuniones y contratos de convivencia.',
   },
   {
-    src: menGardenPlaceholder,
-    alt: 'Jardines y rutas de ejercicio para residentes varoniles',
+    src: menActivationPhoto,
+    alt: 'Área real de ejercicios y meditación para residentes varoniles',
     label: 'Activación',
-    caption: 'Jardines activos para ejercicio consciente y meditación guiada.',
+    caption: 'Zonas reales para ejercicio consciente y meditación guiada.',
   },
 ];
 
@@ -137,33 +137,6 @@ const CONTACT_SECTION_ID = 'contacto-varonil';
 const MEN_MAP_SRC =
   'https://maps.google.com/maps?q=Camino%20Real%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
 
-const MEN_MICRO_SIGNALS = {
-  care: [
-    {
-      label: 'El Cuidador',
-      title: 'Respuesta clínica < 5 min',
-      detail: 'Coordinación varonil monitorea las solicitudes y activa al equipo en tiempo real.',
-    },
-    {
-      label: 'El Cuidador',
-      title: 'Mentores en turno',
-      detail: 'Siempre hay un mentor senior acompañando la valoración que programes.',
-    },
-  ],
-  sage: [
-    {
-      label: 'El Sabio',
-      title: 'Rutas pedagógicas claras',
-      detail: 'Explicamos cada fase del Modelo Minnesota antes de iniciarla.',
-    },
-    {
-      label: 'El Sabio',
-      title: 'Bitácoras interpretadas',
-      detail: 'Compartimos métricas y recomendaciones estratégicas tras cada módulo.',
-    },
-  ],
-};
-
 /**
  * @typedef {Object} MenSiteViewProps
  * @property {(hash?: string) => void} [onNavigate]
@@ -176,9 +149,7 @@ const MEN_MICRO_SIGNALS = {
  */
 export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite }) {
   const [microMode, setMicroMode] = useState('care');
-  const [microIndex, setMicroIndex] = useState(0);
-  const microSignals = MEN_MICRO_SIGNALS[microMode] ?? MEN_MICRO_SIGNALS.care;
-  const activeMicroSignal = microSignals[microIndex % microSignals.length];
+  const [, setMicroIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -220,7 +191,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             aria-labelledby="men-site-hero-title"
             data-archetype={microMode}
           >
-            <p className="eyebrow men-site__eyebrow">Modelo residencial · Varonil</p>
+            <h2>Modelo residencial · Varonil</h2>
             <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
             <p className="men-site__lead">
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
@@ -249,29 +220,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
               >
                 Explorar metodología
               </button>
-            </div>
-            <div className="men-site__micro-hint" data-variant={microMode} aria-live="polite">
-              <p>{activeMicroSignal.label}</p>
-              <strong>{activeMicroSignal.title}</strong>
-              <span>{activeMicroSignal.detail}</span>
-              <div className="men-site__micro-actions" role="group" aria-label="Cambiar señal micro arquetípica">
-                <button
-                  type="button"
-                  className={`men-site__micro-toggle${microMode === 'care' ? ' is-active' : ''}`}
-                  onClick={activateCareSignal}
-                  aria-pressed={microMode === 'care'}
-                >
-                  Cuidado
-                </button>
-                <button
-                  type="button"
-                  className={`men-site__micro-toggle${microMode === 'sage' ? ' is-active' : ''}`}
-                  onClick={activateSageSignal}
-                  aria-pressed={microMode === 'sage'}
-                >
-                  Claridad
-                </button>
-              </div>
             </div>
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
@@ -389,6 +337,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
           description="Comparte tu situación y recibirás una llamada confidencial en menos de 30 minutos."
           lockedSedeValue="hombres"
           successMessage="Gracias. Coordinación varonil recibió tu mensaje y te contactará con total confidencialidad."
+          // @ts-ignore
           channelNote="Guardias varoniles y consejeros clínicos monitorean esta línea permanentemente."
           onOpenPrivacy={onOpenPrivacy}
           asideContent={

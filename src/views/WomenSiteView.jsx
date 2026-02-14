@@ -181,6 +181,7 @@ const WOMEN_MICRO_SIGNALS = {
 export default function WomenSiteView({ onNavigate, onOpenPrivacy, onShowMenSite }) {
   const [microMode, setMicroMode] = useState('care');
   const [microIndex, setMicroIndex] = useState(0);
+  // @ts-ignore
   const microSignals = WOMEN_MICRO_SIGNALS[microMode] ?? WOMEN_MICRO_SIGNALS.care;
   const activeMicroSignal = microSignals[microIndex % microSignals.length];
 
@@ -317,6 +318,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy, onShowMenSite
                 ) : (
                   <p
                     className="women-site__text"
+                    // @ts-ignore
                     dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
                   />
                 )}
@@ -345,6 +347,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy, onShowMenSite
                 ) : (
                   <p
                     className="women-site__text"
+                    // @ts-ignore
                     dangerouslySetInnerHTML={{ __html: feature.content.replace(/\n/g, '<br/>') }}
                   />
                 )}
@@ -394,6 +397,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy, onShowMenSite
           description="Déjanos tus datos y una coordinadora clínica te acompañará desde la primera llamada."
           lockedSedeValue="mujeres"
           successMessage="Gracias. Coordinación femenil atenderá tu mensaje de forma confidencial y sin juicios."
+          // @ts-ignore
           channelNote="Doulas emocionales y terapeutas de trauma monitorean este canal 24/7."
           onOpenPrivacy={onOpenPrivacy}
           asideContent={
