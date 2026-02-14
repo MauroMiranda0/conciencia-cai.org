@@ -129,7 +129,6 @@ export default function App() {
         <WomenSiteView
           onNavigate={handleNavigate}
           onOpenPrivacy={() => setPrivacyOpen(true)}
-          onShowMenSite={showMenSite}
         />
       ) : null}
       <FloatingNavButtons
