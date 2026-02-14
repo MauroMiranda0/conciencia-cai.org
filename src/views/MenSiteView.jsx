@@ -211,10 +211,18 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy, onShowWomenSite
             <SiteHighlights className="men-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
           <div className="men-site__switch">
-            <button type="button" className="men-site__switch-link" onClick={() => onNavigate?.('#inicio')}>
-              ← Volver al inicio
+            <button
+              type="button"
+              className="btn btn--secondary men-site__switch-link"
+              onClick={() => onNavigate?.('#inicio')}
+            >
+              Ir al inicio
             </button>
-            <button type="button" className="men-site__switch-link" onClick={handleViewWomenSite}>
+            <button
+              type="button"
+              className="btn btn--secondary men-site__switch-link"
+              onClick={handleViewWomenSite}
+            >
               Ver sede femenil
             </button>
           </div>
