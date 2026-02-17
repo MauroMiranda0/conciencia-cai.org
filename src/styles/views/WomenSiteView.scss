@@ -39,7 +39,30 @@
 
 .women-site__hero {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(16px, 3vw, 24px);
+  position: relative;
+  min-height: clamp(420px, 65vw, 620px);
+  padding: clamp(28px, 4vw, 48px);
+  background-image:
+    linear-gradient(120deg, rgba(15, 23, 42, 0.82), rgba(76, 29, 149, 0.6)),
+    var(
+      --women-hero-image,
+      linear-gradient(135deg, rgba(244, 114, 182, 0.35), rgba(79, 70, 229, 0.25))
+    );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  color: #fff;
+}
+
+.women-site__hero-content {
+  display: grid;
+  gap: clamp(12px, 2vw, 20px);
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
 }
 
 .women-site__hero[data-archetype='sage'] {
@@ -82,7 +105,7 @@
 .women-site__lead {
   margin: 0;
   max-width: 720px;
-  color: #75203f;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
 }
 
@@ -190,20 +213,30 @@
 .women-site__hero-highlights li {
   padding: 16px;
   border-radius: 20px;
-  background: rgba(244, 114, 182, 0.08);
-  border: 1px solid rgba(244, 114, 182, 0.16);
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(6px);
   display: grid;
   gap: 6px;
 }
 
 .women-site__hero-highlights strong {
   font-size: 0.95rem;
-  color: #7c1d50;
+  color: #fff;
 }
 
 .women-site__hero-highlights span {
   font-size: 0.92rem;
-  color: #93346e;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.women-site__hero-caption {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .women-site__intro {

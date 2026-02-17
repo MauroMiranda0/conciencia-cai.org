@@ -11,6 +11,7 @@ import MapEmbed from '../components/MapEmbed.jsx';
 import womenSuitePlaceholder from '../assets/placeholders/women-suite.svg';
 import womenGardenPlaceholder from '../assets/placeholders/women-garden.svg';
 import womenCirclePlaceholder from '../assets/placeholders/women-circle.svg';
+import womenHeroImage from '../../hero-mujer.png';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -119,18 +120,22 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             className="women-site__hero women-card site-card"
             aria-labelledby="women-site-hero-title"
             data-archetype={microMode}
+            style={{ '--women-hero-image': `url(${womenHeroImage})` }}
           >
-            <h2 id="women-site-hero-title">Sede femenil · Conciencia CAI</h2>
-            <p className="women-site__lead">
-              Un refugio terapéutico diseñado para mujeres que buscan sanar trauma, dependencia emocional o consumo
-              problemático con acompañamiento especializado y seguro.
-            </p>
-            <div className="method-overview__actions">
-              <button type="button" className="btn btn--primary" onClick={handleCTA}>
-                Agendar valoración
-              </button>
+            <div className="women-site__hero-content">
+              <h2 id="women-site-hero-title">Sede femenil · Conciencia CAI</h2>
+              <p className="women-site__lead">
+                Un refugio terapéutico diseñado para mujeres que buscan sanar trauma, dependencia emocional o consumo
+                problemático con acompañamiento especializado y seguro.
+              </p>
+              <div className="method-overview__actions">
+                <button type="button" className="btn btn--primary" onClick={handleCTA}>
+                  Agendar valoración
+                </button>
+              </div>
+              <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
+              <p className="women-site__hero-caption">Círculos de contención 24/7</p>
             </div>
-            <SiteHighlights className="women-site__hero-highlights" items={HERO_HIGHLIGHTS} />
           </section>
           <AboutValues tone="women" />
           <section className="women-site__bottom">
