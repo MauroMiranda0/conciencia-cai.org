@@ -8,11 +8,13 @@ import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
-import womenSuitePlaceholder from '../assets/placeholders/women-suite.svg';
-import womenGardenPlaceholder from '../assets/placeholders/women-garden.svg';
-import womenCirclePlaceholder from '../assets/placeholders/women-circle.svg';
 import womenHeroImage from '../../hero-mujer.png';
-import womenSupportImage from '../../acompañamiento-mujer.png';
+import womenRoomImage from '../../habitacion-mujer.png';
+import womenGardenImage from '../../jardin-terapeutico-mujer.png';
+import womenCircleImage from '../../circulos-contencion-mujer.png';
+import womenMedicalRitualsImage from '../../supervision-medica-mujer.png';
+import womenEgressGardenImage from '../../egreso-mujer.png';
+import womenSupportImage from '../../contencion-familiar-mujer.png';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -45,22 +47,40 @@ const USE_CASES = [
 
 const WOMEN_GALLERY_ITEMS = [
   {
-    src: womenSuitePlaceholder,
-    alt: 'Suites privadas y seguras en la sede femenil',
+    src: womenRoomImage,
+    alt: 'Habitación terapéutica y privada en la sede femenil',
     label: 'Suites',
     caption: 'Habitaciones protegidas y acompañadas por doulas emocionales.',
   },
   {
-    src: womenGardenPlaceholder,
-    alt: 'Jardín terapéutico para rituales femeniles',
+    src: womenGardenImage,
+    alt: 'Jardín terapéutico femenino con acompañamiento guiado',
     label: 'Jardín terapéutico',
     caption: 'Sesiones de mindfulness y activaciones suaves al aire libre.',
   },
   {
-    src: womenCirclePlaceholder,
-    alt: 'Círculos de contención y palabra segura',
+    src: womenCircleImage,
+    alt: 'Círculo de contención femenino con coordinación clínica',
     label: 'Círculos de contención',
     caption: 'Comunidades solidarias que sostienen la seguridad emocional.',
+  },
+  {
+    src: womenMedicalRitualsImage,
+    alt: 'Supervisión médica femenina guiando rituales de autocuidado',
+    label: 'Rituales',
+    caption: 'Protocolos sensoriales para reconectar con el cuerpo y la calma.',
+  },
+  {
+    src: womenEgressGardenImage,
+    alt: 'Jardín de egreso con acompañamiento creativo para mujeres',
+    label: 'Jardín de egreso',
+    caption: 'Cierres simbólicos y mentorías creativas para preparar el egreso.',
+  },
+  {
+    src: womenSupportImage,
+    alt: 'Coordinadora conteniendo a una residente en la sede femenil',
+    label: 'Contención',
+    caption: 'Acompañamiento presencial y espiritual las 24 horas del día.',
   },
 ];
 
