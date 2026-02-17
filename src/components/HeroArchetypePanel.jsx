@@ -27,6 +27,13 @@ export default function HeroArchetypePanel({
     onAdvanceSage?.();
   };
 
+  const archetypeClass =
+    microArchetype === 'sage' ? 'hero-vista__micro-card--sage' : 'hero-vista__micro-card--care';
+  const careToneClass = careIntent ? `hero-vista__micro-card--${careIntent}` : 'hero-vista__micro-card--default';
+  const microCardClasses = ['hero-vista__micro-card', archetypeClass, careToneClass].join(' ');
+  const mergedTitle = `${careSignal.title} · ${sageSignal.title}`;
+  const mergedBody = `${careSignal.body} ${sageSignal.body}`;
+
   return (
     <section
       className="hero-vista__micro-panel site-card"
@@ -43,15 +50,10 @@ export default function HeroArchetypePanel({
         </p>
       </header>
       <div className="hero-vista__micro-columns">
-        <article className={`hero-vista__micro-card hero-vista__micro-card--care hero-vista__micro-card--${careIntent}`}>
-          <p className="hero-vista__micro-label">Coordinación activa</p>
-          <strong>{careSignal.title}</strong>
-          <span>{careSignal.body}</span>
-        </article>
-        <article className="hero-vista__micro-card hero-vista__micro-card--sage" aria-live="polite">
-          <p className="hero-vista__micro-label">Comité terapéutico</p>
-          <strong>{sageSignal.title}</strong>
-          <span>{sageSignal.body}</span>
+        <article className={microCardClasses} aria-live="polite">
+          <p className="hero-vista__micro-label">Coordinación + Comité terapéutico</p>
+          <strong>{mergedTitle}</strong>
+          <span>{mergedBody}</span>
           <div className="hero-vista__micro-nav" role="group" aria-label="Navegar guías clínicas">
             <button
               type="button"

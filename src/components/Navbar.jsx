@@ -25,7 +25,13 @@ export default function Navbar({ onNavigate }) {
       <div className="nav container">
         <a href="#inicio" className="nav__logo" onClick={(event) => handleNavigate(event, '#inicio')}>
           <span className="nav__logo-group">
-            <img src={logoAzul} alt="Conciencia CAI Varonil" className="nav__logo-img" loading="lazy" />
+            <img
+              src={logoAzul}
+              alt="Conciencia CAI Varonil"
+              className="nav__logo-img"
+              loading="lazy"
+              decoding="async"
+            />
           </span>
 
           <span className="nav__logo-copy">
@@ -34,7 +40,13 @@ export default function Navbar({ onNavigate }) {
           </span>
 
           <span className="nav__logo-group">
-            <img src={logoRosa} alt="Conciencia CAI Femenil" className="nav__logo-img" loading="lazy" />
+            <img
+              src={logoRosa}
+              alt="Conciencia CAI Femenil"
+              className="nav__logo-img"
+              loading="lazy"
+              decoding="async"
+            />
           </span>
         </a>
       </div>

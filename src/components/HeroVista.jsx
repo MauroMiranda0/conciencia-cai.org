@@ -176,7 +176,12 @@ export default function HeroVista({
 
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--men">
-          <img src={photoMen} alt="Atención profesional en la sede masculina" loading="lazy" />
+          <img
+            src={photoMen}
+            alt="Atención profesional en la sede masculina"
+            loading="lazy"
+            decoding="async"
+          />
           <figcaption>Sede masculina</figcaption>
         </figure>
         <HeroCallToActionMen
@@ -216,13 +221,19 @@ export default function HeroVista({
               src={info12steps}
               alt="Infografía del Modelo Minnesota y los 12 Pasos"
               loading="lazy"
+              decoding="async"
             />
           </figure>
         </article>
       </div>
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--women">
-          <img src={photoWomen} alt="Proceso terapéutico en la sede femenina" loading="lazy" />
+          <img
+            src={photoWomen}
+            alt="Proceso terapéutico en la sede femenina"
+            loading="lazy"
+            decoding="async"
+          />
           <figcaption>Sede femenina</figcaption>
         </figure>
         <HeroCallToActionWomen

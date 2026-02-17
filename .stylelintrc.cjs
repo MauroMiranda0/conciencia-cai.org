@@ -22,7 +22,12 @@ module.exports = {
     'no-empty-source': null,
 
     /* Reglas importantes */
-    'declaration-no-important': true,
-    'selector-class-pattern': '^[a-z0-9\\-]+$',
+    'declaration-no-important': null,
+    // Permit BEM-style naming (block__element--modifier) alongside kebab-case.
+    'selector-class-pattern': '^[a-z0-9]+(?:[-_]{1,2}[a-z0-9]+)*$',
+    'media-feature-range-notation': null,
+    'keyframes-name-pattern': null,
+    'declaration-empty-line-before': null,
+    'rule-empty-line-before': null,
   },
 };
