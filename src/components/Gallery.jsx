@@ -1,3 +1,4 @@
+import ResponsivePicture from './ResponsivePicture.jsx';
 import '../styles/components/Gallery.scss';
 
 /**
@@ -6,6 +7,8 @@ import '../styles/components/Gallery.scss';
  * @property {string} alt
  * @property {string} [caption]
  * @property {string} [label]
+ * @property {string} [webp]
+ * @property {string} [avif]
  */
 
 /**
@@ -33,7 +36,7 @@ export default function Gallery({ items = [], title, eyebrow, description }) {
         <div className="gallery__grid" role="list">
           {items.map((item) => (
             <figure className="gallery__item" key={item.src} role="listitem">
-              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              <ResponsivePicture src={item.src} webp={item.webp} avif={item.avif} alt={item.alt} />
               <figcaption>
                 {item.label ? <span>{item.label}</span> : null}
                 {item.caption ? <strong>{item.caption}</strong> : null}

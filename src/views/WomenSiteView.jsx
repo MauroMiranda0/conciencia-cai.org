@@ -8,14 +8,31 @@ import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
+import ResponsivePicture from '../components/ResponsivePicture.jsx';
 import womenHeroImage from '../assets/photos/women/hero-mujer.png';
+import womenHeroImageWebp from '../assets/photos/women/hero-mujer.webp';
+import womenHeroImageAvif from '../assets/photos/women/hero-mujer.avif';
 import womenRoomImage from '../assets/photos/women/habitacion-mujer.png';
+import womenRoomImageWebp from '../assets/photos/women/habitacion-mujer.webp';
+import womenRoomImageAvif from '../assets/photos/women/habitacion-mujer.avif';
 import womenGardenImage from '../assets/photos/women/jardin-terapeutico-mujer.png';
+import womenGardenImageWebp from '../assets/photos/women/jardin-terapeutico-mujer.webp';
+import womenGardenImageAvif from '../assets/photos/women/jardin-terapeutico-mujer.avif';
 import womenCircleImage from '../assets/photos/women/circulos-contencion-mujer.png';
+import womenCircleImageWebp from '../assets/photos/women/circulos-contencion-mujer.webp';
+import womenCircleImageAvif from '../assets/photos/women/circulos-contencion-mujer.avif';
 import womenMedicalRitualsImage from '../assets/photos/women/supervision-medica-mujer.png';
+import womenMedicalRitualsImageWebp from '../assets/photos/women/supervision-medica-mujer.webp';
+import womenMedicalRitualsImageAvif from '../assets/photos/women/supervision-medica-mujer.avif';
 import womenEgressGardenImage from '../assets/photos/women/egreso-mujer.png';
+import womenEgressGardenImageWebp from '../assets/photos/women/egreso-mujer.webp';
+import womenEgressGardenImageAvif from '../assets/photos/women/egreso-mujer.avif';
 import womenSupportImage from '../assets/photos/women/contencion-familiar-mujer.png';
+import womenSupportImageWebp from '../assets/photos/women/contencion-familiar-mujer.webp';
+import womenSupportImageAvif from '../assets/photos/women/contencion-familiar-mujer.avif';
 import womenUseCasesImage from '../assets/photos/women/acompañamiento-mujer.png';
+import womenUseCasesImageWebp from '../assets/photos/women/acompañamiento-mujer.webp';
+import womenUseCasesImageAvif from '../assets/photos/women/acompañamiento-mujer.avif';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -49,36 +66,48 @@ const USE_CASES = [
 const WOMEN_GALLERY_ITEMS = [
   {
     src: womenRoomImage,
+    webp: womenRoomImageWebp,
+    avif: womenRoomImageAvif,
     alt: 'Habitación terapéutica y privada en la sede femenil',
     label: 'Suites',
     caption: 'Habitaciones protegidas y acompañadas por doulas emocionales.',
   },
   {
     src: womenGardenImage,
+    webp: womenGardenImageWebp,
+    avif: womenGardenImageAvif,
     alt: 'Jardín terapéutico femenino con acompañamiento guiado',
     label: 'Jardín terapéutico',
     caption: 'Sesiones de mindfulness y activaciones suaves al aire libre.',
   },
   {
     src: womenCircleImage,
+    webp: womenCircleImageWebp,
+    avif: womenCircleImageAvif,
     alt: 'Círculo de contención femenino con coordinación clínica',
     label: 'Círculos de contención',
     caption: 'Comunidades solidarias que sostienen la seguridad emocional.',
   },
   {
     src: womenMedicalRitualsImage,
+    webp: womenMedicalRitualsImageWebp,
+    avif: womenMedicalRitualsImageAvif,
     alt: 'Supervisión médica femenina guiando rituales de autocuidado',
     label: 'Rituales',
     caption: 'Protocolos sensoriales para reconectar con el cuerpo y la calma.',
   },
   {
     src: womenEgressGardenImage,
+    webp: womenEgressGardenImageWebp,
+    avif: womenEgressGardenImageAvif,
     alt: 'Jardín de egreso con acompañamiento creativo para mujeres',
     label: 'Jardín de egreso',
     caption: 'Cierres simbólicos y mentorías creativas para preparar el egreso.',
   },
   {
     src: womenSupportImage,
+    webp: womenSupportImageWebp,
+    avif: womenSupportImageAvif,
     alt: 'Coordinadora conteniendo a una residente en la sede femenil',
     label: 'Contención',
     caption: 'Acompañamiento presencial y espiritual las 24 horas del día.',
@@ -144,7 +173,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             data-archetype={microMode}
           >
             <div className="women-site__hero-photo" aria-hidden="true">
-              <img src={womenHeroImage} alt="" loading="lazy" decoding="async" />
+              <ResponsivePicture src={womenHeroImage} webp={womenHeroImageWebp} avif={womenHeroImageAvif} alt="" />
             </div>
             <div className="women-site__hero-body">
               <div className="women-site__hero-content">
@@ -176,10 +205,11 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
                 ))}
               </ul>
               <div className="women-site__use-cases-media">
-                <img
+                <ResponsivePicture
                   src={womenUseCasesImage}
+                  webp={womenUseCasesImageWebp}
+                  avif={womenUseCasesImageAvif}
                   alt="Coordinadora ofreciendo contención cercana a una residente"
-                  loading="lazy"
                 />
                 <div className="women-site__use-cases-overlay" aria-hidden="true" />
                 <p>Redes de contención · Rituales de autocuidado · Mentorías financieras</p>

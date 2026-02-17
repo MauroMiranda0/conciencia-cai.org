@@ -8,14 +8,29 @@ import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
+import ResponsivePicture from '../components/ResponsivePicture.jsx';
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
+import menRoomPhotoWebp from '../assets/photos/men/habitacion-hombre.webp';
+import menRoomPhotoAvif from '../assets/photos/men/habitacion-hombre.avif';
 import menCommonPhoto from '../assets/photos/men/espacio-comun-hombre.png';
+import menCommonPhotoWebp from '../assets/photos/men/espacio-comun-hombre.webp';
+import menCommonPhotoAvif from '../assets/photos/men/espacio-comun-hombre.avif';
 import menActivationPhoto from '../assets/photos/men/ejercicio-meditacion-hombre.png';
+import menActivationPhotoWebp from '../assets/photos/men/ejercicio-meditacion-hombre.webp';
+import menActivationPhotoAvif from '../assets/photos/men/ejercicio-meditacion-hombre.avif';
 import menHeroBackdrop from '../assets/photos/men/hero-hombre.png';
 import menSupportPhoto from '../assets/photos/men/acompanamiento-hombre.png';
+import menSupportPhotoWebp from '../assets/photos/men/acompanamiento-hombre.webp';
+import menSupportPhotoAvif from '../assets/photos/men/acompanamiento-hombre.avif';
 import menTherapyPhoto from '../assets/photos/men/terapia-hombres.png';
+import menTherapyPhotoWebp from '../assets/photos/men/terapia-hombres.webp';
+import menTherapyPhotoAvif from '../assets/photos/men/terapia-hombres.avif';
 import menCommunityPhoto from '../assets/photos/men/convivencia-hombres.png';
+import menCommunityPhotoWebp from '../assets/photos/men/convivencia-hombres.webp';
+import menCommunityPhotoAvif from '../assets/photos/men/convivencia-hombres.avif';
 import menFamilyPhoto from '../assets/photos/men/familia-hombres.png';
+import menFamilyPhotoWebp from '../assets/photos/men/familia-hombres.webp';
+import menFamilyPhotoAvif from '../assets/photos/men/familia-hombres.avif';
 import '../styles/views/MenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -48,36 +63,48 @@ const USE_CASES = [
 const MEN_GALLERY_ITEMS = [
   {
     src: menRoomPhoto,
+    webp: menRoomPhotoWebp,
+    avif: menRoomPhotoAvif,
     alt: 'Habitación residencial en la sede varonil',
     label: 'Habitaciones',
     caption: 'Habitaciones con control clínico y supervisión 24/7.',
   },
   {
     src: menCommonPhoto,
+    webp: menCommonPhotoWebp,
+    avif: menCommonPhotoAvif,
     alt: 'Área común para mentorías y talleres varoniles',
     label: 'Áreas comunes',
     caption: 'Salas para mentorías, reuniones y contratos de convivencia.',
   },
   {
     src: menActivationPhoto,
+    webp: menActivationPhotoWebp,
+    avif: menActivationPhotoAvif,
     alt: 'Área de ejercicios y meditación para residentes varoniles',
     label: 'Activación',
     caption: 'Zonas para ejercicio consciente y meditación guiada.',
   },
   {
     src: menTherapyPhoto,
+    webp: menTherapyPhotoWebp,
+    avif: menTherapyPhotoAvif,
     alt: 'Terapia grupal varonil en sala de acompañamiento clínico',
     label: 'Terapias',
     caption: 'Sesiones clínicas grupales con terapeutas especializados en procesos varoniles.',
   },
   {
     src: menCommunityPhoto,
+    webp: menCommunityPhotoWebp,
+    avif: menCommunityPhotoAvif,
     alt: 'Espacio de convivencia varonil con mentores y residentes',
     label: 'Convivencia',
     caption: 'Áreas para reuniones de contratos, mentorías y acuerdos de convivencia.',
   },
   {
     src: menFamilyPhoto,
+    webp: menFamilyPhotoWebp,
+    avif: menFamilyPhotoAvif,
     alt: 'Reunión familiar guiada dentro de la sede varonil',
     label: 'Familias',
     caption: 'Sesiones de integración familiar con seguimiento clínico y espiritual.',
@@ -194,11 +221,11 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
                 ))}
               </ul>
               <div className="men-site__use-cases-media">
-                <img
+                <ResponsivePicture
                   src={menSupportPhoto}
+                  webp={menSupportPhotoWebp}
+                  avif={menSupportPhotoAvif}
                   alt="Equipo de acompañamiento varonil guiando un ejercicio terapéutico"
-                  loading="lazy"
-                  decoding="async"
                 />
                 <div className="men-site__use-cases-overlay" aria-hidden="true" />
                 <p>Mapas de seguridad emocional · Rituales diarios · Mentorías deportivas</p>

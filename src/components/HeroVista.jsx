@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
+import ResponsivePicture from './ResponsivePicture.jsx';
 import photoMen from '../assets/Therapy-for-Men-1.webp';
+import photoMenAvif from '../assets/Therapy-for-Men-1.avif';
 import photoWomen from '../assets/Therapy-for-Women-1.jpg';
+import photoWomenWebp from '../assets/Therapy-for-Women-1.webp';
+import photoWomenAvif from '../assets/Therapy-for-Women-1.avif';
 import info12steps from '../assets/infografia.webp';
+import info12stepsAvif from '../assets/infografia.avif';
 import {
   HeroCallToActionMen,
   HeroCallToActionWomen,
@@ -176,12 +181,7 @@ export default function HeroVista({
 
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--men">
-          <img
-            src={photoMen}
-            alt="Atención profesional en la sede masculina"
-            loading="lazy"
-            decoding="async"
-          />
+          <ResponsivePicture src={photoMen} avif={photoMenAvif} alt="Atención profesional en la sede masculina" />
           <figcaption>Sede masculina</figcaption>
         </figure>
         <HeroCallToActionMen
@@ -217,22 +217,17 @@ export default function HeroVista({
             })}
           </ul>
           <figure className="hero-vista__diagram">
-            <img
-              src={info12steps}
-              alt="Infografía del Modelo Minnesota y los 12 Pasos"
-              loading="lazy"
-              decoding="async"
-            />
+            <ResponsivePicture src={info12steps} avif={info12stepsAvif} alt="Infografía del Modelo Minnesota y los 12 Pasos" />
           </figure>
         </article>
       </div>
       <div className="hero-vista__container">
         <figure className="hero-vista__media hero-vista__media--women">
-          <img
+          <ResponsivePicture
             src={photoWomen}
+            webp={photoWomenWebp}
+            avif={photoWomenAvif}
             alt="Proceso terapéutico en la sede femenina"
-            loading="lazy"
-            decoding="async"
           />
           <figcaption>Sede femenina</figcaption>
         </figure>

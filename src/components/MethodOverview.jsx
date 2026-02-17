@@ -19,6 +19,7 @@ const BASE_STEPS = [
   },
 ];
 
+/** @type {Record<'men' | 'women', { lead?: string; steps: typeof BASE_STEPS }>} */
 const METHOD_VARIANTS = {
   men: {
     steps: [
@@ -70,8 +71,9 @@ export default function MethodOverview({
   description = 'Acompañamiento profesional para una recuperación integral. Integramos ciencia, espiritualidad y contención familiar para que cada fase tenga claridad.',
   introExtra = null,
 }) {
-  const variant = METHOD_VARIANTS[tone] ?? null;
-  const highlightedSteps = variant ? variant.steps : [];
+  const variant = tone === 'mixed' ? null : METHOD_VARIANTS[tone];
+  /** @type {typeof BASE_STEPS} */
+  const highlightedSteps = variant?.steps ?? [];
   const steps = [...BASE_STEPS];
   highlightedSteps.forEach((step, index) => {
     if (index < steps.length) {

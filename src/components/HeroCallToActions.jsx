@@ -72,7 +72,10 @@ export function HeroCallToActionCard({
     navigateTo('#contacto');
   };
 
-  const handleIntentChange = (intent) => {
+  /**
+   * @param {'men' | 'women' | 'default'} intent
+   */
+  const handleIntentChange = (intent = 'default') => {
     onIntentChange?.(intent);
   };
   const supportCopy = 'Atención confidencial. Te orientamos sin juicio.';
@@ -80,21 +83,7 @@ export function HeroCallToActionCard({
   return (
     <article
       className={`hero-vista__site-card hero-vista__site-card--${toneClass}`}
-      style={
-        toneMatchesMen
-          ? {
-              '--accent-color': '#1f4e79',
-              '--accent-soft': 'rgba(31, 78, 121, 0.08)',
-              '--focus-ring': 'rgba(31, 78, 121, 0.35)',
-            }
-          : toneMatchesWomen
-            ? {
-                '--accent-color': '#be185d',
-                '--accent-soft': 'rgba(190, 24, 93, 0.12)',
-                '--focus-ring': 'rgba(236, 72, 153, 0.4)',
-              }
-            : undefined
-      }
+      style={toneMatchesMen ? MEN_TONE_STYLE : toneMatchesWomen ? WOMEN_TONE_STYLE : undefined}
       onMouseEnter={() => handleIntentChange(toneMatchesMen ? 'men' : toneMatchesWomen ? 'women' : 'default')}
       onMouseLeave={() => handleIntentChange('default')}
       onFocusCapture={() =>
@@ -227,3 +216,14 @@ export default function HeroCallToActions({
     </div>
   );
 }
+const MEN_TONE_STYLE = /** @type {import('react').CSSProperties} */ ({
+  '--accent-color': '#1f4e79',
+  '--accent-soft': 'rgba(31, 78, 121, 0.08)',
+  '--focus-ring': 'rgba(31, 78, 121, 0.35)',
+});
+
+const WOMEN_TONE_STYLE = /** @type {import('react').CSSProperties} */ ({
+  '--accent-color': '#be185d',
+  '--accent-soft': 'rgba(190, 24, 93, 0.12)',
+  '--focus-ring': 'rgba(236, 72, 153, 0.4)',
+});

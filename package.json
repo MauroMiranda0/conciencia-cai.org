@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint:js": "eslint .",
     "lint:css": "stylelint \"src/styles/**/*.scss\" --allow-empty-input",
+    "lint": "npm run lint:js && npm run lint:css",
     "format": "prettier --write .",
     "typecheck": "tsc -p tsconfig.json",
     "audit": "npm audit --audit-level=high",

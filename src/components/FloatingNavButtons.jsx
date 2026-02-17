@@ -1,16 +1,38 @@
 import '../styles/components/FloatingNavButtons.scss';
 
 const WHATSAPP_URL = 'https://wa.me/5217711234567?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n';
+
+/**
+ * @typedef {Object} HashNavButton
+ * @property {'hash'} type
+ * @property {string} hash
+ * @property {string} label
+ * @property {() => import('react').JSX.Element} icon
+ */
+
+/**
+ * @typedef {Object} ExternalNavButton
+ * @property {'external'} type
+ * @property {string} href
+ * @property {string} label
+ * @property {() => import('react').JSX.Element} icon
+ */
+
+/** @typedef {(HashNavButton | ExternalNavButton)} FloatingButton */
+
+/** @type {HashNavButton[]} */
 const MEN_FLOATING_BUTTONS = [
   { hash: '#inicio', label: 'Ir al inicio', type: 'hash', icon: HomeIcon },
   { hash: '#sede-femenil', label: 'Ver sede femenil', type: 'hash', icon: FemaleIcon },
 ];
 
+/** @type {HashNavButton[]} */
 const WOMEN_FLOATING_BUTTONS = [
   { hash: '#inicio', label: 'Ir al inicio', type: 'hash', icon: HomeIcon },
   { hash: '#sede-varonil', label: 'Ver sede varonil', type: 'hash', icon: MaleIcon },
 ];
 
+/** @type {FloatingButton[]} */
 const BASE_FLOATING_BUTTONS = [
   { hash: '#metodo', label: 'Modelo Minnesota', type: 'hash', icon: MethodIcon },
   { href: WHATSAPP_URL, label: 'Agenda tu valoración', type: 'external', icon: WhatsappIcon },
@@ -46,6 +68,7 @@ export default function FloatingNavButtons({ onNavigate, isHidden, activeView })
         ? WOMEN_FLOATING_BUTTONS
         : [];
 
+  /** @type {FloatingButton[]} */
   const buttons = [...contextualButtons, ...BASE_FLOATING_BUTTONS];
 
   return (
@@ -67,20 +90,23 @@ export default function FloatingNavButtons({ onNavigate, isHidden, activeView })
             </button>
           );
         }
-        return (
-          <a
-            key={button.label}
-            href={button.href}
-            className="floating-nav__button"
-            aria-label={button.label}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="floating-nav__icon" aria-hidden="true">
-              <Icon />
-            </span>
-          </a>
-        );
+        if (button.type === 'external') {
+          return (
+            <a
+              key={button.label}
+              href={button.href}
+              className="floating-nav__button"
+              aria-label={button.label}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="floating-nav__icon" aria-hidden="true">
+                <Icon />
+              </span>
+            </a>
+          );
+        }
+        return null;
       })}
     </div>
   );

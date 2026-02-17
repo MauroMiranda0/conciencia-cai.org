@@ -11,16 +11,18 @@ import './styles/components/Button.scss';
 import './styles/components/Footer.scss';
 
 const DEFAULT_OFFSET = 92;
-const VIEWS = {
+const VIEWS = /** @type {const} */ ({
   HOME: 'home',
   MEN: 'men',
   WOMEN: 'women',
-};
+});
 
 export default function App() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
-  const [activeView, setActiveView] = useState(VIEWS.HOME);
+  const [activeView, setActiveView] = useState(
+    /** @type {'home' | 'men' | 'women'} */ (VIEWS.HOME)
+  );
   const [selectedSede, setSelectedSede] = useState('');
   const [pendingHash, setPendingHash] = useState(
     /** @type {string | null} */ (null)
@@ -50,7 +52,7 @@ export default function App() {
    * @param {string | undefined} hash
    */
   const handleNavigate = useCallback(
-    (hash) => {
+    /** @type {(hash?: string) => void} */ (hash) => {
       if (!hash) return;
       if (hash === '#metodo') {
         setModelOpen(true);
@@ -115,7 +117,7 @@ export default function App() {
           onShowMenSite={showMenSite}
           onShowWomenSite={showWomenSite}
           selectedSede={selectedSede}
-          onSelectSede={setSelectedSede}
+          onSelectSede={(value) => setSelectedSede(value ?? '')}
         />
       ) : null}
       {activeView === VIEWS.MEN ? (
