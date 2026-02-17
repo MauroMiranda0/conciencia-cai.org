@@ -8,14 +8,14 @@ import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
-import womenHeroImage from '../../hero-mujer.png';
-import womenRoomImage from '../../habitacion-mujer.png';
-import womenGardenImage from '../../jardin-terapeutico-mujer.png';
-import womenCircleImage from '../../circulos-contencion-mujer.png';
-import womenMedicalRitualsImage from '../../supervision-medica-mujer.png';
-import womenEgressGardenImage from '../../egreso-mujer.png';
-import womenSupportImage from '../../contencion-familiar-mujer.png';
-import womenUseCasesImage from '../../acompañamiento-mujer.png';
+import womenHeroImage from '../assets/photos/women/hero-mujer.png';
+import womenRoomImage from '../assets/photos/women/habitacion-mujer.png';
+import womenGardenImage from '../assets/photos/women/jardin-terapeutico-mujer.png';
+import womenCircleImage from '../assets/photos/women/circulos-contencion-mujer.png';
+import womenMedicalRitualsImage from '../assets/photos/women/supervision-medica-mujer.png';
+import womenEgressGardenImage from '../assets/photos/women/egreso-mujer.png';
+import womenSupportImage from '../assets/photos/women/contencion-familiar-mujer.png';
+import womenUseCasesImage from '../assets/photos/women/acompañamiento-mujer.png';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -105,7 +105,7 @@ const WOMEN_TESTIMONIALS = [
 
 const CONTACT_SECTION_ID = 'contacto-femenil';
 const WOMEN_MAP_SRC =
-  'https://maps.google.com/maps?q=Sierra%20Madre%20Pachuca&t=&z=14&ie=UTF8&iwloc=&output=embed';
+  'https://www.google.com/maps?q=Av.%20Pirules%2C%20Col.%20El%20Tezontle%20%28a%20un%20costado%20de%20la%20zona%20militar%29%2C%20Pachuca%2C%20Hidalgo&z=16&output=embed';
 
 /**
  * @typedef {Object} WomenSiteViewProps
@@ -246,8 +246,8 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
           asideContent={
             <MapEmbed
               title="Ubicación sede femenil"
-              address="Sierra Madre #45, Pachuca, Hidalgo"
-              phone="771 765 4321"
+              address="Av. Pirules, Col. El Tezontle (a un costado de la zona militar), Pachuca, Hidalgo"
+              phone="77 16 84 22 95 - 55 78 84 02 11"
               mapSrc={WOMEN_MAP_SRC}
             />
           }

@@ -265,7 +265,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             <MapEmbed
               title="Ubicación sede varonil"
               address="Calle Ciprés esq. con Felipe Ángeles, Acayuca, Hidalgo"
-              phone="771 206 3098"
+              phone="77 12 06 30 98"
               mapSrc={MEN_MAP_SRC}
             />
           }
