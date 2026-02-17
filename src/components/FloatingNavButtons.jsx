@@ -6,6 +6,11 @@ const MEN_FLOATING_BUTTONS = [
   { hash: '#sede-femenil', label: 'Ver sede femenil', type: 'hash', icon: FemaleIcon },
 ];
 
+const WOMEN_FLOATING_BUTTONS = [
+  { hash: '#inicio', label: 'Ir al inicio', type: 'hash', icon: HomeIcon },
+  { hash: '#sede-varonil', label: 'Ver sede varonil', type: 'hash', icon: MaleIcon },
+];
+
 const BASE_FLOATING_BUTTONS = [
   { hash: '#metodo', label: 'Modelo Minnesota', type: 'hash', icon: MethodIcon },
   { href: WHATSAPP_URL, label: 'Agenda tu valoración', type: 'external', icon: WhatsappIcon },
@@ -34,8 +39,14 @@ export default function FloatingNavButtons({ onNavigate, isHidden, activeView })
     onNavigate?.(hash);
   };
 
-  const buttons =
-    activeView === 'men' ? [...MEN_FLOATING_BUTTONS, ...BASE_FLOATING_BUTTONS] : BASE_FLOATING_BUTTONS;
+  const contextualButtons =
+    activeView === 'men'
+      ? MEN_FLOATING_BUTTONS
+      : activeView === 'women'
+        ? WOMEN_FLOATING_BUTTONS
+        : [];
+
+  const buttons = [...contextualButtons, ...BASE_FLOATING_BUTTONS];
 
   return (
     <div className="floating-nav" role="navigation" aria-label="Accesos principales">
@@ -96,6 +107,14 @@ function FemaleIcon() {
   return (
     <svg viewBox="0 0 24 24" role="img">
       <path d="M12 2a6 6 0 0 0-1 11.9V16H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2h-2v-2.1A6 6 0 0 0 12 2m0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+    </svg>
+  );
+}
+
+function MaleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M15 2a1 1 0 1 0 0 2h2.59l-3.3 3.3a6 6 0 1 0 1.4 1.4l3.3-3.3V8a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1zm-5 6a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
     </svg>
   );
 }

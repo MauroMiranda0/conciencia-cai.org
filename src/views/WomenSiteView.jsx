@@ -12,6 +12,7 @@ import womenSuitePlaceholder from '../assets/placeholders/women-suite.svg';
 import womenGardenPlaceholder from '../assets/placeholders/women-garden.svg';
 import womenCirclePlaceholder from '../assets/placeholders/women-circle.svg';
 import womenHeroImage from '../../hero-mujer.png';
+import womenSupportImage from '../../acompañamiento-mujer.png';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -152,10 +153,13 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <div className="women-site__use-cases-media" aria-hidden="true">
+              <div className="women-site__use-cases-media">
+                <img
+                  src={womenSupportImage}
+                  alt="Coordinadora ofreciendo contención cercana a una residente"
+                  loading="lazy"
+                />
                 <div className="women-site__use-cases-overlay" aria-hidden="true" />
-                <div className="women-site__use-cases-circle women-site__use-cases-circle--left" aria-hidden="true" />
-                <div className="women-site__use-cases-circle women-site__use-cases-circle--right" aria-hidden="true" />
                 <p>Redes de contención · Rituales de autocuidado · Mentorías financieras</p>
               </div>
             </div>
