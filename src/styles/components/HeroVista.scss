@@ -1,6 +1,6 @@
 .hero-vista__gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(24px, 4vw, 48px);
   align-items: start;
   width: min(1200px, 100%);
@@ -40,7 +40,8 @@
   height: 400px;
   width: 90%;
   box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
-  margin: 20px 0 20px 100px;
+  margin: 20px auto;
+  transform: translateX(clamp(0px, 4vw, 64px));
 
   img {
     width: 100%;
@@ -64,7 +65,8 @@
   height: 400px;
   width: 90%;
   box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
-  margin: 20px 100px 20px 0;
+  margin: 20px auto;
+  transform: translateX(clamp(-64px, -4vw, 0px));
 
   img {
     width: 100%;
@@ -94,6 +96,7 @@
   .hero-vista__media--women {
     width: 100%;
     margin: 0;
+    transform: none;
     height: clamp(280px, 45vw, 380px);
   }
 }

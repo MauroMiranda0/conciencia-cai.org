@@ -129,128 +129,130 @@ export default function ContactSection({
           <h2>{title}</h2>
           <p className="text-muted">{description}</p>
         </div>
-        <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
-          <div className="field">
-            <label htmlFor="name">Nombre</label>
-            <input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              {...getMicroHandlers('care')}
-            />
-            {errors.name && (
-              <span className="field__error" role="alert" aria-live="assertive">
-                {errors.name}
-              </span>
-            )}
-          </div>
-          <div className="field">
-            <label htmlFor="phone">Teléfono (10 dígitos)</label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              inputMode="numeric"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              {...getMicroHandlers('care')}
-            />
-            {errors.phone && (
-              <span className="field__error" role="alert" aria-live="assertive">
-                {errors.phone}
-              </span>
-            )}
-          </div>
-          <div className="field">
-            <label htmlFor="email">Correo</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              {...getMicroHandlers('sage')}
-            />
-            {errors.email && (
-              <span className="field__error" role="alert" aria-live="assertive">
-                {errors.email}
-              </span>
-            )}
-          </div>
-          <div className="field">
-            <label htmlFor="sede">¿A qué sede deseas contactar?</label>
-            {normalizedLockedSede ? (
-              <>
-                <input type="hidden" id="sede" name="sede" value={normalizedLockedSede} readOnly />
-                <p
-                  className="contact-section__sede-pill"
-                  aria-live="polite"
-                  onMouseEnter={() => handleMicroTone('sage')}
-                >
-                  {sedeLabel || 'Sede seleccionada automáticamente'}
-                </p>
-              </>
-            ) : (
-              <select
-                id="sede"
-                name="sede"
-                value={formData.sede}
-                onChange={handleSedeChange}
-                {...getMicroHandlers('sage')}
-              >
-                <option value="">Selecciona una opción</option>
-                <option value="mujeres">Sede Femenil</option>
-                <option value="hombres">Sede Varonil</option>
-              </select>
-            )}
-            {errors.sede && (
-              <span className="field__error" role="alert" aria-live="assertive">
-                {errors.sede}
-              </span>
-            )}
-          </div>
-          <div className="field">
-            <label htmlFor="message">Mensaje (opcional)</label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              value={formData.message}
-              onChange={handleChange}
-              {...getMicroHandlers('care')}
-            />
-          </div>
-          <div className="contact-form__footer">
-            <button
-              type="submit"
-              className="btn btn--primary"
-              onMouseEnter={() => handleMicroTone('care')}
-              onFocus={() => handleMicroTone('care')}
-            >
-              Enviar
-            </button>
-            <p className="contact-form__guide-note">
-              Al enviar aceptas nuestro{' '}
-              <button type="button" className="link" onClick={onOpenPrivacy}>
-                Aviso de Privacidad
-              </button>
-              .
-              Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del
-              Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu
-              confidencialidad en todo momento.
-            </p>
-          </div>
-          {status && (
-            <div className="contact-form__status" role="status" aria-live="polite">
-              {status}
+        <div className="contact-section__content">
+          <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
+            <div className="field">
+              <label htmlFor="name">Nombre</label>
+              <input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                {...getMicroHandlers('care')}
+              />
+              {errors.name && (
+                <span className="field__error" role="alert" aria-live="assertive">
+                  {errors.name}
+                </span>
+              )}
             </div>
-          )}
-        </form>
-        {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
+            <div className="field">
+              <label htmlFor="phone">Teléfono (10 dígitos)</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputMode="numeric"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                {...getMicroHandlers('care')}
+              />
+              {errors.phone && (
+                <span className="field__error" role="alert" aria-live="assertive">
+                  {errors.phone}
+                </span>
+              )}
+            </div>
+            <div className="field">
+              <label htmlFor="email">Correo</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                {...getMicroHandlers('sage')}
+              />
+              {errors.email && (
+                <span className="field__error" role="alert" aria-live="assertive">
+                  {errors.email}
+                </span>
+              )}
+            </div>
+            <div className="field">
+              <label htmlFor="sede">¿A qué sede deseas contactar?</label>
+              {normalizedLockedSede ? (
+                <>
+                  <input type="hidden" id="sede" name="sede" value={normalizedLockedSede} readOnly />
+                  <p
+                    className="contact-section__sede-pill"
+                    aria-live="polite"
+                    onMouseEnter={() => handleMicroTone('sage')}
+                  >
+                    {sedeLabel || 'Sede seleccionada automáticamente'}
+                  </p>
+                </>
+              ) : (
+                <select
+                  id="sede"
+                  name="sede"
+                  value={formData.sede}
+                  onChange={handleSedeChange}
+                  {...getMicroHandlers('sage')}
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option value="mujeres">Sede Femenil</option>
+                  <option value="hombres">Sede Varonil</option>
+                </select>
+              )}
+              {errors.sede && (
+                <span className="field__error" role="alert" aria-live="assertive">
+                  {errors.sede}
+                </span>
+              )}
+            </div>
+            <div className="field">
+              <label htmlFor="message">Mensaje (opcional)</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                {...getMicroHandlers('care')}
+              />
+            </div>
+            <div className="contact-form__footer">
+              <button
+                type="submit"
+                className="btn btn--primary"
+                onMouseEnter={() => handleMicroTone('care')}
+                onFocus={() => handleMicroTone('care')}
+              >
+                Enviar
+              </button>
+              <p className="contact-form__guide-note">
+                Al enviar aceptas nuestro{' '}
+                <button type="button" className="link" onClick={onOpenPrivacy}>
+                  Aviso de Privacidad
+                </button>
+                .
+                Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del
+                Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu
+                confidencialidad en todo momento.
+              </p>
+            </div>
+            {status && (
+              <div className="contact-form__status" role="status" aria-live="polite">
+                {status}
+              </div>
+            )}
+          </form>
+          {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
+        </div>
       </div>
     </section>
   );

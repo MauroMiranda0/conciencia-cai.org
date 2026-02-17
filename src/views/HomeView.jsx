@@ -135,6 +135,7 @@ export default function HomeView({
             selectedSede={selectedSede}
             onSelectSede={handleSelectSede}
             onOpenPrivacy={handleOpenPrivacy}
+            // @ts-ignore
             channelNote="Coordinación clínica responde cada mensaje y orienta sin juicios."
           />
         </div>

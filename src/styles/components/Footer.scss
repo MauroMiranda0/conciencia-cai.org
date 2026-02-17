@@ -44,7 +44,7 @@
 
 .footer-info {
   justify-content: center;
-  margin-left: 85px;
+  margin-left: 0;
 }
 
 @media (min-width: 768px) {
@@ -56,6 +56,12 @@
   .footer-contact,
   .footer-info {
     justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-info {
+    margin-left: 85px;
   }
 }
 

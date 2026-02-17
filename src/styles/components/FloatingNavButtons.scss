@@ -1,7 +1,7 @@
 .floating-nav {
   position: fixed;
   right: 32px;
-  bottom: 32px;
+  bottom: calc(32px + var(--safe-area-bottom));
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -50,7 +50,7 @@
   .floating-nav {
     left: 16px;
     right: 16px;
-    bottom: 16px;
+    bottom: calc(16px + var(--safe-area-bottom));
     flex-direction: column;
     align-items: flex-end;
     gap: var(--space-2);

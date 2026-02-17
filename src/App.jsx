@@ -129,10 +129,13 @@ export default function App() {
         <WomenSiteView
           onNavigate={handleNavigate}
           onOpenPrivacy={() => setPrivacyOpen(true)}
-          onShowMenSite={showMenSite}
         />
       ) : null}
-      <FloatingNavButtons onNavigate={handleNavigate} />
+      <FloatingNavButtons
+        onNavigate={handleNavigate}
+        isHidden={privacyOpen || modelOpen}
+        activeView={activeView}
+      />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
     </>

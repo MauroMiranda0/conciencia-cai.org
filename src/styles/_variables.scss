@@ -19,9 +19,16 @@
   --space-4: 24px;
   --space-5: 32px;
   --space-6: 48px;
+  --safe-area-bottom: 0px;
 }
 
 $shadow-card: 0 30px 60px rgba(15, 23, 42, 0.12);
 $shadow-overlay: 0 40px 80px rgba(15, 23, 42, 0.2);
 $radius-large: 32px;
 $radius-medium: 20px;
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  :root {
+    --safe-area-bottom: env(safe-area-inset-bottom);
+  }
+}
