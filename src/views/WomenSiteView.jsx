@@ -15,6 +15,7 @@ import womenCircleImage from '../../circulos-contencion-mujer.png';
 import womenMedicalRitualsImage from '../../supervision-medica-mujer.png';
 import womenEgressGardenImage from '../../egreso-mujer.png';
 import womenSupportImage from '../../contencion-familiar-mujer.png';
+import womenUseCasesImage from '../../acompañamiento-mujer.png';
 import '../styles/views/WomenSiteView.scss';
 
 const HERO_HIGHLIGHTS = [
@@ -141,9 +142,10 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             className="women-site__hero women-card site-card women-site__hero--photo"
             aria-labelledby="women-site-hero-title"
             data-archetype={microMode}
-            // @ts-ignore
-            style={{ '--women-hero-photo': `url(${womenHeroImage})` }}
           >
+            <div className="women-site__hero-photo" aria-hidden="true">
+              <img src={womenHeroImage} alt="" loading="lazy" decoding="async" />
+            </div>
             <div className="women-site__hero-body">
               <div className="women-site__hero-content">
                 <h2 id="women-site-hero-title">Sede femenil · Conciencia CAI</h2>
@@ -175,7 +177,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
               </ul>
               <div className="women-site__use-cases-media">
                 <img
-                  src={womenSupportImage}
+                  src={womenUseCasesImage}
                   alt="Coordinadora ofreciendo contención cercana a una residente"
                   loading="lazy"
                 />
