@@ -10,6 +10,9 @@ const INITIAL_STATE = {
   message: '',
 };
 
+const DEFAULT_CHANNEL_NOTE =
+  'Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu confidencialidad en todo momento.';
+
 /**
  * @typedef {Object} ContactSectionProps
  * @property {string} [selectedSede]
@@ -21,6 +24,7 @@ const INITIAL_STATE = {
  * @property {string} [description]
  * @property {string} [lockedSedeValue]
  * @property {string} [successMessage]
+ * @property {string} [channelNote]
  * @property {import('react').ReactNode} [asideContent]
  */
 
@@ -37,6 +41,7 @@ export default function ContactSection({
   description = 'Si tú o un familiar están atravesando una situación relacionada con el consumo de sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en el inicio de un camino real hacia la recuperación. Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo, dudas y cansancio emocional. En CONCIENCIA CAI, priorizamos la empatía, la claridad y el trato digno desde el primer contacto.',
   lockedSedeValue,
   successMessage = 'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.',
+  channelNote = DEFAULT_CHANNEL_NOTE,
   asideContent,
 }) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
@@ -239,10 +244,7 @@ export default function ContactSection({
                 <button type="button" className="link" onClick={onOpenPrivacy}>
                   Aviso de Privacidad
                 </button>
-                .
-                Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del
-                Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu
-                confidencialidad en todo momento.
+                . {channelNote}
               </p>
             </div>
             {status && (
