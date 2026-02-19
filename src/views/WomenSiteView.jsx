@@ -70,47 +70,49 @@ const WOMEN_GALLERY_ITEMS = [
     avif: womenRoomImageAvif,
     alt: 'Habitación terapéutica y privada en la sede femenil',
     label: 'Suites',
-    caption: 'Habitaciones protegidas y acompañadas por doulas emocionales.',
+    caption: 'Habitaciones individuales con cama amplia, textiles cálidos y supervisión cercana.',
   },
   {
     src: womenGardenImage,
     webp: womenGardenImageWebp,
     avif: womenGardenImageAvif,
-    alt: 'Jardín terapéutico femenino con acompañamiento guiado',
-    label: 'Jardín terapéutico',
-    caption: 'Sesiones de mindfulness y activaciones suaves al aire libre.',
+    alt: 'Estudio interior luminoso con acompañamiento terapéutico y elementos de calma',
+    label: 'Estudio terapéutico',
+    caption:
+      'Guía y acompañamiento con meditacion y respiraciones conscientes.',
   },
   {
     src: womenCircleImage,
     webp: womenCircleImageWebp,
     avif: womenCircleImageAvif,
     alt: 'Círculo de contención femenino con coordinación clínica',
-    label: 'Círculos de contención',
-    caption: 'Comunidades solidarias que sostienen la seguridad emocional.',
+    label: 'Sala de contención',
+    caption: 'Espacios con un entorno de bienestar, donde se transmite calma, confianza y apertura.',
   },
   {
     src: womenMedicalRitualsImage,
     webp: womenMedicalRitualsImageWebp,
     avif: womenMedicalRitualsImageAvif,
     alt: 'Supervisión médica femenina guiando rituales de autocuidado',
-    label: 'Rituales',
-    caption: 'Protocolos sensoriales para reconectar con el cuerpo y la calma.',
+    label: 'Atención médica',
+    caption: 'Consultorio médico donde una especialista guía chequeos y respiraciones asistidas.',
   },
   {
     src: womenEgressGardenImage,
     webp: womenEgressGardenImageWebp,
     avif: womenEgressGardenImageAvif,
-    alt: 'Jardín de egreso con acompañamiento creativo para mujeres',
-    label: 'Jardín de egreso',
-    caption: 'Cierres simbólicos y mentorías creativas para preparar el egreso.',
+    alt: 'Ceremonia de egreso femenina celebrando con banderines y abrazos solidarios',
+    label: 'Egreso',
+    caption:
+      'Donde las egresadas se fortalecen mutuamente para la reintegración.',
   },
   {
     src: womenSupportImage,
     webp: womenSupportImageWebp,
     avif: womenSupportImageAvif,
-    alt: 'Coordinadora conteniendo a una residente en la sede femenil',
-    label: 'Contención',
-    caption: 'Acompañamiento presencial y espiritual las 24 horas del día.',
+    alt: 'Familia abrazándose mientras recibe acompañamiento en la sede femenil',
+    label: 'Contención familiar',
+    caption: 'Bienestar integral donde la unión familiar refuerza la seguridad emocional.',
   },
 ];
 
@@ -241,9 +243,6 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
                 ))}
               </ul>
               <div className="method-overview__actions">
-                <button type="button" className="btn btn--primary" onClick={handleCTA}>
-                  Agendar valoración
-                </button>
                 <button type="button" className="btn btn--secondary" onClick={() => onNavigate?.('#metodo')}>
                   Explorar metodología
                 </button>
