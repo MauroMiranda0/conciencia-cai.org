@@ -26,6 +26,9 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
   const videoRef = useRef(
     /** @type {HTMLVideoElement | null} */ (null)
   );
+  const observerRef = useRef(
+    /** @type {IntersectionObserver | null} */ (null)
+  );
 
   useEffect(() => {
     if (shouldLoadPlayer || !containerRef.current) {
@@ -42,13 +45,18 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
           if (entry.isIntersecting) {
             setShouldLoadPlayer(true);
             observer.disconnect();
+            observerRef.current = null;
           }
         });
       },
       { rootMargin: '200px' }
     );
     observer.observe(node);
-    return () => observer.disconnect();
+    observerRef.current = observer;
+    return () => {
+      observer.disconnect();
+      observerRef.current = null;
+    };
   }, [shouldLoadPlayer]);
 
   useEffect(() => {
@@ -62,6 +70,10 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
   const handleActivate = () => {
     setActivatedByClick(true);
     setShouldLoadPlayer(true);
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
   };
 
   return (

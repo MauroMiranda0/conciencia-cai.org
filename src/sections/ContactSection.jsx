@@ -157,7 +157,11 @@ export default function ContactSection({
     const whatsappMessage = buildWhatsappMessageFromForm(formData, /** @type {'mujeres' | 'hombres' | undefined} */ (sedeForMessage));
     const whatsappUrl = buildWhatsappUrl(whatsappMessage);
     if (typeof window !== 'undefined') {
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (!whatsappWindow) {
+        return;
+      }
+      whatsappWindow.focus();
     }
     setStatus(successMessage);
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));

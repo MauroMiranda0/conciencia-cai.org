@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
@@ -150,20 +150,9 @@ const MEN_MAP_SRC =
  */
 export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
   const [microMode] = useState('care');
-  const [, setMicroIndex] = useState(0);
   const heroBackgroundStyle = {
     '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
   };
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-    const timer = window.setInterval(() => {
-      setMicroIndex((prev) => prev + 1);
-    }, 9000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);
