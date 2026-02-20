@@ -6,6 +6,7 @@ import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import ResponsivePicture from '../components/ResponsivePicture.jsx';
+import Navbar from '../components/Navbar.jsx';
 import usePageMeta from '../hooks/usePageMeta.js';
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menRoomPhotoWebp from '../assets/photos/men/habitacion-hombre.webp';

@@ -23,6 +23,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function HomeVideoCard({ title, description, poster, sources }) {
   const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
   const [activatedByClick, setActivatedByClick] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   const [resolvedSource, setResolvedSource] = useState(() => ({
     src: sources.mp4,
     type: 'video/mp4',
@@ -87,6 +88,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
   const handleActivate = () => {
     setActivatedByClick(true);
     setShouldLoadPlayer(true);
+    setIsBuffering(true);
     if (observerRef.current) {
       observerRef.current.disconnect();
       observerRef.current = null;
@@ -104,6 +106,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
             poster={poster}
             playsInline
             tabIndex={0}
+            onLoadedData={() => setIsBuffering(false)}
           >
             <source src={resolvedSource.src} type={resolvedSource.type} />
             Tu navegador no soporta video HTML5.
@@ -122,6 +125,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
             <span className="home-videos__poster-cta">Reproducir</span>
           </button>
         )}
+        {isBuffering ? <div className="home-videos__spinner" aria-live="polite">Cargando…</div> : null}
       </div>
       <h3>{title}</h3>
       <p>{description}</p>

@@ -36,6 +36,9 @@
   overflow: hidden;
   aspect-ratio: 16 / 9;
   background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-videos__player video {
@@ -49,6 +52,28 @@
 
 .home-videos__player--loaded video {
   opacity: 1;
+}
+
+.home-videos__spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .home-videos__poster {

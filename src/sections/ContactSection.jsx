@@ -179,7 +179,7 @@ function ContactSection({
     setTimeout(() => {
       confirmButtonRef.current?.focus();
     }, 0);
-    setStatus('Termina tu mensaje en WhatsApp y confirma aquí cuando hayas enviado la información.');
+    setStatus('Paso 2 de 2 · Termina tu mensaje en WhatsApp y confirma cuando lo hayas enviado.');
   };
 
   const handleConfirmWhatsapp = () => {
@@ -204,24 +204,24 @@ function ContactSection({
           <h2 id={`${id}-title`}>{title}</h2>
           <p className="text-muted">{description}</p>
         </div>
-        <div className="contact-section__content">
-          <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
-            <div className="field">
-              <label htmlFor="name">Nombre</label>
-              <input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                {...getMicroHandlers('care')}
-              />
-              {errors.name && (
-                <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.name}
-                </span>
-              )}
-            </div>
+            <div className="contact-section__content">
+              <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
+                <div className="field">
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    {...getMicroHandlers('care')}
+                  />
+                  {errors.name ? (
+                    <span className="field__error" role="alert" aria-live="assertive">
+                      ⚠ {errors.name}
+                    </span>
+                  ) : null}
+                </div>
             <div className="field">
               <label htmlFor="phone">Teléfono (10 dígitos)</label>
               <input
@@ -234,11 +234,11 @@ function ContactSection({
                 required
                 {...getMicroHandlers('care')}
               />
-              {errors.phone && (
+              {errors.phone ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.phone}
+                  ⚠ {errors.phone}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="email">Correo</label>
@@ -251,11 +251,11 @@ function ContactSection({
                 required
                 {...getMicroHandlers('sage')}
               />
-              {errors.email && (
+              {errors.email ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.email}
+                  ⚠ {errors.email}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="sede">¿A qué sede deseas contactar?</label>
@@ -283,11 +283,11 @@ function ContactSection({
                   <option value="hombres">Sede Varonil</option>
                 </select>
               )}
-              {errors.sede && (
+              {errors.sede ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.sede}
+                  ⚠ {errors.sede}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="message">Mensaje (opcional)</label>
@@ -325,7 +325,11 @@ function ContactSection({
               </p>
             </div>
             {status && (
-              <div className="contact-form__status" role="status" aria-live="polite">
+              <div
+                className={`contact-form__status${needsWhatsappConfirmation ? ' contact-form__status--pending' : ''}`}
+                role="status"
+                aria-live="polite"
+              >
                 {status}
               </div>
             )}
@@ -339,6 +343,13 @@ function ContactSection({
                   aria-describedby={`${id}-title`}
                 >
                   Confirmar envío a Coordinación
+                </button>
+                <button
+                  type="button"
+                  className="link"
+                  onClick={() => window.open(buildWhatsappUrl(buildWhatsappMessageFromForm(formData, formData.sede)), '_blank', 'noopener,noreferrer')}
+                >
+                  Reabrir WhatsApp
                 </button>
               </div>
             ) : null}
