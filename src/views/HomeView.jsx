@@ -7,6 +7,7 @@ import ContactSection from '../sections/ContactSection.jsx';
 import { scrollToHash } from '../utils/dom.js';
 import { normalizeSedeValue } from '../utils/sites.js';
 import HomeVideoCard from '../components/HomeVideoCard.jsx';
+import usePageMeta from '../hooks/usePageMeta.js';
 import '../styles/views/HomeVideos.scss';
 
 const HERO_PROMISES = [
@@ -35,7 +36,7 @@ const MODEL_INFO_URL = '/docs/modelo-minnesota.pdf';
 const HOME_VIDEO_ITEMS = [
   {
     title: 'Monólogo terapéutico',
-    description: 'Escucha el acompañamiento inicial donde explicamos protocolos y contención familiar.',
+    description: '',
     poster: '/media/home/posters/monologo.jpg',
     sources: {
       mp4: '/media/home/videos/monologo-optimized.mp4',
@@ -43,8 +44,8 @@ const HOME_VIDEO_ITEMS = [
     },
   },
   {
-    title: 'Recorrido sede varonil',
-    description: 'Visualiza dormitorios, espacios clínicos y dinámicas de cuidado para hombres.',
+    title: 'Sede varonil',
+    description: '',
     poster: '/media/home/posters/video-hombres.jpg',
     sources: {
       mp4: '/media/home/videos/video-hombres-optimized.mp4',
@@ -52,8 +53,8 @@ const HOME_VIDEO_ITEMS = [
     },
   },
   {
-    title: 'Recorrido sede femenil',
-    description: 'Conoce los ambientes terapéuticos y círculos de contención exclusivos para mujeres.',
+    title: 'Sede femenil',
+    description: '',
     poster: '/media/home/posters/video-mujeres.jpg',
     sources: {
       mp4: '/media/home/videos/video-mujeres-optimized.mp4',
@@ -83,6 +84,12 @@ export default function HomeView({
   selectedSede,
   onSelectSede,
 }) {
+  usePageMeta({
+    title: 'Conciencia CAI · Recuperación integral en Pachuca',
+    description:
+      'Centro residencial especializado en Modelo Minnesota + 12 Pasos con sedes femenil y varonil en Pachuca, Hidalgo.',
+    canonical: 'https://conciencia-cai.org/',
+  });
   const handleNavigate = useCallback(
     /**
      * @param {string} [hash]
@@ -165,10 +172,10 @@ export default function HomeView({
           <section className="home-videos" aria-labelledby="home-videos-title">
             <div className="container home-videos__wrapper">
               <div className="home-videos__intro">
-                <p className="hero-vista__trust-eyebrow">Voces y recorridos</p>
+                <p className="hero-vista__trust-eyebrow">Multimedia</p>
                 <h2 id="home-videos-title">Experiencias en video</h2>
                 <p className="text-muted">
-                  Observa cómo coordinamos ingresos, contención familiar y recorridos guiados en ambas sedes.
+                  Informacion sobre nuestros servicios de rehabilitación integral.
                 </p>
               </div>
               <div className="home-videos__grid" role="list">
