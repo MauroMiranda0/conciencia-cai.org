@@ -92,6 +92,7 @@ export default function ContactSection({
     /** @type {Record<string, string>} */({})
   );
   const [status, setStatus] = useState('');
+  const [needsWhatsappConfirmation, setNeedsWhatsappConfirmation] = useState(false);
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
@@ -150,6 +151,7 @@ export default function ContactSection({
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setStatus('Por favor revisa los campos marcados.');
+      setNeedsWhatsappConfirmation(false);
       return;
     }
     const normalizedFormSede = normalizeSedeValue(formData.sede);
@@ -159,12 +161,19 @@ export default function ContactSection({
     if (typeof window !== 'undefined') {
       const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       if (!whatsappWindow) {
+        setNeedsWhatsappConfirmation(false);
         return;
       }
       whatsappWindow.focus();
     }
+    setNeedsWhatsappConfirmation(true);
+    setStatus('Termina tu mensaje en WhatsApp y confirma aquí cuando hayas enviado la información.');
+  };
+
+  const handleConfirmWhatsapp = () => {
     setStatus(successMessage);
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
+    setNeedsWhatsappConfirmation(false);
   };
 
   /**
@@ -301,6 +310,13 @@ export default function ContactSection({
                 {status}
               </div>
             )}
+            {needsWhatsappConfirmation ? (
+              <div className="contact-form__confirm">
+                <button type="button" className="btn btn--secondary" onClick={handleConfirmWhatsapp}>
+                  Confirmar que ya envié mi mensaje
+                </button>
+              </div>
+            ) : null}
           </form>
           {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
         </div>

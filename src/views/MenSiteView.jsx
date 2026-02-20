@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
@@ -149,10 +148,11 @@ const MEN_MAP_SRC =
  * @param {MenSiteViewProps} props
  */
 export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
-  const [microMode] = useState('care');
-  const heroBackgroundStyle = {
-    '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
-  };
+  const microMode = 'care';
+  const heroBackgroundStyle =
+    /** @type {import('react').CSSProperties} */ ({
+      '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
+    });
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);
@@ -176,7 +176,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             className="men-site__hero men-card site-card men-site__hero--photo"
             aria-labelledby="men-site-hero-title"
             data-archetype={microMode}
-            // @ts-ignore
             style={heroBackgroundStyle}
           >
             <h2 id="men-site-hero-title">Sede varonil · Conciencia CAI</h2>
@@ -274,7 +273,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
           description="Comparte tu situación y recibirás una llamada confidencial en menos de 30 minutos."
           lockedSedeValue="hombres"
           successMessage="Gracias. Coordinación varonil recibió tu mensaje y te contactará con total confidencialidad."
-          // @ts-ignore
           channelNote="Guardias varoniles y consejeros clínicos monitorean esta línea permanentemente."
           onOpenPrivacy={onOpenPrivacy}
           asideContent={

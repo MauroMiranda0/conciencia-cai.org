@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
@@ -149,7 +148,7 @@ const WOMEN_MAP_SRC =
  * @param {WomenSiteViewProps} props
  */
 export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
-  const [microMode] = useState('care');
+  const microMode = 'care';
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);

@@ -1,3 +1,6 @@
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+/// <reference lib="dom.asynciterable" />
 import { useEffect, useRef, useState } from 'react';
 
 /**
@@ -21,7 +24,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
   const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
   const [activatedByClick, setActivatedByClick] = useState(false);
   const containerRef = useRef(
-    /** @type {HTMLArticleElement | null} */ (null)
+    /** @type {HTMLElement | null} */ (null)
   );
   const videoRef = useRef(
     /** @type {HTMLVideoElement | null} */ (null)
@@ -39,6 +42,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
       return;
     }
     const node = containerRef.current;
+    // eslint-disable-next-line no-undef
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
