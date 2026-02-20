@@ -36,28 +36,28 @@ const HOME_VIDEO_ITEMS = [
   {
     title: 'Monólogo terapéutico',
     description: 'Escucha el acompañamiento inicial donde explicamos protocolos y contención familiar.',
-    poster: '/media/posters/monologo.jpg',
+    poster: '/media/home/posters/monologo.jpg',
     sources: {
-      mp4: '/media/videos/monologo-optimized.mp4',
-      webm: '/media/videos/monologo-optimized.webm',
+      mp4: '/media/home/videos/monologo-optimized.mp4',
+      webm: '/media/home/videos/monologo-optimized.webm',
     },
   },
   {
     title: 'Recorrido sede varonil',
     description: 'Visualiza dormitorios, espacios clínicos y dinámicas de cuidado para hombres.',
-    poster: '/media/posters/video-hombres.jpg',
+    poster: '/media/home/posters/video-hombres.jpg',
     sources: {
-      mp4: '/media/videos/video-hombres-optimized.mp4',
-      webm: '/media/videos/video-hombres-optimized.webm',
+      mp4: '/media/home/videos/video-hombres-optimized.mp4',
+      webm: '/media/home/videos/video-hombres-optimized.webm',
     },
   },
   {
     title: 'Recorrido sede femenil',
     description: 'Conoce los ambientes terapéuticos y círculos de contención exclusivos para mujeres.',
-    poster: '/media/posters/video-mujeres.jpg',
+    poster: '/media/home/posters/video-mujeres.jpg',
     sources: {
-      mp4: '/media/videos/video-mujeres-optimized.mp4',
-      webm: '/media/videos/video-mujeres-optimized.webm',
+      mp4: '/media/home/videos/video-mujeres-optimized.mp4',
+      webm: '/media/home/videos/video-mujeres-optimized.webm',
     },
   },
 ];
