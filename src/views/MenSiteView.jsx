@@ -1,5 +1,4 @@
 import { Suspense, lazy } from 'react';
-import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
@@ -7,6 +6,7 @@ import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import ResponsivePicture from '../components/ResponsivePicture.jsx';
+import usePageMeta from '../hooks/usePageMeta.js';
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menRoomPhotoWebp from '../assets/photos/men/habitacion-hombre.webp';
 import menRoomPhotoAvif from '../assets/photos/men/habitacion-hombre.avif';
@@ -155,6 +155,12 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
     /** @type {import('react').CSSProperties} */ ({
       '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
     });
+  usePageMeta({
+    title: 'Sede varonil · Conciencia CAI',
+    description:
+      'Coordinación varonil con Modelo Minnesota + 12 Pasos, guardias médicas y mentorías de liderazgo en Pachuca.',
+    canonical: 'https://conciencia-cai.org/#sede-varonil',
+  });
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);

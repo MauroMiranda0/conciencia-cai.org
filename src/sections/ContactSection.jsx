@@ -314,7 +314,14 @@ function ContactSection({
                 <button type="button" className="link" onClick={onOpenPrivacy}>
                   Aviso de Privacidad
                 </button>
-                . {channelNote}
+                . {channelNote}{' '}
+                <a href="tel:+527716842295" className="link">
+                  Llama al 77 16 84 22 95
+                </a>{' '}
+                o{' '}
+                <a href="https://wa.me/5217712063098" className="link" target="_blank" rel="noreferrer">
+                  escríbenos por WhatsApp
+                </a>
               </p>
             </div>
             {status && (

@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+import usePageMeta from '../hooks/usePageMeta.js';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
@@ -151,6 +152,12 @@ const WOMEN_MAP_SRC =
  */
 export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
   const microMode = 'care';
+  usePageMeta({
+    title: 'Sede femenil · Conciencia CAI',
+    description:
+      'Refugio terapéutico para mujeres con trauma informado, círculos de contención y mentorías financieras en Pachuca.',
+    canonical: 'https://conciencia-cai.org/#sede-femenil',
+  });
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);

@@ -7,6 +7,7 @@ import { scrollToHash } from './utils/dom.js';
 import './styles/globals.scss';
 import './styles/components/Button.scss';
 import './styles/components/Footer.scss';
+import reportWebVitals from './web-vitals.js';
 
 const MenSiteView = lazy(() => import('./views/MenSiteView.jsx'));
 const WomenSiteView = lazy(() => import('./views/WomenSiteView.jsx'));
@@ -145,6 +146,7 @@ export default function App() {
       />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
+      {typeof window !== 'undefined' ? reportWebVitals() : null}
     </>
   );
 }
