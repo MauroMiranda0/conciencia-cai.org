@@ -1,6 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSedeValue } from '../utils/sites.js';
 import { buildWhatsappUrl } from '../utils/whatsapp.js';
+import { submitContactForm } from '../services/contactService.js';
 import '../styles/sections/ContactSection.scss';
 
 const INITIAL_STATE = {
@@ -9,6 +10,7 @@ const INITIAL_STATE = {
   email: '',
   sede: '',
   message: '',
+  verification: '',
 };
 
 const DEFAULT_CHANNEL_NOTE =
@@ -92,10 +94,9 @@ function ContactSection({
     /** @type {Record<string, string>} */({})
   );
   const [status, setStatus] = useState('');
-  const [needsWhatsappConfirmation, setNeedsWhatsappConfirmation] = useState(false);
-  const confirmButtonRef = useRef(
-    /** @type {HTMLButtonElement | null} */ (null)
-  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formMountedAt] = useState(() => Date.now());
+  const submitAbortRef = useRef(/** @type {AbortController | null} */ (null));
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
@@ -112,12 +113,6 @@ function ContactSection({
     setFormData((prev) => ({ ...prev, sede: selectedSede }));
   }, [normalizedLockedSede, onSelectSede, selectedSede]);
 
-  useEffect(() => {
-    if (needsWhatsappConfirmation) {
-      confirmButtonRef.current?.focus();
-    }
-  }, [needsWhatsappConfirmation]);
-
   /**
    * @param {string} _tone
    */
@@ -131,6 +126,12 @@ function ContactSection({
     onFocus: () => handleMicroTone(tone),
     onMouseEnter: () => handleMicroTone(tone),
   });
+
+  useEffect(() => {
+    return () => {
+      submitAbortRef.current?.abort();
+    };
+  }, []);
 
   /**
    * @param {import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event
@@ -154,38 +155,52 @@ function ContactSection({
   /**
    * @param {import('react').FormEvent<HTMLFormElement>} event
    */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
     const nextErrors = validate();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setStatus('Por favor revisa los campos marcados.');
-      setNeedsWhatsappConfirmation(false);
+      return;
+    }
+    if (formData.verification.trim()) {
+      setStatus('No pudimos procesar el formulario. Intenta nuevamente.');
+      return;
+    }
+    const elapsed = Date.now() - formMountedAt;
+    if (elapsed < 2500) {
+      setStatus('Permítenos verificar tu información antes de enviarla.');
       return;
     }
     const normalizedFormSede = normalizeSedeValue(formData.sede);
     const sedeForMessage = normalizedLockedSede || normalizedFormSede;
-    const whatsappMessage = buildWhatsappMessageFromForm(formData, /** @type {'mujeres' | 'hombres' | undefined} */ (sedeForMessage));
-    const whatsappUrl = buildWhatsappUrl(whatsappMessage);
-    if (typeof window !== 'undefined') {
-      const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      if (!whatsappWindow) {
-        setNeedsWhatsappConfirmation(false);
-        return;
+    const payload = {
+      name: sanitizeField(formData.name),
+      phone: sanitizeField(formData.phone),
+      email: sanitizeField(formData.email),
+      sede: sedeForMessage,
+      message: sanitizeField(formData.message),
+    };
+    setIsSubmitting(true);
+    setStatus('Enviando tu solicitud de forma segura…');
+    submitAbortRef.current?.abort();
+    submitAbortRef.current = new AbortController();
+    try {
+      await submitContactForm(payload, submitAbortRef.current.signal);
+      setStatus(successMessage);
+      setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede || normalizedLockedSede || '' }));
+    } catch (error) {
+      console.error('Secure submission failed, falling back to WhatsApp', error);
+      const whatsappMessage = buildWhatsappMessageFromForm(formData, /** @type {'mujeres' | 'hombres' | undefined} */ (sedeForMessage));
+      const whatsappUrl = buildWhatsappUrl(whatsappMessage);
+      if (typeof window !== 'undefined') {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       }
-      whatsappWindow.focus();
+      setStatus('No pudimos enviar de forma directa. Abrimos WhatsApp para que completes el envío.');
+    } finally {
+      setIsSubmitting(false);
     }
-    setNeedsWhatsappConfirmation(true);
-    setTimeout(() => {
-      confirmButtonRef.current?.focus();
-    }, 0);
-    setStatus('Paso 2 de 2 · Termina tu mensaje en WhatsApp y confirma cuando lo hayas enviado.');
-  };
-
-  const handleConfirmWhatsapp = () => {
-    setStatus(successMessage);
-    setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
-    setNeedsWhatsappConfirmation(false);
   };
 
   /**
@@ -206,6 +221,17 @@ function ContactSection({
         </div>
             <div className="contact-section__content">
               <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
+                <div className="visually-hidden" aria-hidden="true">
+                  <label htmlFor={`${id}-verification`}>No completar este campo</label>
+                  <input
+                    id={`${id}-verification`}
+                    name="verification"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.verification}
+                    onChange={handleChange}
+                  />
+                </div>
                 <div className="field">
                   <label htmlFor="name">Nombre</label>
                   <input
@@ -306,8 +332,9 @@ function ContactSection({
                 className="btn btn--primary"
                 onMouseEnter={() => handleMicroTone('care')}
                 onFocus={() => handleMicroTone('care')}
+                disabled={isSubmitting}
               >
-                Enviar
+                {isSubmitting ? 'Enviando…' : 'Enviar'}
               </button>
               <p className="contact-form__guide-note">
                 Al enviar aceptas nuestro{' '}
@@ -325,34 +352,10 @@ function ContactSection({
               </p>
             </div>
             {status && (
-              <div
-                className={`contact-form__status${needsWhatsappConfirmation ? ' contact-form__status--pending' : ''}`}
-                role="status"
-                aria-live="polite"
-              >
+              <div className="contact-form__status" role="status" aria-live="polite">
                 {status}
               </div>
             )}
-            {needsWhatsappConfirmation ? (
-              <div className="contact-form__confirm">
-                <button
-                  type="button"
-                  className="btn btn--secondary"
-                  onClick={handleConfirmWhatsapp}
-                  ref={confirmButtonRef}
-                  aria-describedby={`${id}-title`}
-                >
-                  Confirmar envío a Coordinación
-                </button>
-                <button
-                  type="button"
-                  className="link"
-                  onClick={() => window.open(buildWhatsappUrl(buildWhatsappMessageFromForm(formData, formData.sede)), '_blank', 'noopener,noreferrer')}
-                >
-                  Reabrir WhatsApp
-                </button>
-              </div>
-            ) : null}
           </form>
           {asideContent ? <div className="contact-section__aside reveal reveal--delay-2">{asideContent}</div> : null}
         </div>

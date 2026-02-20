@@ -11,9 +11,24 @@ import '../styles/components/MapEmbed.scss';
 /**
  * @param {MapEmbedProps} props
  */
+const ALLOWED_MAP_HOSTS = ['maps.google.com', 'www.google.com'];
+
+function resolveSafeMapSrc(mapSrc, fallbackQuery) {
+  try {
+    const parsed = new URL(mapSrc);
+    if (ALLOWED_MAP_HOSTS.includes(parsed.hostname)) {
+      return mapSrc;
+    }
+  } catch (_error) {
+    // swallow and fallback
+  }
+  return `https://maps.google.com/maps?q=${fallbackQuery}&output=embed`;
+}
+
 export default function MapEmbed({ title, address, phone, mapSrc }) {
   const encodedAddress = encodeURIComponent(address);
   const mapsUrl = `https://maps.google.com/?q=${encodedAddress}`;
+  const safeMapSrc = resolveSafeMapSrc(mapSrc, encodedAddress);
   return (
     <div className="map-card" aria-label={title}>
       <h3>{title}</h3>
@@ -24,10 +39,11 @@ export default function MapEmbed({ title, address, phone, mapSrc }) {
         </p>
       ) : null}
       <iframe
-        src={mapSrc}
+        src={safeMapSrc}
         loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
+        referrerPolicy="strict-origin-when-cross-origin"
         title={`Mapa ${title}`}
+        sandbox="allow-scripts allow-same-origin allow-popups"
       />
       <p>
         <a href={mapsUrl} target="_blank" rel="noreferrer" className="map-card__link">

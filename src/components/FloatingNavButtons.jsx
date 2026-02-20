@@ -88,7 +88,6 @@ export default function FloatingNavButtons({ onNavigate, isHidden, activeView })
               <span className="floating-nav__icon" aria-hidden="true">
                 <Icon />
               </span>
-              <span className="floating-nav__label">{button.label}</span>
             </button>
           );
         }
@@ -105,7 +104,6 @@ export default function FloatingNavButtons({ onNavigate, isHidden, activeView })
               <span className="floating-nav__icon" aria-hidden="true">
                 <Icon />
               </span>
-              <span className="floating-nav__label">{button.label}</span>
             </a>
           );
         }
