@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import HomeView from './views/HomeView.jsx';
-import MenSiteView from './views/MenSiteView.jsx';
-import WomenSiteView from './views/WomenSiteView.jsx';
 import PrivacyModal from './components/PrivacyModal.jsx';
 import ModelModal from './components/ModelModal.jsx';
 import FloatingNavButtons from './components/FloatingNavButtons.jsx';
@@ -9,6 +7,10 @@ import { scrollToHash } from './utils/dom.js';
 import './styles/globals.scss';
 import './styles/components/Button.scss';
 import './styles/components/Footer.scss';
+import reportWebVitals from './web-vitals.js';
+
+const MenSiteView = lazy(() => import('./views/MenSiteView.jsx'));
+const WomenSiteView = lazy(() => import('./views/WomenSiteView.jsx'));
 
 const DEFAULT_OFFSET = 92;
 const VIEWS = /** @type {const} */ ({
@@ -121,17 +123,21 @@ export default function App() {
         />
       ) : null}
       {activeView === VIEWS.MEN ? (
-        <MenSiteView
-          onNavigate={handleNavigate}
-          onOpenPrivacy={() => setPrivacyOpen(true)}
-          onShowWomenSite={showWomenSite}
-        />
+        <Suspense fallback={null}>
+          <MenSiteView
+            onNavigate={handleNavigate}
+            onOpenPrivacy={() => setPrivacyOpen(true)}
+            onShowWomenSite={showWomenSite}
+          />
+        </Suspense>
       ) : null}
       {activeView === VIEWS.WOMEN ? (
-        <WomenSiteView
-          onNavigate={handleNavigate}
-          onOpenPrivacy={() => setPrivacyOpen(true)}
-        />
+        <Suspense fallback={null}>
+          <WomenSiteView
+            onNavigate={handleNavigate}
+            onOpenPrivacy={() => setPrivacyOpen(true)}
+          />
+        </Suspense>
       ) : null}
       <FloatingNavButtons
         onNavigate={handleNavigate}
@@ -140,6 +146,7 @@ export default function App() {
       />
       <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
       <ModelModal open={modelOpen} onClose={() => setModelOpen(false)} />
+      {typeof window !== 'undefined' ? reportWebVitals() : null}
     </>
   );
 }

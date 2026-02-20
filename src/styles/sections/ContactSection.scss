@@ -238,6 +238,13 @@
   border-radius: 16px;
   background: var(--accent-soft);
   text-align: justify;
+  border: 1px solid var(--accent-muted);
+}
+
+.contact-form__status--pending {
+  background: #fff8e6;
+  border-color: #fbbf24;
+  color: #92400e;
 }
 
 .link {

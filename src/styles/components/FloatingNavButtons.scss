@@ -23,6 +23,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 }
 
 .floating-nav__icon {
@@ -34,6 +35,10 @@
     height: 100%;
     fill: currentColor;
   }
+}
+
+.floating-nav__label {
+  font-size: 0.85rem;
 }
 
 .floating-nav__button:hover {
@@ -60,5 +65,25 @@
     width: 56px;
     height: 56px;
     padding: 0;
+    border-radius: 50%;
+  }
+
+  .floating-nav__label {
+    position: absolute;
+    right: 110%;
+    background: rgba(15, 23, 42, 0.95);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .floating-nav__button:focus-visible .floating-nav__label,
+  .floating-nav__button:hover .floating-nav__label {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

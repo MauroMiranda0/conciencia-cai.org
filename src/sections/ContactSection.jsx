@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSedeValue } from '../utils/sites.js';
+import { buildWhatsappUrl } from '../utils/whatsapp.js';
+import { submitContactForm } from '../services/contactService.js';
 import '../styles/sections/ContactSection.scss';
 
 const INITIAL_STATE = {
@@ -8,6 +10,52 @@ const INITIAL_STATE = {
   email: '',
   sede: '',
   message: '',
+  verification: '',
+};
+
+const DEFAULT_CHANNEL_NOTE =
+  'Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu confidencialidad en todo momento.';
+
+const CONTACT_WHATSAPP_GREETING = 'Hola, quiero agendar una valoración con Conciencia CAI.';
+
+/**
+ * @param {'mujeres' | 'hombres' | undefined} value
+ */
+const getSedeLabelFromNormalized = (value) => {
+  if (value === 'mujeres') return 'Sede Femenil';
+  if (value === 'hombres') return 'Sede Varonil';
+  return '';
+};
+
+/**
+ * @param {string} [value]
+ */
+const sanitizeField = (value = '') => value.trim();
+
+/**
+ * @param {typeof INITIAL_STATE} formValues
+ * @param {'mujeres' | 'hombres' | undefined} sedeValue
+ */
+const buildWhatsappMessageFromForm = (formValues, sedeValue) => {
+  const sedeLabel = getSedeLabelFromNormalized(sedeValue);
+  const sanitizedMessage = sanitizeField(formValues.message);
+  const lines = [
+    CONTACT_WHATSAPP_GREETING,
+    '',
+    `Nombre: ${sanitizeField(formValues.name)}`,
+    `Teléfono: ${sanitizeField(formValues.phone)}`,
+    `Correo: ${sanitizeField(formValues.email)}`,
+  ];
+
+  if (sedeLabel) {
+    lines.push(`Sede de interés: ${sedeLabel}`);
+  }
+
+  if (sanitizedMessage) {
+    lines.push('', 'Mensaje:', sanitizedMessage);
+  }
+
+  return lines.map((line) => line.trim()).join('\n');
 };
 
 /**
@@ -21,13 +69,14 @@ const INITIAL_STATE = {
  * @property {string} [description]
  * @property {string} [lockedSedeValue]
  * @property {string} [successMessage]
+ * @property {string} [channelNote]
  * @property {import('react').ReactNode} [asideContent]
  */
 
 /**
  * @param {ContactSectionProps} props
  */
-export default function ContactSection({
+function ContactSection({
   selectedSede,
   onSelectSede,
   onOpenPrivacy,
@@ -37,6 +86,7 @@ export default function ContactSection({
   description = 'Si tú o un familiar están atravesando una situación relacionada con el consumo de sustancias, no están solos. Estamos aquí para escucharles, orientarles y acompañarles en el inicio de un camino real hacia la recuperación. Sabemos que pedir ayuda no es fácil. Muchas familias llegan a este punto con miedo, dudas y cansancio emocional. En CONCIENCIA CAI, priorizamos la empatía, la claridad y el trato digno desde el primer contacto.',
   lockedSedeValue,
   successMessage = 'Gracias. Un especialista de la sede seleccionada se comunicará contigo de forma confidencial.',
+  channelNote = DEFAULT_CHANNEL_NOTE,
   asideContent,
 }) {
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
@@ -44,16 +94,14 @@ export default function ContactSection({
     /** @type {Record<string, string>} */({})
   );
   const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formMountedAt] = useState(() => Date.now());
+  const submitAbortRef = useRef(/** @type {AbortController | null} */ (null));
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
   );
-  const sedeLabel =
-    normalizedLockedSede === 'hombres'
-      ? 'Sede Varonil'
-      : normalizedLockedSede === 'mujeres'
-        ? 'Sede Femenil'
-        : '';
+  const sedeLabel = getSedeLabelFromNormalized(/** @type {'mujeres' | 'hombres' | undefined} */ (normalizedLockedSede));
 
   useEffect(() => {
     if (normalizedLockedSede) {
@@ -79,6 +127,12 @@ export default function ContactSection({
     onMouseEnter: () => handleMicroTone(tone),
   });
 
+  useEffect(() => {
+    return () => {
+      submitAbortRef.current?.abort();
+    };
+  }, []);
+
   /**
    * @param {import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event
    */
@@ -101,16 +155,52 @@ export default function ContactSection({
   /**
    * @param {import('react').FormEvent<HTMLFormElement>} event
    */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
     const nextErrors = validate();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setStatus('Por favor revisa los campos marcados.');
       return;
     }
-    setStatus(successMessage);
-    setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
+    if (formData.verification.trim()) {
+      setStatus('No pudimos procesar el formulario. Intenta nuevamente.');
+      return;
+    }
+    const elapsed = Date.now() - formMountedAt;
+    if (elapsed < 2500) {
+      setStatus('Permítenos verificar tu información antes de enviarla.');
+      return;
+    }
+    const normalizedFormSede = normalizeSedeValue(formData.sede);
+    const sedeForMessage = normalizedLockedSede || normalizedFormSede;
+    const payload = {
+      name: sanitizeField(formData.name),
+      phone: sanitizeField(formData.phone),
+      email: sanitizeField(formData.email),
+      sede: sedeForMessage,
+      message: sanitizeField(formData.message),
+    };
+    setIsSubmitting(true);
+    setStatus('Enviando tu solicitud de forma segura…');
+    submitAbortRef.current?.abort();
+    submitAbortRef.current = new AbortController();
+    try {
+      await submitContactForm(payload, submitAbortRef.current.signal);
+      setStatus(successMessage);
+      setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede || normalizedLockedSede || '' }));
+    } catch (error) {
+      console.error('Secure submission failed, falling back to WhatsApp', error);
+      const whatsappMessage = buildWhatsappMessageFromForm(formData, /** @type {'mujeres' | 'hombres' | undefined} */ (sedeForMessage));
+      const whatsappUrl = buildWhatsappUrl(whatsappMessage);
+      if (typeof window !== 'undefined') {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      }
+      setStatus('No pudimos enviar de forma directa. Abrimos WhatsApp para que completes el envío.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   /**
@@ -126,27 +216,38 @@ export default function ContactSection({
       <div className={`container contact-section__grid${asideContent ? ' contact-section__grid--with-aside' : ''}`}>
         <div className="contact-section__intro reveal">
           <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
-          <h2>{title}</h2>
+          <h2 id={`${id}-title`}>{title}</h2>
           <p className="text-muted">{description}</p>
         </div>
-        <div className="contact-section__content">
-          <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
-            <div className="field">
-              <label htmlFor="name">Nombre</label>
-              <input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                {...getMicroHandlers('care')}
-              />
-              {errors.name && (
-                <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.name}
-                </span>
-              )}
-            </div>
+            <div className="contact-section__content">
+              <form className="contact-form reveal reveal--delay-1" onSubmit={handleSubmit} noValidate>
+                <div className="visually-hidden" aria-hidden="true">
+                  <label htmlFor={`${id}-verification`}>No completar este campo</label>
+                  <input
+                    id={`${id}-verification`}
+                    name="verification"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.verification}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    {...getMicroHandlers('care')}
+                  />
+                  {errors.name ? (
+                    <span className="field__error" role="alert" aria-live="assertive">
+                      ⚠ {errors.name}
+                    </span>
+                  ) : null}
+                </div>
             <div className="field">
               <label htmlFor="phone">Teléfono (10 dígitos)</label>
               <input
@@ -159,11 +260,11 @@ export default function ContactSection({
                 required
                 {...getMicroHandlers('care')}
               />
-              {errors.phone && (
+              {errors.phone ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.phone}
+                  ⚠ {errors.phone}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="email">Correo</label>
@@ -176,11 +277,11 @@ export default function ContactSection({
                 required
                 {...getMicroHandlers('sage')}
               />
-              {errors.email && (
+              {errors.email ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.email}
+                  ⚠ {errors.email}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="sede">¿A qué sede deseas contactar?</label>
@@ -208,11 +309,11 @@ export default function ContactSection({
                   <option value="hombres">Sede Varonil</option>
                 </select>
               )}
-              {errors.sede && (
+              {errors.sede ? (
                 <span className="field__error" role="alert" aria-live="assertive">
-                  {errors.sede}
+                  ⚠ {errors.sede}
                 </span>
-              )}
+              ) : null}
             </div>
             <div className="field">
               <label htmlFor="message">Mensaje (opcional)</label>
@@ -231,18 +332,23 @@ export default function ContactSection({
                 className="btn btn--primary"
                 onMouseEnter={() => handleMicroTone('care')}
                 onFocus={() => handleMicroTone('care')}
+                disabled={isSubmitting}
               >
-                Enviar
+                {isSubmitting ? 'Enviando…' : 'Enviar'}
               </button>
               <p className="contact-form__guide-note">
                 Al enviar aceptas nuestro{' '}
                 <button type="button" className="link" onClick={onOpenPrivacy}>
                   Aviso de Privacidad
                 </button>
-                .
-                Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del
-                Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu
-                confidencialidad en todo momento.
+                . {channelNote}{' '}
+                <a href="tel:+527716842295" className="link">
+                  Llama al 77 16 84 22 95
+                </a>{' '}
+                o{' '}
+                <a href="https://wa.me/5217712063098" className="link" target="_blank" rel="noreferrer">
+                  escríbenos por WhatsApp
+                </a>
               </p>
             </div>
             {status && (
@@ -257,3 +363,5 @@ export default function ContactSection({
     </section>
   );
 }
+
+export default memo(ContactSection);

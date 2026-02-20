@@ -27,6 +27,11 @@
   &:hover {
     box-shadow: 0 24px 48px rgba(15, 23, 42, 0.3);
   }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.22);
+  }
 }
 
 .btn--secondary {
@@ -38,6 +43,11 @@
   &:hover {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
   }
 }
 

@@ -5,6 +5,7 @@
  * @property {string} [webp]
  * @property {string} [avif]
  * @property {import('react').ImgHTMLAttributes<HTMLImageElement>} [imgProps]
+ * @property {'high' | 'low' | 'auto'} [fetchpriority]
  */
 
 /**
@@ -12,18 +13,27 @@
  *
  * @param {ResponsivePictureProps & import('react').ImgHTMLAttributes<HTMLImageElement>} props
  */
-export default function ResponsivePicture({ src, alt, webp, avif, loading = 'lazy', decoding = 'async', ...imgProps }) {
+export default function ResponsivePicture({
+  src,
+  alt,
+  webp,
+  avif,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority = 'auto',
+  ...imgProps
+}) {
   const hasSources = Boolean(avif || webp);
 
   if (!hasSources) {
-    return <img src={src} alt={alt} loading={loading} decoding={decoding} {...imgProps} />;
+    return <img src={src} alt={alt} loading={loading} decoding={decoding} fetchpriority={fetchpriority} {...imgProps} />;
   }
 
   return (
     <picture>
       {avif ? <source srcSet={avif} type="image/avif" /> : null}
       {webp ? <source srcSet={webp} type="image/webp" /> : null}
-      <img src={src} alt={alt} loading={loading} decoding={decoding} {...imgProps} />
+      <img src={src} alt={alt} loading={loading} decoding={decoding} fetchpriority={fetchpriority} {...imgProps} />
     </picture>
   );
 }

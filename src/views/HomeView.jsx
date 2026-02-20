@@ -6,6 +6,9 @@ import Footer from '../components/Footer.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import { scrollToHash } from '../utils/dom.js';
 import { normalizeSedeValue } from '../utils/sites.js';
+import HomeVideoCard from '../components/HomeVideoCard.jsx';
+import usePageMeta from '../hooks/usePageMeta.js';
+import '../styles/views/HomeVideos.scss';
 
 const HERO_PROMISES = [
   {
@@ -30,6 +33,35 @@ const MEN_SITE_HASH = '#sede-varonil';
 const WOMEN_SITE_HASH = '#sede-femenil';
 const CONTACT_HASH = '#contacto';
 const MODEL_INFO_URL = '/docs/modelo-minnesota.pdf';
+const HOME_VIDEO_ITEMS = [
+  {
+    title: 'Monólogo terapéutico',
+    description: '',
+    poster: '/media/home/posters/monologo.jpg',
+    sources: {
+      mp4: '/media/home/videos/monologo-optimized.mp4',
+      webm: '/media/home/videos/monologo-optimized.webm',
+    },
+  },
+  {
+    title: 'Sede varonil',
+    description: '',
+    poster: '/media/home/posters/video-hombres.jpg',
+    sources: {
+      mp4: '/media/home/videos/video-hombres-optimized.mp4',
+      webm: '/media/home/videos/video-hombres-optimized.webm',
+    },
+  },
+  {
+    title: 'Sede femenil',
+    description: '',
+    poster: '/media/home/posters/video-mujeres.jpg',
+    sources: {
+      mp4: '/media/home/videos/video-mujeres-optimized.mp4',
+      webm: '/media/home/videos/video-mujeres-optimized.webm',
+    },
+  },
+];
 
 /**
  * @typedef {Object} HomeViewProps
@@ -52,6 +84,12 @@ export default function HomeView({
   selectedSede,
   onSelectSede,
 }) {
+  usePageMeta({
+    title: 'Conciencia CAI · Recuperación integral en Pachuca',
+    description:
+      'Centro residencial especializado en Modelo Minnesota + 12 Pasos con sedes femenil y varonil en Pachuca, Hidalgo.',
+    canonical: 'https://conciencia-cai.org/',
+  });
   const handleNavigate = useCallback(
     /**
      * @param {string} [hash]
@@ -130,12 +168,29 @@ export default function HomeView({
         <div className="reveal reveal--delay-1" data-section="method">
           <MethodOverview />
         </div>
-        <div className="reveal reveal--delay-2" data-section="contact">
+        <div className="reveal reveal--delay-2" data-section="videos">
+          <section className="home-videos" aria-labelledby="home-videos-title">
+            <div className="container home-videos__wrapper">
+              <div className="home-videos__intro">
+                <p className="hero-vista__trust-eyebrow">Multimedia</p>
+                <h2 id="home-videos-title">Experiencias en video</h2>
+                <p className="text-muted">
+                  Informacion sobre nuestros servicios de rehabilitación integral.
+                </p>
+              </div>
+              <div className="home-videos__grid" role="list">
+                {HOME_VIDEO_ITEMS.map((item) => (
+                  <HomeVideoCard key={item.title} {...item} />
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+        <div className="reveal reveal--delay-3" data-section="contact">
           <ContactSection
             selectedSede={selectedSede}
             onSelectSede={handleSelectSede}
             onOpenPrivacy={handleOpenPrivacy}
-            // @ts-ignore
             channelNote="Coordinación clínica responde cada mensaje y orienta sin juicios."
           />
         </div>

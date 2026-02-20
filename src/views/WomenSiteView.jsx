@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { Suspense, lazy } from 'react';
+import usePageMeta from '../hooks/usePageMeta.js';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
-import Gallery from '../components/Gallery.jsx';
-import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
-import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import ResponsivePicture from '../components/ResponsivePicture.jsx';
+import ContactSection from '../sections/ContactSection.jsx';
 import womenHeroImage from '../assets/photos/women/hero-mujer.png';
 import womenHeroImageWebp from '../assets/photos/women/hero-mujer.webp';
 import womenHeroImageAvif from '../assets/photos/women/hero-mujer.avif';
@@ -34,6 +33,9 @@ import womenUseCasesImage from '../assets/photos/women/acompañamiento-mujer.png
 import womenUseCasesImageWebp from '../assets/photos/women/acompañamiento-mujer.webp';
 import womenUseCasesImageAvif from '../assets/photos/women/acompañamiento-mujer.avif';
 import '../styles/views/WomenSiteView.scss';
+
+const LazyGallery = lazy(() => import('../components/Gallery.jsx'));
+const LazyTestimonials = lazy(() => import('../components/Testimonials.jsx'));
 
 const HERO_HIGHLIGHTS = [
   {
@@ -70,47 +72,49 @@ const WOMEN_GALLERY_ITEMS = [
     avif: womenRoomImageAvif,
     alt: 'Habitación terapéutica y privada en la sede femenil',
     label: 'Suites',
-    caption: 'Habitaciones protegidas y acompañadas por doulas emocionales.',
+    caption: 'Habitaciones individuales con cama amplia, textiles cálidos y supervisión cercana.',
   },
   {
     src: womenGardenImage,
     webp: womenGardenImageWebp,
     avif: womenGardenImageAvif,
-    alt: 'Jardín terapéutico femenino con acompañamiento guiado',
-    label: 'Jardín terapéutico',
-    caption: 'Sesiones de mindfulness y activaciones suaves al aire libre.',
+    alt: 'Estudio interior luminoso con acompañamiento terapéutico y elementos de calma',
+    label: 'Estudio terapéutico',
+    caption:
+      'Guía y acompañamiento con meditacion y respiraciones conscientes.',
   },
   {
     src: womenCircleImage,
     webp: womenCircleImageWebp,
     avif: womenCircleImageAvif,
     alt: 'Círculo de contención femenino con coordinación clínica',
-    label: 'Círculos de contención',
-    caption: 'Comunidades solidarias que sostienen la seguridad emocional.',
+    label: 'Sala de contención',
+    caption: 'Espacios con un entorno de bienestar, donde se transmite calma, confianza y apertura.',
   },
   {
     src: womenMedicalRitualsImage,
     webp: womenMedicalRitualsImageWebp,
     avif: womenMedicalRitualsImageAvif,
     alt: 'Supervisión médica femenina guiando rituales de autocuidado',
-    label: 'Rituales',
-    caption: 'Protocolos sensoriales para reconectar con el cuerpo y la calma.',
+    label: 'Atención médica',
+    caption: 'Consultorio médico donde una especialista guía chequeos y respiraciones asistidas.',
   },
   {
     src: womenEgressGardenImage,
     webp: womenEgressGardenImageWebp,
     avif: womenEgressGardenImageAvif,
-    alt: 'Jardín de egreso con acompañamiento creativo para mujeres',
-    label: 'Jardín de egreso',
-    caption: 'Cierres simbólicos y mentorías creativas para preparar el egreso.',
+    alt: 'Ceremonia de egreso femenina celebrando con banderines y abrazos solidarios',
+    label: 'Egreso',
+    caption:
+      'Donde las egresadas se fortalecen mutuamente para la reintegración.',
   },
   {
     src: womenSupportImage,
     webp: womenSupportImageWebp,
     avif: womenSupportImageAvif,
-    alt: 'Coordinadora conteniendo a una residente en la sede femenil',
-    label: 'Contención',
-    caption: 'Acompañamiento presencial y espiritual las 24 horas del día.',
+    alt: 'Familia abrazándose mientras recibe acompañamiento en la sede femenil',
+    label: 'Contención familiar',
+    caption: 'Bienestar integral donde la unión familiar refuerza la seguridad emocional.',
   },
 ];
 
@@ -134,7 +138,7 @@ const WOMEN_TESTIMONIALS = [
 
 const CONTACT_SECTION_ID = 'contacto-femenil';
 const WOMEN_MAP_SRC =
-  'https://www.google.com/maps?q=Av.%20Pirules%2C%20Col.%20El%20Tezontle%20%28a%20un%20costado%20de%20la%20zona%20militar%29%2C%20Pachuca%2C%20Hidalgo&z=16&output=embed';
+  'https://maps.google.com/maps?q=Av%20Pirules%20202%2C%20Amp%20el%20Tezontle%2C%2042084%20Pachuca%20de%20Soto%2C%20Hgo&t=&z=17&ie=UTF8&iwloc=&output=embed';
 
 /**
  * @typedef {Object} WomenSiteViewProps
@@ -147,7 +151,13 @@ const WOMEN_MAP_SRC =
  * @param {WomenSiteViewProps} props
  */
 export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
-  const [microMode] = useState('care');
+  const microMode = 'care';
+  usePageMeta({
+    title: 'Sede femenil · Conciencia CAI',
+    description:
+      'Refugio terapéutico para mujeres con trauma informado, círculos de contención y mentorías financieras en Pachuca.',
+    canonical: 'https://conciencia-cai.org/#sede-femenil',
+  });
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);
@@ -173,11 +183,18 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             data-archetype={microMode}
           >
             <div className="women-site__hero-photo" aria-hidden="true">
-              <ResponsivePicture src={womenHeroImage} webp={womenHeroImageWebp} avif={womenHeroImageAvif} alt="" />
+              <ResponsivePicture
+                src={womenHeroImage}
+                webp={womenHeroImageWebp}
+                avif={womenHeroImageAvif}
+                alt=""
+                loading="eager"
+                fetchpriority="high"
+              />
             </div>
             <div className="women-site__hero-body">
               <div className="women-site__hero-content">
-                <h2 id="women-site-hero-title">Sede femenil · Conciencia CAI</h2>
+                <h1 id="women-site-hero-title">Sede femenil · Conciencia CAI</h1>
                 <p className="women-site__lead">
                   Un refugio terapéutico diseñado para mujeres que buscan sanar trauma, dependencia emocional o consumo
                   problemático con acompañamiento especializado y seguro.
@@ -241,9 +258,6 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
                 ))}
               </ul>
               <div className="method-overview__actions">
-                <button type="button" className="btn btn--primary" onClick={handleCTA}>
-                  Agendar valoración
-                </button>
                 <button type="button" className="btn btn--secondary" onClick={() => onNavigate?.('#metodo')}>
                   Explorar metodología
                 </button>
@@ -251,18 +265,22 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             </>
           }
         />
-        <Gallery
-          items={WOMEN_GALLERY_ITEMS}
-          title="Galería"
-          eyebrow="Sede femenil"
-          description="Ambientes diseñados para garantizar seguridad emocional, autocuidado y acompañamiento continuo."
-        />
-        <Testimonials
-          items={WOMEN_TESTIMONIALS}
-          tone="women"
-          title="Testimonios que resguardamos"
-          description="Escuchamos a familias y mujeres que viven procesos de cambio con empatía y guía profesional."
-        />
+        <Suspense fallback={null}>
+          <LazyGallery
+            items={WOMEN_GALLERY_ITEMS}
+            title="Galería"
+            eyebrow="Sede femenil"
+            description="Ambientes diseñados para garantizar seguridad emocional, autocuidado y acompañamiento continuo."
+          />
+        </Suspense>
+        <Suspense fallback={null}>
+          <LazyTestimonials
+            items={WOMEN_TESTIMONIALS}
+            tone="women"
+            title="Testimonios que resguardamos"
+            description="Escuchamos a familias y mujeres que viven procesos de cambio con empatía y guía profesional."
+          />
+        </Suspense>
         <ContactSection
           id={CONTACT_SECTION_ID}
           eyebrow="Contacto sede femenil"
@@ -276,7 +294,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
           asideContent={
             <MapEmbed
               title="Ubicación sede femenil"
-              address="Av. Pirules, Col. El Tezontle (a un costado de la zona militar), Pachuca, Hidalgo"
+              address="Av. Pirules 202, Amp el Tezontle, 42084 Pachuca de Soto, Hgo."
               phone="77 16 84 22 95 - 55 78 84 02 11"
               mapSrc={WOMEN_MAP_SRC}
             />

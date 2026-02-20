@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar.jsx';
+import { Suspense, lazy } from 'react';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
-import Gallery from '../components/Gallery.jsx';
-import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import ResponsivePicture from '../components/ResponsivePicture.jsx';
+import Navbar from '../components/Navbar.jsx';
+import usePageMeta from '../hooks/usePageMeta.js';
 import menRoomPhoto from '../assets/photos/men/habitacion-hombre.png';
 import menRoomPhotoWebp from '../assets/photos/men/habitacion-hombre.webp';
 import menRoomPhotoAvif from '../assets/photos/men/habitacion-hombre.avif';
@@ -32,6 +31,9 @@ import menFamilyPhoto from '../assets/photos/men/familia-hombres.png';
 import menFamilyPhotoWebp from '../assets/photos/men/familia-hombres.webp';
 import menFamilyPhotoAvif from '../assets/photos/men/familia-hombres.avif';
 import '../styles/views/MenSiteView.scss';
+
+const LazyGallery = lazy(() => import('../components/Gallery.jsx'));
+const LazyTestimonials = lazy(() => import('../components/Testimonials.jsx'));
 
 const HERO_HIGHLIGHTS = [
   {
@@ -149,21 +151,17 @@ const MEN_MAP_SRC =
  * @param {MenSiteViewProps} props
  */
 export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
-  const [microMode] = useState('care');
-  const [, setMicroIndex] = useState(0);
-  const heroBackgroundStyle = {
-    '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
-  };
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-    const timer = window.setInterval(() => {
-      setMicroIndex((prev) => prev + 1);
-    }, 9000);
-    return () => window.clearInterval(timer);
-  }, []);
+  const microMode = 'care';
+  const heroBackgroundStyle =
+    /** @type {import('react').CSSProperties} */ ({
+      '--hero-photo': `url(${MEN_HERO_BACKGROUND})`,
+    });
+  usePageMeta({
+    title: 'Sede varonil · Conciencia CAI',
+    description:
+      'Coordinación varonil con Modelo Minnesota + 12 Pasos, guardias médicas y mentorías de liderazgo en Pachuca.',
+    canonical: 'https://conciencia-cai.org/#sede-varonil',
+  });
 
   const handleCTA = () => {
     const section = document.getElementById(CONTACT_SECTION_ID);
@@ -187,10 +185,9 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             className="men-site__hero men-card site-card men-site__hero--photo"
             aria-labelledby="men-site-hero-title"
             data-archetype={microMode}
-            // @ts-ignore
             style={heroBackgroundStyle}
           >
-            <h2 id="men-site-hero-title">Sede varonil · Conciencia CAI</h2>
+            <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
             <p className="men-site__lead">
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.
@@ -266,18 +263,22 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             </>
           }
         />
-        <Gallery
-          items={MEN_GALLERY_ITEMS}
-          title="Galería"
-          eyebrow="Sede varonil"
-          description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
-        />
-        <Testimonials
-          items={MEN_TESTIMONIALS}
-          tone="men"
-          title="Testimonios que resguardamos"
-          description="Historias de familias y residentes que confían en el acompañamiento cuidador y sabio de Conciencia CAI."
-        />
+        <Suspense fallback={null}>
+          <LazyGallery
+            items={MEN_GALLERY_ITEMS}
+            title="Galería"
+            eyebrow="Sede varonil"
+            description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
+          />
+        </Suspense>
+        <Suspense fallback={null}>
+          <LazyTestimonials
+            items={MEN_TESTIMONIALS}
+            tone="men"
+            title="Testimonios que resguardamos"
+            description="Historias de familias y residentes que confían en el acompañamiento cuidador y sabio de Conciencia CAI."
+          />
+        </Suspense>
         <ContactSection
           id={CONTACT_SECTION_ID}
           eyebrow="Contacto sede varonil"
@@ -285,7 +286,6 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
           description="Comparte tu situación y recibirás una llamada confidencial en menos de 30 minutos."
           lockedSedeValue="hombres"
           successMessage="Gracias. Coordinación varonil recibió tu mensaje y te contactará con total confidencialidad."
-          // @ts-ignore
           channelNote="Guardias varoniles y consejeros clínicos monitorean esta línea permanentemente."
           onOpenPrivacy={onOpenPrivacy}
           asideContent={
