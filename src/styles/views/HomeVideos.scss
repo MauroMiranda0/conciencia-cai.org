@@ -67,7 +67,9 @@
 
 .home-videos__poster:focus-visible {
   outline: 3px solid var(--focus-ring, #ec4899);
-  outline-offset: 3px;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(236, 72, 153, 0.25);
+  transform: scale(1.01);
 }
 
 .home-videos__poster img {
@@ -109,4 +111,11 @@
 .home-videos__poster:focus-visible img {
   filter: brightness(0.8);
   transform: scale(1.02);
+}
+
+.home-videos__player video:focus-visible {
+  outline: 3px solid var(--focus-ring, #ec4899);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(236, 72, 153, 0.25);
+  border-radius: 1rem;
 }

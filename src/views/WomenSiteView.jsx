@@ -1,13 +1,12 @@
+import { Suspense, lazy } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
-import Gallery from '../components/Gallery.jsx';
-import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
-import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
 import ResponsivePicture from '../components/ResponsivePicture.jsx';
+import ContactSection from '../sections/ContactSection.jsx';
 import womenHeroImage from '../assets/photos/women/hero-mujer.png';
 import womenHeroImageWebp from '../assets/photos/women/hero-mujer.webp';
 import womenHeroImageAvif from '../assets/photos/women/hero-mujer.avif';
@@ -33,6 +32,9 @@ import womenUseCasesImage from '../assets/photos/women/acompañamiento-mujer.png
 import womenUseCasesImageWebp from '../assets/photos/women/acompañamiento-mujer.webp';
 import womenUseCasesImageAvif from '../assets/photos/women/acompañamiento-mujer.avif';
 import '../styles/views/WomenSiteView.scss';
+
+const LazyGallery = lazy(() => import('../components/Gallery.jsx'));
+const LazyTestimonials = lazy(() => import('../components/Testimonials.jsx'));
 
 const HERO_HIGHLIGHTS = [
   {
@@ -174,7 +176,14 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             data-archetype={microMode}
           >
             <div className="women-site__hero-photo" aria-hidden="true">
-              <ResponsivePicture src={womenHeroImage} webp={womenHeroImageWebp} avif={womenHeroImageAvif} alt="" />
+              <ResponsivePicture
+                src={womenHeroImage}
+                webp={womenHeroImageWebp}
+                avif={womenHeroImageAvif}
+                alt=""
+                loading="eager"
+                fetchpriority="high"
+              />
             </div>
             <div className="women-site__hero-body">
               <div className="women-site__hero-content">
@@ -249,18 +258,22 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             </>
           }
         />
-        <Gallery
-          items={WOMEN_GALLERY_ITEMS}
-          title="Galería"
-          eyebrow="Sede femenil"
-          description="Ambientes diseñados para garantizar seguridad emocional, autocuidado y acompañamiento continuo."
-        />
-        <Testimonials
-          items={WOMEN_TESTIMONIALS}
-          tone="women"
-          title="Testimonios que resguardamos"
-          description="Escuchamos a familias y mujeres que viven procesos de cambio con empatía y guía profesional."
-        />
+        <Suspense fallback={null}>
+          <LazyGallery
+            items={WOMEN_GALLERY_ITEMS}
+            title="Galería"
+            eyebrow="Sede femenil"
+            description="Ambientes diseñados para garantizar seguridad emocional, autocuidado y acompañamiento continuo."
+          />
+        </Suspense>
+        <Suspense fallback={null}>
+          <LazyTestimonials
+            items={WOMEN_TESTIMONIALS}
+            tone="women"
+            title="Testimonios que resguardamos"
+            description="Escuchamos a familias y mujeres que viven procesos de cambio con empatía y guía profesional."
+          />
+        </Suspense>
         <ContactSection
           id={CONTACT_SECTION_ID}
           eyebrow="Contacto sede femenil"

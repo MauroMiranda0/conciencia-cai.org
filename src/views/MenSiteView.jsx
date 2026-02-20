@@ -1,9 +1,8 @@
+import { Suspense, lazy } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import SiteHighlights from '../components/SiteHighlights.jsx';
 import MethodOverview from '../components/MethodOverview.jsx';
-import Gallery from '../components/Gallery.jsx';
-import Testimonials from '../components/Testimonials.jsx';
 import AboutValues from '../components/AboutValues.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import MapEmbed from '../components/MapEmbed.jsx';
@@ -31,6 +30,9 @@ import menFamilyPhoto from '../assets/photos/men/familia-hombres.png';
 import menFamilyPhotoWebp from '../assets/photos/men/familia-hombres.webp';
 import menFamilyPhotoAvif from '../assets/photos/men/familia-hombres.avif';
 import '../styles/views/MenSiteView.scss';
+
+const LazyGallery = lazy(() => import('../components/Gallery.jsx'));
+const LazyTestimonials = lazy(() => import('../components/Testimonials.jsx'));
 
 const HERO_HIGHLIGHTS = [
   {
@@ -254,18 +256,22 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             </>
           }
         />
-        <Gallery
-          items={MEN_GALLERY_ITEMS}
-          title="Galería"
-          eyebrow="Sede varonil"
-          description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
-        />
-        <Testimonials
-          items={MEN_TESTIMONIALS}
-          tone="men"
-          title="Testimonios que resguardamos"
-          description="Historias de familias y residentes que confían en el acompañamiento cuidador y sabio de Conciencia CAI."
-        />
+        <Suspense fallback={null}>
+          <LazyGallery
+            items={MEN_GALLERY_ITEMS}
+            title="Galería"
+            eyebrow="Sede varonil"
+            description="Espacios diseñados para fomentar responsabilidad, actividad física y seguimiento clínico permanente."
+          />
+        </Suspense>
+        <Suspense fallback={null}>
+          <LazyTestimonials
+            items={MEN_TESTIMONIALS}
+            tone="men"
+            title="Testimonios que resguardamos"
+            description="Historias de familias y residentes que confían en el acompañamiento cuidador y sabio de Conciencia CAI."
+          />
+        </Suspense>
         <ContactSection
           id={CONTACT_SECTION_ID}
           eyebrow="Contacto sede varonil"

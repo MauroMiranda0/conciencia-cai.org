@@ -23,6 +23,10 @@ import { useEffect, useRef, useState } from 'react';
 export default function HomeVideoCard({ title, description, poster, sources }) {
   const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
   const [activatedByClick, setActivatedByClick] = useState(false);
+  const [resolvedSource, setResolvedSource] = useState(() => ({
+    src: sources.mp4,
+    type: 'video/mp4',
+  }));
   const containerRef = useRef(
     /** @type {HTMLElement | null} */ (null)
   );
@@ -71,6 +75,15 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
     }
   }, [activatedByClick, shouldLoadPlayer]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.MediaSource || typeof window.MediaSource.isTypeSupported !== 'function') {
+      return;
+    }
+    if (window.MediaSource.isTypeSupported('video/webm; codecs="vp9"')) {
+      setResolvedSource({ src: sources.webm, type: 'video/webm' });
+    }
+  }, [sources.webm]);
+
   const handleActivate = () => {
     setActivatedByClick(true);
     setShouldLoadPlayer(true);
@@ -92,8 +105,7 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
             playsInline
             tabIndex={0}
           >
-            <source src={sources.webm} type="video/webm" />
-            <source src={sources.mp4} type="video/mp4" />
+            <source src={resolvedSource.src} type={resolvedSource.type} />
             Tu navegador no soporta video HTML5.
           </video>
         ) : (

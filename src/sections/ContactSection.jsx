@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSedeValue } from '../utils/sites.js';
 import { buildWhatsappUrl } from '../utils/whatsapp.js';
 import '../styles/sections/ContactSection.scss';
@@ -74,7 +74,7 @@ const buildWhatsappMessageFromForm = (formValues, sedeValue) => {
 /**
  * @param {ContactSectionProps} props
  */
-export default function ContactSection({
+function ContactSection({
   selectedSede,
   onSelectSede,
   onOpenPrivacy,
@@ -111,6 +111,12 @@ export default function ContactSection({
     if (typeof selectedSede === 'undefined') return;
     setFormData((prev) => ({ ...prev, sede: selectedSede }));
   }, [normalizedLockedSede, onSelectSede, selectedSede]);
+
+  useEffect(() => {
+    if (needsWhatsappConfirmation) {
+      confirmButtonRef.current?.focus();
+    }
+  }, [needsWhatsappConfirmation]);
 
   /**
    * @param {string} _tone
@@ -336,3 +342,5 @@ export default function ContactSection({
     </section>
   );
 }
+
+export default memo(ContactSection);
