@@ -136,7 +136,7 @@ const WOMEN_TESTIMONIALS = [
 
 const CONTACT_SECTION_ID = 'contacto-femenil';
 const WOMEN_MAP_SRC =
-  'https://www.google.com/maps?q=Av.%20Pirules%2C%20Col.%20El%20Tezontle%20%28a%20un%20costado%20de%20la%20zona%20militar%29%2C%20Pachuca%2C%20Hidalgo&z=16&output=embed';
+  'https://maps.google.com/maps?q=Av%20Pirules%20202%2C%20Amp%20el%20Tezontle%2C%2042084%20Pachuca%20de%20Soto%2C%20Hgo&t=&z=17&ie=UTF8&iwloc=&output=embed';
 
 /**
  * @typedef {Object} WomenSiteViewProps
@@ -275,7 +275,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
           asideContent={
             <MapEmbed
               title="Ubicación sede femenil"
-              address="Av. Pirules, Col. El Tezontle (a un costado de la zona militar), Pachuca, Hidalgo"
+              address="Av. Pirules 202, Amp el Tezontle, 42084 Pachuca de Soto, Hgo."
               phone="77 16 84 22 95 - 55 78 84 02 11"
               mapSrc={WOMEN_MAP_SRC}
             />

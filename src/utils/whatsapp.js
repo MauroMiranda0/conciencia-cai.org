@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '5217712415122';
+const WHATSAPP_NUMBER = '5217712063098';
 const DEFAULT_WHATSAPP_TEXT = 'Hola, quiero agendar una valoración';
 
 /**
