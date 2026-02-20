@@ -1,6 +1,7 @@
 import '../styles/components/FloatingNavButtons.scss';
+import { buildWhatsappUrl } from '../utils/whatsapp.js';
 
-const WHATSAPP_URL = 'https://wa.me/5217712063098?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n';
+const WHATSAPP_URL = buildWhatsappUrl();
 
 /**
  * @typedef {Object} HashNavButton

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { normalizeSedeValue } from '../utils/sites.js';
+import { buildWhatsappUrl } from '../utils/whatsapp.js';
 import '../styles/sections/ContactSection.scss';
 
 const INITIAL_STATE = {
@@ -12,6 +13,48 @@ const INITIAL_STATE = {
 
 const DEFAULT_CHANNEL_NOTE =
   'Coordinación clínica documenta cada solicitud, asigna un cuidador de referencia y comparte los pasos del Modelo Minnesota para que sepas quién te acompaña, qué indicadores revisamos y cómo resguardamos tu confidencialidad en todo momento.';
+
+const CONTACT_WHATSAPP_GREETING = 'Hola, quiero agendar una valoración con Conciencia CAI.';
+
+/**
+ * @param {'mujeres' | 'hombres' | undefined} value
+ */
+const getSedeLabelFromNormalized = (value) => {
+  if (value === 'mujeres') return 'Sede Femenil';
+  if (value === 'hombres') return 'Sede Varonil';
+  return '';
+};
+
+/**
+ * @param {string} [value]
+ */
+const sanitizeField = (value = '') => value.trim();
+
+/**
+ * @param {typeof INITIAL_STATE} formValues
+ * @param {'mujeres' | 'hombres' | undefined} sedeValue
+ */
+const buildWhatsappMessageFromForm = (formValues, sedeValue) => {
+  const sedeLabel = getSedeLabelFromNormalized(sedeValue);
+  const sanitizedMessage = sanitizeField(formValues.message);
+  const lines = [
+    CONTACT_WHATSAPP_GREETING,
+    '',
+    `Nombre: ${sanitizeField(formValues.name)}`,
+    `Teléfono: ${sanitizeField(formValues.phone)}`,
+    `Correo: ${sanitizeField(formValues.email)}`,
+  ];
+
+  if (sedeLabel) {
+    lines.push(`Sede de interés: ${sedeLabel}`);
+  }
+
+  if (sanitizedMessage) {
+    lines.push('', 'Mensaje:', sanitizedMessage);
+  }
+
+  return lines.map((line) => line.trim()).join('\n');
+};
 
 /**
  * @typedef {Object} ContactSectionProps
@@ -53,12 +96,7 @@ export default function ContactSection({
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
   );
-  const sedeLabel =
-    normalizedLockedSede === 'hombres'
-      ? 'Sede Varonil'
-      : normalizedLockedSede === 'mujeres'
-        ? 'Sede Femenil'
-        : '';
+  const sedeLabel = getSedeLabelFromNormalized(/** @type {'mujeres' | 'hombres' | undefined} */ (normalizedLockedSede));
 
   useEffect(() => {
     if (normalizedLockedSede) {
@@ -113,6 +151,13 @@ export default function ContactSection({
     if (Object.keys(nextErrors).length > 0) {
       setStatus('Por favor revisa los campos marcados.');
       return;
+    }
+    const normalizedFormSede = normalizeSedeValue(formData.sede);
+    const sedeForMessage = normalizedLockedSede || normalizedFormSede;
+    const whatsappMessage = buildWhatsappMessageFromForm(formData, /** @type {'mujeres' | 'hombres' | undefined} */ (sedeForMessage));
+    const whatsappUrl = buildWhatsappUrl(whatsappMessage);
+    if (typeof window !== 'undefined') {
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }
     setStatus(successMessage);
     setFormData((prev) => ({ ...INITIAL_STATE, sede: prev.sede }));
