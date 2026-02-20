@@ -97,7 +97,12 @@ export default function HomeVideoCard({ title, description, poster, sources }) {
             Tu navegador no soporta video HTML5.
           </video>
         ) : (
-          <button type="button" className="home-videos__poster" onClick={handleActivate} aria-label={`Reproducir ${title}`}>
+          <button
+            type="button"
+            className="home-videos__poster"
+            onClick={handleActivate}
+            aria-label={`Reproducir video ${title}`}
+          >
             <img src={poster} alt={`Previsualización de ${title}`} loading="lazy" />
             <span className="home-videos__poster-play" aria-hidden="true">
               ▶

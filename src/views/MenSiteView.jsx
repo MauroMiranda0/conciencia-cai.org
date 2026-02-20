@@ -178,7 +178,7 @@ export default function MenSiteView({ onNavigate, onOpenPrivacy }) {
             data-archetype={microMode}
             style={heroBackgroundStyle}
           >
-            <h2 id="men-site-hero-title">Sede varonil · Conciencia CAI</h2>
+            <h1 id="men-site-hero-title">Sede varonil · Conciencia CAI</h1>
             <p className="men-site__lead">
               Espacio residencial pensado para hombres que requieren estructura, disciplina y contención emocional
               mientras atraviesan el proceso clínico del Modelo Minnesota + 12 Pasos.

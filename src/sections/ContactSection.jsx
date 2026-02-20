@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSedeValue } from '../utils/sites.js';
 import { buildWhatsappUrl } from '../utils/whatsapp.js';
 import '../styles/sections/ContactSection.scss';
@@ -93,6 +93,9 @@ export default function ContactSection({
   );
   const [status, setStatus] = useState('');
   const [needsWhatsappConfirmation, setNeedsWhatsappConfirmation] = useState(false);
+  const confirmButtonRef = useRef(
+    /** @type {HTMLButtonElement | null} */ (null)
+  );
   const normalizedLockedSede = useMemo(
     () => normalizeSedeValue(lockedSedeValue),
     [lockedSedeValue]
@@ -167,6 +170,9 @@ export default function ContactSection({
       whatsappWindow.focus();
     }
     setNeedsWhatsappConfirmation(true);
+    setTimeout(() => {
+      confirmButtonRef.current?.focus();
+    }, 0);
     setStatus('Termina tu mensaje en WhatsApp y confirma aquí cuando hayas enviado la información.');
   };
 
@@ -189,7 +195,7 @@ export default function ContactSection({
       <div className={`container contact-section__grid${asideContent ? ' contact-section__grid--with-aside' : ''}`}>
         <div className="contact-section__intro reveal">
           <p className="hero-vista__trust-eyebrow">{eyebrow}</p>
-          <h2>{title}</h2>
+          <h2 id={`${id}-title`}>{title}</h2>
           <p className="text-muted">{description}</p>
         </div>
         <div className="contact-section__content">
@@ -312,8 +318,14 @@ export default function ContactSection({
             )}
             {needsWhatsappConfirmation ? (
               <div className="contact-form__confirm">
-                <button type="button" className="btn btn--secondary" onClick={handleConfirmWhatsapp}>
-                  Confirmar que ya envié mi mensaje
+                <button
+                  type="button"
+                  className="btn btn--secondary"
+                  onClick={handleConfirmWhatsapp}
+                  ref={confirmButtonRef}
+                  aria-describedby={`${id}-title`}
+                >
+                  Confirmar envío a Coordinación
                 </button>
               </div>
             ) : null}

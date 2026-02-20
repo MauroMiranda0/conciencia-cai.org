@@ -178,7 +178,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             </div>
             <div className="women-site__hero-body">
               <div className="women-site__hero-content">
-                <h2 id="women-site-hero-title">Sede femenil · Conciencia CAI</h2>
+                <h1 id="women-site-hero-title">Sede femenil · Conciencia CAI</h1>
                 <p className="women-site__lead">
                   Un refugio terapéutico diseñado para mujeres que buscan sanar trauma, dependencia emocional o consumo
                   problemático con acompañamiento especializado y seguro.
