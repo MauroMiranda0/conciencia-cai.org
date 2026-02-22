@@ -295,7 +295,7 @@ export default function WomenSiteView({ onNavigate, onOpenPrivacy }) {
             <MapEmbed
               title="Ubicación sede femenil"
               address="Av. Pirules 202, Amp el Tezontle, 42084 Pachuca de Soto, Hgo."
-              phone="77 16 84 22 95 - 55 78 84 02 11"
+              phone="77 12 06 30 98 - 55 78 84 02 11"
               mapSrc={WOMEN_MAP_SRC}
             />
           }

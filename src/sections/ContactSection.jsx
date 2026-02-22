@@ -342,8 +342,8 @@ function ContactSection({
                   Aviso de Privacidad
                 </button>
                 . {channelNote}{' '}
-                <a href="tel:+527716842295" className="link">
-                  Llama al 77 16 84 22 95
+                <a href="tel:+527712063098" className="link">
+                  Llama al 77 12 06 30 98
                 </a>{' '}
                 o{' '}
                 <a href="https://wa.me/5217712063098" className="link" target="_blank" rel="noreferrer">
